@@ -134,7 +134,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
     painter.drawRoundedRect(this->rect(),10,10);
     //使用setmask过滤即可
     setMask(objBitmap);
-    event->accept();
+    QFrame::paintEvent(event);
 }
 
 //鼠标双击事件
