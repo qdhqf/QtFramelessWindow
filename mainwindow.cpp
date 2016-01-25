@@ -90,7 +90,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_pMainLayout->setSpacing(0);
     m_pMainLayout->setContentsMargins(5,5,5,5);
 
-    setMinimumWidth(850);
+    setMinimumWidth(800);
     setMinimumHeight(600);
     m_bMaxWin = false;
     m_bLeftButtonPressed = false;
