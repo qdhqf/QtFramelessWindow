@@ -7,4 +7,4 @@ is studing code inspired by these two authors(almost just duplicate their code),
  
 [1]: http://blog.csdn.net/liang19890820/article/details/50557240
 
-[2]: [http://www.cnblogs.com/appsucc/archive/2012/03/14/2395657.html
+[2]: http://www.cnblogs.com/appsucc/archive/2012/03/14/2395657.html
