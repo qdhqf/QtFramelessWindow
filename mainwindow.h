@@ -49,24 +49,23 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
     void handleSelfEvent(QEvent *event);
 private:
-    TitleBar        *m_pTitleBar;
-    ToolBar         *m_pToolBar;
-    ContentWidget   *m_pContentWidget;
-    StatuBar        *m_pStatuBar;
-    QVBoxLayout     *m_pMainLayout;
+    TitleBar        *ptrTitleBar;//*m_pTitleBar;
+    ToolBar         *ptrToolBar;//*m_pToolBar;
+    ContentWidget   *ptrContentWidget;//*m_pContentWidget;
+    StatuBar        *ptrStatuBar;//*m_pStatuBar;
+    QVBoxLayout     *ptrMainLayout;//*m_pMainLayout;
 
 
  //Resize Move handling related staffs
-    void updateCursorShape(const QPoint &gMousePos);
-    void resizeTopFrame(const QPoint &gMousePos);
+    void updateSizedCursor(const QPoint &gMousePos);  //updateCursorShape
+    void resizeMainWindow(const QPoint &gMousePos);//resizeTopFrame
     void moveTopFrame(const QPoint& gMousePos);
-    CursorPosCalculator m_MousePos;
-   // CursorPosCalculator m_pressedMousePos;
-    CursorPosCalculator m_moveMousePos;
-    bool m_bLeftButtonPressed;
-    bool m_bCursorShapeChanged;
-
-    QPoint m_ptDragPos;
+    CursorPosCalculator posMousePressed;
+    CursorPosCalculator posMouseMove;
+    bool isLeftButtonPressed;
+    bool isSizedCursor;
+    bool isAllowAnyDrag;
+    QPoint posPressedInFrame;//m_ptDragPos;
     void handleMousePressEvent(QMouseEvent *event);
     void handleMouseReleaseEvent(QMouseEvent *event);
     void handleMouseMoveEvent(QMouseEvent *event);

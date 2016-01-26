@@ -70,36 +70,36 @@ MainWindow::MainWindow(QWidget *parent)
     setMouseTracking(true);
     setAttribute(Qt::WA_Hover, true);
 
-    m_pTitleBar = new TitleBar();//创建标题栏
-    m_pTitleBar->setStyleSheet("QWidget {border:1px solid black;}");
-    m_pToolBar = new ToolBar();//创建工具栏
-    m_pToolBar->setStyleSheet("QWidget {border:1px solid black;}");
-    m_pContentWidget = new ContentWidget();//创建内容区域
-    m_pContentWidget->setStyleSheet("QWidget {border:1px solid black;}");
-    m_pStatuBar = new StatuBar();//创建状态栏
-    m_pStatuBar->setStyleSheet("QWidget {border:1px solid black;}");
+    ptrTitleBar = new TitleBar();//创建标题栏
+    ptrTitleBar->setStyleSheet("QWidget {border:1px solid black;}");
+    ptrToolBar = new ToolBar();//创建工具栏
+    ptrToolBar->setStyleSheet("QWidget {border:1px solid black;}");
+    ptrContentWidget = new ContentWidget();//创建内容区域
+    ptrContentWidget->setStyleSheet("QWidget {border:1px solid black;}");
+    ptrStatuBar = new StatuBar();//创建状态栏
+    ptrStatuBar->setStyleSheet("QWidget {border:1px solid black;}");
     setStyleSheet("QFrame {background-image:url(:/image/frame.jpg);border:0px solid black;}");
 
-    m_pMainLayout = new QVBoxLayout(this);//创建布局
+    ptrMainLayout = new QVBoxLayout(this);//创建布局
     //将部件加入到布局中
-    m_pMainLayout->addWidget(m_pTitleBar);
-    m_pMainLayout->addWidget(m_pToolBar);
-    m_pMainLayout->addWidget(m_pContentWidget);
-    m_pMainLayout->addWidget(m_pStatuBar);
+    ptrMainLayout->addWidget(ptrTitleBar);
+    ptrMainLayout->addWidget(ptrToolBar);
+    ptrMainLayout->addWidget(ptrContentWidget);
+    ptrMainLayout->addWidget(ptrStatuBar);
     //设置间距与边缘空白
-    m_pMainLayout->setSpacing(1);
-    m_pMainLayout->setContentsMargins(5,5,5,5);
+    ptrMainLayout->setSpacing(1);
+    ptrMainLayout->setContentsMargins(5,5,5,5);
 
-    setMinimumWidth(800);
-    setMinimumHeight(600);
+    setMinimumWidth(400);
+    setMinimumHeight(300);
 
-    m_bLeftButtonPressed = false;
-
-
+    isLeftButtonPressed = false;
+    isSizedCursor = false;
+    isAllowAnyDrag = false;
     installEventFilter(this);
-    connect(m_pTitleBar, SIGNAL(signal_min()), this, SLOT(showMinimized()));
-    connect(m_pTitleBar, SIGNAL(signal_maxrestore()), this, SLOT(showMaxRestore()));
-    connect(m_pTitleBar, SIGNAL(signal_close()), this, SLOT(close()));
+    connect(ptrTitleBar, SIGNAL(signal_min()), this, SLOT(showMinimized()));
+    connect(ptrTitleBar, SIGNAL(signal_maxrestore()), this, SLOT(showMaxRestore()));
+    connect(ptrTitleBar, SIGNAL(signal_close()), this, SLOT(close()));
 }
 
 MainWindow::~MainWindow()
@@ -139,58 +139,59 @@ void MainWindow::paintEvent(QPaintEvent *event)
 //鼠标双击事件
 void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    if (event->button() == Qt::LeftButton && event->y()<= m_pTitleBar->height())
+    if (event->button() == Qt::LeftButton && event->y()<= ptrTitleBar->height())
     {
         showMaxRestore();
     }
  }
 
 /////////////////////////////new resize implementation///////////
-void MainWindow::updateCursorShape(const QPoint &gMousePos)
+void MainWindow::updateSizedCursor(const QPoint &gMousePos)
 {
     if (isFullScreen() || isMaximized())
     {
-        if (m_bCursorShapeChanged)
+        if (isSizedCursor)
         {
             unsetCursor();
+            isSizedCursor = false;
         }
         return;
     }
 
-    m_moveMousePos.recalculate(gMousePos, frameGeometry());
+    posMouseMove.recalculate(gMousePos, frameGeometry());
 
-    if(m_moveMousePos.m_bOnTopLeftEdge || m_moveMousePos.m_bOnBottomRightEdge)
+    if(posMouseMove.m_bOnTopLeftEdge || posMouseMove.m_bOnBottomRightEdge)
     {
         setCursor( Qt::SizeFDiagCursor );
-        m_bCursorShapeChanged = true;
+        isSizedCursor = true;
     }
-    else if(m_moveMousePos.m_bOnTopRightEdge || m_moveMousePos.m_bOnBottomLeftEdge)
+    else if(posMouseMove.m_bOnTopRightEdge || posMouseMove.m_bOnBottomLeftEdge)
     {
         setCursor( Qt::SizeBDiagCursor );
-        m_bCursorShapeChanged = true;
+        isSizedCursor = true;
     }
-    else if(m_moveMousePos.m_bOnLeftEdge || m_moveMousePos.m_bOnRightEdge)
+    else if(posMouseMove.m_bOnLeftEdge || posMouseMove.m_bOnRightEdge)
     {
         setCursor( Qt::SizeHorCursor );
-        m_bCursorShapeChanged = true;
+        isSizedCursor = true;
     }
-    else if(m_moveMousePos.m_bOnTopEdge || m_moveMousePos.m_bOnBottomEdge)
+    else if(posMouseMove.m_bOnTopEdge || posMouseMove.m_bOnBottomEdge)
     {
         setCursor( Qt::SizeVerCursor );
-        m_bCursorShapeChanged = true;
+        isSizedCursor = true;
     }
     else
     {
-        if (m_bCursorShapeChanged)
+        if (isSizedCursor)
         {
             unsetCursor();
-            m_bCursorShapeChanged = false;
+            isSizedCursor = false;
         }
     }
 }
 
 
-void MainWindow::resizeTopFrame(const QPoint &gMousePos)
+void MainWindow::resizeMainWindow(const QPoint &gMousePos)
 {
     QRect origRect;
 
@@ -200,44 +201,44 @@ void MainWindow::resizeTopFrame(const QPoint &gMousePos)
     int top = origRect.top();
     int right = origRect.right();
     int bottom = origRect.bottom();
-    origRect.getCoords(&left, &top, &right, &bottom);
+    //origRect.getCoords(&left, &top, &right, &bottom);
 
     int minWidth = minimumWidth();
     int minHeight = minimumHeight();
 
-    if (m_MousePos.m_bOnTopLeftEdge)
+    if (posMousePressed.m_bOnTopLeftEdge)
     {
         left = gMousePos.x();
         top = gMousePos.y();
     }
-    else if (m_MousePos.m_bOnBottomLeftEdge)
+    else if (posMousePressed.m_bOnBottomLeftEdge)
     {
         left = gMousePos.x();
         bottom = gMousePos.y();
     }
-    else if (m_MousePos.m_bOnTopRightEdge)
+    else if (posMousePressed.m_bOnTopRightEdge)
     {
         right = gMousePos.x();
         top = gMousePos.y();
     }
-    else if (m_MousePos.m_bOnBottomRightEdge)
+    else if (posMousePressed.m_bOnBottomRightEdge)
     {
         right = gMousePos.x();
         bottom = gMousePos.y();
     }
-    else if (m_MousePos.m_bOnLeftEdge)
+    else if (posMousePressed.m_bOnLeftEdge)
     {
         left = gMousePos.x();
     }
-    else if (m_MousePos.m_bOnRightEdge)
+    else if (posMousePressed.m_bOnRightEdge)
     {
         right = gMousePos.x();
     }
-    else if (m_MousePos.m_bOnTopEdge)
+    else if (posMousePressed.m_bOnTopEdge)
     {
         top = gMousePos.y();
     }
-    else if (m_MousePos.m_bOnBottomEdge)
+    else if (posMousePressed.m_bOnBottomEdge)
     {
         bottom = gMousePos.y();
     }
@@ -268,7 +269,7 @@ void MainWindow::resizeTopFrame(const QPoint &gMousePos)
 
 void MainWindow::moveTopFrame(const QPoint& gMousePos)
 {
-    move(gMousePos - m_ptDragPos);
+    move(gMousePos - posPressedInFrame);
 }
 
 bool MainWindow::eventFilter(QObject *obj, QEvent *event)
@@ -315,12 +316,12 @@ void MainWindow::handleMousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton)
     {
-        m_bLeftButtonPressed = true;
+        isLeftButtonPressed = true;
 
         QRect frameRect = frameGeometry();
-        m_MousePos.recalculate(event->globalPos(), frameRect);
+        posMousePressed.recalculate(event->globalPos(), frameRect);
 
-        m_ptDragPos = event->globalPos() - frameRect.topLeft();
+        posPressedInFrame = event->globalPos() - frameRect.topLeft();
     }
 }
 
@@ -328,30 +329,36 @@ void MainWindow::handleMouseReleaseEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton)
     {
-        m_bLeftButtonPressed = false;
-        m_MousePos.reset();
+        isLeftButtonPressed = false;
+        posMousePressed.reset();
     }
 }
 
 void MainWindow::handleMouseMoveEvent(QMouseEvent *event)
 {
-    if (m_bLeftButtonPressed)
+    if (isLeftButtonPressed)
     {
-        if ( m_MousePos.m_bOnEdges)
+
+        if ( posMousePressed.m_bOnEdges)
         {
-            resizeTopFrame(event->globalPos());
+            if(!(isMaximized()||isFullScreen())) resizeMainWindow(event->globalPos());
         }
+        else if(posPressedInFrame.y()<ptrTitleBar->height())
+        {
+           moveTopFrame(event->globalPos());
+        }
+        else if(isAllowAnyDrag) moveTopFrame(event->globalPos());
     }
     else
     {
-        updateCursorShape(event->globalPos());
+        updateSizedCursor(event->globalPos());
     }
 }
 
 void MainWindow::handleLeaveEvent(QEvent *event)
 {
     Q_UNUSED(event)
-    if (!m_bLeftButtonPressed)
+    if (!isLeftButtonPressed)
     {
         unsetCursor();
     }
@@ -359,5 +366,5 @@ void MainWindow::handleLeaveEvent(QEvent *event)
 
 void MainWindow::handleHoverMoveEvent(QHoverEvent *event)
 {
-  updateCursorShape(mapToGlobal(event->pos()));
+   updateSizedCursor(mapToGlobal(event->pos()));
 }

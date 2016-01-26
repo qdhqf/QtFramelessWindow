@@ -236,7 +236,7 @@ void TitleBar::slot_btnclick()
     }
 }
 
-
+/*
 //鼠标按下事件
 void TitleBar::mousePressEvent(QMouseEvent *event)
 {
@@ -259,8 +259,8 @@ void TitleBar::mouseMoveEvent(QMouseEvent *event)
     {
         m_ptMove = event->globalPos();
         //移动主窗口
-        MainWindow *pMainWindow = (qobject_cast<MainWindow *>(parent()));
-        pMainWindow->move(pMainWindow->pos()+m_ptMove-m_ptPress);
+        //MainWindow *pMainWindow = (qobject_cast<MainWindow *>(parent()));
+        //pMainWindow->move(pMainWindow->pos()+m_ptMove-m_ptPress);
         //重新设置m_ptPress;
         m_ptPress = m_ptMove;
     }
@@ -275,3 +275,4 @@ void TitleBar::mouseReleaseEvent(QMouseEvent *event)
     }
      event->ignore();
 }
+*/
