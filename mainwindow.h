@@ -3,12 +3,14 @@
 
 #include <QFrame>
 #include <QLayout>
+
 #define VALUE_DIS 5
 #define TITLE_H  30
-class TitleBar;
-class ToolBar;
+#define HEADER_H 90
+
+class HeaderBar;
 class ContentWidget;
-class StatuBar;
+class StatusBar;
 
 class CursorPosCalculator
 {
@@ -18,18 +20,15 @@ public:
     void recalculate(const QPoint &globalMousePos, const QRect &frameRect);
 
 public:
-    bool m_bOnEdges              : true;
-    bool m_bOnLeftEdge           : true;
-    bool m_bOnRightEdge          : true;
-    bool m_bOnTopEdge            : true;
-    bool m_bOnBottomEdge         : true;
-    bool m_bOnTopLeftEdge        : true;
-    bool m_bOnBottomLeftEdge     : true;
-    bool m_bOnTopRightEdge       : true;
-    bool m_bOnBottomRightEdge    : true;
-
-    static int m_nBorderWidth;
-    static int m_nTitleHeight;
+    bool isOnEdge              : true;
+    bool isOnLeftEdge           : true;
+    bool isOnRightEdge          : true;
+    bool isOnTopEdge            : true;
+    bool isOnBottomEdge         : true;
+    bool isOnLeftTopCorner      : true;
+    bool isOnLeftBottomCorner     : true;
+    bool isOnRightTopCorner       : true;
+    bool isOnRightBottomCorner    : true;
 };
 
 
@@ -49,16 +48,16 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
     void handleSelfEvent(QEvent *event);
 private:
-    TitleBar        *ptrTitleBar;//*m_pTitleBar;
-    ToolBar         *ptrToolBar;//*m_pToolBar;
-    ContentWidget   *ptrContentWidget;//*m_pContentWidget;
-    StatuBar        *ptrStatuBar;//*m_pStatuBar;
-    QVBoxLayout     *ptrMainLayout;//*m_pMainLayout;
+    HeaderBar       *ptrHeaderBar;
+//    ToolBar         *ptrToolBar;
+    ContentWidget   *ptrContentWidget;
+    StatusBar        *ptrStatusBar;
+    QVBoxLayout     *ptrMainLayout;
 
 
  //Resize Move handling related staffs
-    void updateSizedCursor(const QPoint &gMousePos);  //updateCursorShape
-    void resizeMainWindow(const QPoint &gMousePos);//resizeTopFrame
+    void updateSizedCursor(const QPoint &gMousePos);
+    void resizeMainWindow(const QPoint &gMousePos);
     void moveTopFrame(const QPoint& gMousePos);
     CursorPosCalculator posMousePressed;
     CursorPosCalculator posMouseMove;

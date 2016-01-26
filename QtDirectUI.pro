@@ -14,13 +14,13 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    titlebar.cpp
+    headerbar.cpp \
+    statusbar.cpp
 
 HEADERS  += mainwindow.h \
-    titlebar.h \
-    toolbar.h \
     contentwidget.h \
-    statusbar.h
+    statusbar.h \
+    headerbar.h
 
 RESOURCES += \
     qtdirectui.qrc

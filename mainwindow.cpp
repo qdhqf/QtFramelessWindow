@@ -1,13 +1,11 @@
 #include "mainwindow.h"
-#include "titlebar.h"
-#include "toolbar.h"
+#include "headerbar.h"
 #include "contentwidget.h"
 #include "statusbar.h"
 
 
 //////////////Begin CursorPosCalculator//////////////
-int CursorPosCalculator::m_nBorderWidth = 5;
-int CursorPosCalculator::m_nTitleHeight = 30;
+
 
 /***** CursorPosCalculator *****/
 CursorPosCalculator::CursorPosCalculator()
@@ -17,15 +15,15 @@ CursorPosCalculator::CursorPosCalculator()
 
 void CursorPosCalculator::reset()
 {
-    m_bOnEdges = false;
-    m_bOnLeftEdge = false;
-    m_bOnRightEdge = false;
-    m_bOnTopEdge = false;
-    m_bOnBottomEdge = false;
-    m_bOnTopLeftEdge = false;
-    m_bOnBottomLeftEdge = false;
-    m_bOnTopRightEdge  = false;
-    m_bOnBottomRightEdge = false;
+    isOnEdge = false;
+    isOnLeftEdge = false;
+    isOnRightEdge = false;
+    isOnTopEdge = false;
+    isOnBottomEdge = false;
+    isOnLeftTopCorner = false;
+    isOnLeftBottomCorner = false;
+    isOnRightTopCorner  = false;
+    isOnRightBottomCorner = false;
 }
 
 void CursorPosCalculator::recalculate(const QPoint &gMousePos, const QRect &frameRect)
@@ -39,25 +37,25 @@ void CursorPosCalculator::recalculate(const QPoint &gMousePos, const QRect &fram
     int frameWidth = frameRect.width();
     int frameHeight = frameRect.height();
 
-    m_bOnLeftEdge = (globalMouseX >= frameX &&
-                  globalMouseX <= frameX + m_nBorderWidth );
+    isOnLeftEdge = (globalMouseX >= frameX &&
+                  globalMouseX <= frameX + VALUE_DIS );
 
 
-    m_bOnRightEdge = (globalMouseX >= frameX + frameWidth - m_nBorderWidth &&
+    isOnRightEdge = (globalMouseX >= frameX + frameWidth - VALUE_DIS &&
                    globalMouseX <= frameX + frameWidth);
 
-    m_bOnTopEdge = (globalMouseY >= frameY &&
-                 globalMouseY <= frameY + m_nBorderWidth );
+    isOnTopEdge = (globalMouseY >= frameY &&
+                 globalMouseY <= frameY + VALUE_DIS );
 
-    m_bOnBottomEdge = (globalMouseY >= frameY + frameHeight - m_nBorderWidth &&
+    isOnBottomEdge = (globalMouseY >= frameY + frameHeight - VALUE_DIS &&
                     globalMouseY <= frameY + frameHeight);
 
-    m_bOnTopLeftEdge = m_bOnTopEdge && m_bOnLeftEdge;
-    m_bOnBottomLeftEdge = m_bOnBottomEdge && m_bOnLeftEdge;
-    m_bOnTopRightEdge = m_bOnTopEdge && m_bOnRightEdge;
-    m_bOnBottomRightEdge = m_bOnBottomEdge && m_bOnRightEdge;
+    isOnLeftTopCorner = isOnTopEdge && isOnLeftEdge;
+    isOnLeftBottomCorner = isOnBottomEdge && isOnLeftEdge;
+    isOnRightTopCorner = isOnTopEdge && isOnRightEdge;
+    isOnRightBottomCorner = isOnBottomEdge && isOnRightEdge;
 
-    m_bOnEdges = m_bOnLeftEdge || m_bOnRightEdge || m_bOnTopEdge || m_bOnBottomEdge;
+    isOnEdge = isOnLeftEdge || isOnRightEdge || isOnTopEdge || isOnBottomEdge;
 }
 //////////////End CursorPosCalculator//////////////
 
@@ -70,37 +68,36 @@ MainWindow::MainWindow(QWidget *parent)
     setMouseTracking(true);
     setAttribute(Qt::WA_Hover, true);
 
-    ptrTitleBar = new TitleBar();//创建标题栏
-    ptrTitleBar->setStyleSheet("QWidget {border:1px solid black;}");
-    ptrToolBar = new ToolBar();//创建工具栏
-    ptrToolBar->setStyleSheet("QWidget {border:1px solid black;}");
+    ptrHeaderBar = new HeaderBar();//创建标题栏
+    ptrHeaderBar->setStyleSheet("QWidget {border:1px solid black;}");
+
     ptrContentWidget = new ContentWidget();//创建内容区域
     ptrContentWidget->setStyleSheet("QWidget {border:1px solid black;}");
-    ptrStatuBar = new StatuBar();//创建状态栏
-    ptrStatuBar->setStyleSheet("QWidget {border:1px solid black;}");
+    ptrStatusBar = new StatusBar();//创建状态栏
+    ptrStatusBar->setStyleSheet("QWidget {border:1px solid black;}");
+
     setStyleSheet("QFrame {background-image:url(:/image/frame.jpg);border:0px solid black;}");
 
     ptrMainLayout = new QVBoxLayout(this);//创建布局
-    //将部件加入到布局中
-    ptrMainLayout->addWidget(ptrTitleBar);
-    ptrMainLayout->addWidget(ptrToolBar);
-    ptrMainLayout->addWidget(ptrContentWidget);
-    ptrMainLayout->addWidget(ptrStatuBar);
-    //设置间距与边缘空白
-    ptrMainLayout->setSpacing(1);
-    ptrMainLayout->setContentsMargins(5,5,5,5);
 
-    setMinimumWidth(400);
-    setMinimumHeight(300);
+    ptrMainLayout->addWidget(ptrHeaderBar);//将部件加入到布局中
+    ptrMainLayout->addWidget(ptrContentWidget);
+    ptrMainLayout->addWidget(ptrStatusBar);
+    //设置间距与边缘空白
+    ptrMainLayout->setSpacing(0);
+    ptrMainLayout->setContentsMargins(VALUE_DIS,VALUE_DIS,VALUE_DIS,VALUE_DIS);
+
+    setMinimumWidth(800);
+    setMinimumHeight(600);
 
     isLeftButtonPressed = false;
     isSizedCursor = false;
     isAllowAnyDrag = false;
 
     installEventFilter(this);
-    connect(ptrTitleBar, SIGNAL(signal_min()), this, SLOT(showMinimized()));
-    connect(ptrTitleBar, SIGNAL(signal_maxrestore()), this, SLOT(showMaxRestore()));
-    connect(ptrTitleBar, SIGNAL(signal_close()), this, SLOT(close()));
+    connect(ptrHeaderBar, SIGNAL(signal_min()), this, SLOT(showMinimized()));
+    connect(ptrHeaderBar, SIGNAL(signal_maxrestore()), this, SLOT(showMaxRestore()));
+    connect(ptrHeaderBar, SIGNAL(signal_close()), this, SLOT(close()));
 }
 
 MainWindow::~MainWindow()
@@ -140,7 +137,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
 //鼠标双击事件
 void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    if (event->button() == Qt::LeftButton && event->y()<= ptrTitleBar->height())
+    if (event->button() == Qt::LeftButton && event->y()<= ptrHeaderBar->height())
     {
         showMaxRestore();
     }
@@ -161,22 +158,22 @@ void MainWindow::updateSizedCursor(const QPoint &gMousePos)
 
     posMouseMove.recalculate(gMousePos, frameGeometry());
 
-    if(posMouseMove.m_bOnTopLeftEdge || posMouseMove.m_bOnBottomRightEdge)
+    if(posMouseMove.isOnLeftTopCorner || posMouseMove.isOnRightBottomCorner)
     {
         setCursor( Qt::SizeFDiagCursor );
         isSizedCursor = true;
     }
-    else if(posMouseMove.m_bOnTopRightEdge || posMouseMove.m_bOnBottomLeftEdge)
+    else if(posMouseMove.isOnRightTopCorner || posMouseMove.isOnLeftBottomCorner)
     {
         setCursor( Qt::SizeBDiagCursor );
         isSizedCursor = true;
     }
-    else if(posMouseMove.m_bOnLeftEdge || posMouseMove.m_bOnRightEdge)
+    else if(posMouseMove.isOnLeftEdge || posMouseMove.isOnRightEdge)
     {
         setCursor( Qt::SizeHorCursor );
         isSizedCursor = true;
     }
-    else if(posMouseMove.m_bOnTopEdge || posMouseMove.m_bOnBottomEdge)
+    else if(posMouseMove.isOnTopEdge || posMouseMove.isOnBottomEdge)
     {
         setCursor( Qt::SizeVerCursor );
         isSizedCursor = true;
@@ -207,39 +204,39 @@ void MainWindow::resizeMainWindow(const QPoint &gMousePos)
     int minWidth = minimumWidth();
     int minHeight = minimumHeight();
 
-    if (posMousePressed.m_bOnTopLeftEdge)
+    if (posMousePressed.isOnLeftTopCorner)
     {
         left = gMousePos.x();
         top = gMousePos.y();
     }
-    else if (posMousePressed.m_bOnBottomLeftEdge)
+    else if (posMousePressed.isOnLeftBottomCorner)
     {
         left = gMousePos.x();
         bottom = gMousePos.y();
     }
-    else if (posMousePressed.m_bOnTopRightEdge)
+    else if (posMousePressed.isOnRightTopCorner)
     {
         right = gMousePos.x();
         top = gMousePos.y();
     }
-    else if (posMousePressed.m_bOnBottomRightEdge)
+    else if (posMousePressed.isOnRightBottomCorner)
     {
         right = gMousePos.x();
         bottom = gMousePos.y();
     }
-    else if (posMousePressed.m_bOnLeftEdge)
+    else if (posMousePressed.isOnLeftEdge)
     {
         left = gMousePos.x();
     }
-    else if (posMousePressed.m_bOnRightEdge)
+    else if (posMousePressed.isOnRightEdge)
     {
         right = gMousePos.x();
     }
-    else if (posMousePressed.m_bOnTopEdge)
+    else if (posMousePressed.isOnTopEdge)
     {
         top = gMousePos.y();
     }
-    else if (posMousePressed.m_bOnBottomEdge)
+    else if (posMousePressed.isOnBottomEdge)
     {
         bottom = gMousePos.y();
     }
@@ -340,20 +337,35 @@ void MainWindow::handleMouseMoveEvent(QMouseEvent *event)
     if (isLeftButtonPressed)
     {
 
-        if ( posMousePressed.m_bOnEdges)
+        if ( posMousePressed.isOnEdge)
         {
             if(!(isMaximized()||isFullScreen())) resizeMainWindow(event->globalPos());
         }
         else
-            if(posPressedInFrame.y()<ptrTitleBar->height())
+            if(posPressedInFrame.y()<ptrHeaderBar->height())
             {
-              moveTopFrame(event->globalPos());
+                if(isMaximized()||isFullScreen())
+                 {
+                    this->showNormal();
+                }
+                else
+                {
+                    moveTopFrame(event->globalPos());
+                }
+
             }
             else
                 if(isAllowAnyDrag)
                 {
-                    moveTopFrame(event->globalPos());
-                }
+                    if(isMaximized()||isFullScreen())
+                    {
+                        this->showNormal();
+                    }
+                    else
+                    {
+                        moveTopFrame(event->globalPos());
+                    }
+                 }
     }
     else
     {
