@@ -96,6 +96,7 @@ MainWindow::MainWindow(QWidget *parent)
     isLeftButtonPressed = false;
     isSizedCursor = false;
     isAllowAnyDrag = false;
+
     installEventFilter(this);
     connect(ptrTitleBar, SIGNAL(signal_min()), this, SLOT(showMinimized()));
     connect(ptrTitleBar, SIGNAL(signal_maxrestore()), this, SLOT(showMaxRestore()));
@@ -343,11 +344,16 @@ void MainWindow::handleMouseMoveEvent(QMouseEvent *event)
         {
             if(!(isMaximized()||isFullScreen())) resizeMainWindow(event->globalPos());
         }
-        else if(posPressedInFrame.y()<ptrTitleBar->height())
-        {
-           moveTopFrame(event->globalPos());
-        }
-        else if(isAllowAnyDrag) moveTopFrame(event->globalPos());
+        else
+            if(posPressedInFrame.y()<ptrTitleBar->height())
+            {
+              moveTopFrame(event->globalPos());
+            }
+            else
+                if(isAllowAnyDrag)
+                {
+                    moveTopFrame(event->globalPos());
+                }
     }
     else
     {

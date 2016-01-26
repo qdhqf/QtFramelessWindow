@@ -65,6 +65,7 @@ private:
     bool isLeftButtonPressed;
     bool isSizedCursor;
     bool isAllowAnyDrag;
+
     QPoint posPressedInFrame;//m_ptDragPos;
     void handleMousePressEvent(QMouseEvent *event);
     void handleMouseReleaseEvent(QMouseEvent *event);
