@@ -43,14 +43,6 @@ public:
 
     //事件过滤
     bool eventFilter(QObject *obj, QEvent *event);
-protected:
-    //鼠标按下事件
-   // virtual void mousePressEvent(QMouseEvent *event);
-    //鼠标移动事件
-   // virtual void mouseMoveEvent(QMouseEvent *event);
-    //鼠标释放事件
-   // virtual void mouseReleaseEvent(QMouseEvent *event);
-    //鼠标双击事件
 
 signals:
     void signal_min();
