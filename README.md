@@ -2,7 +2,7 @@
 Qt FramelessWindow Customization activity,able to move, resize.   
 is studing code inspired by these two authors(almost just duplicate their code),thanks to the both.
 
- [一去丶二三里][1] 和  [文艺IT男][2]
+ [一去丶二三里][1](he studied and studied till to perfect and gently open his whole code) 和  [文艺IT男][2](he has the complete code to sell)
  
 [1]: http://blog.csdn.net/liang19890820/article/details/50557240
 
