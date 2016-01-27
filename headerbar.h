@@ -5,6 +5,7 @@
 #include <QtCore>
 #include <QtGui>
 #include "push_button.h"
+#include "tool_button.h"
 
 class HeaderBar : public QWidget
 {
@@ -32,9 +33,12 @@ private:
     QLabel *ptrLabelIcon;
 
     PushButton *ptrBtnMenu;
-    PushButton *ptrBtnMin;//QToolButton *ptrBtnMin;
-    PushButton *ptrBtnMax;//QToolButton *ptrBtnMax;
-    PushButton *ptrBtnClose;//QToolButton *ptrBtnClose;
+    PushButton *ptrBtnMin;
+    PushButton *ptrBtnMax;
+    PushButton *ptrBtnClose;
+
+    ToolButton *ptrBtnSite;
+    ToolButton *ptrBtnDevice;
     QHBoxLayout *ptrTitleLayout;
     QHBoxLayout *ptrToolLayout;
     QVBoxLayout *ptrHeaderLayout;

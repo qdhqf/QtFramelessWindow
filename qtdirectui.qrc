@@ -19,5 +19,7 @@
         <file>image/sysButton/press_menu.png</file>
         <file>image/sysButton/press_min.png</file>
         <file>image/sysButton/press_restore.png</file>
+        <file>image/toolButton/build.png</file>
+        <file>image/toolButton/wdm.png</file>
     </qresource>
 </RCC>

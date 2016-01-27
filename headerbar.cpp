@@ -33,36 +33,32 @@ void HeaderBar::updateMaxIcon(bool max)
 void HeaderBar::CreateWidget() //创建子部件
 {
 
-    ptrLabelIcon = new QLabel(this);  //图像标签--logo
+    ptrLabelIcon = new QLabel();  //图像标签--logo
     QPixmap objPixmap(":/image/logo.png");
-    ptrLabelIcon->setPixmap(objPixmap.scaled(77,30));
+    ptrLabelIcon->setPixmap(objPixmap);
+    //ptrLabelIcon->setText("TransInsight");
+    //ptrLabelIcon->setTextFormat(Qt::TextFormat);
 
-    ptrBtnMenu = new PushButton(this);
+    ptrBtnMenu = new PushButton();
     ptrBtnMenu->setPix("menu.png");
 
-
-    ptrBtnMin = new PushButton(this);
+    ptrBtnMin = new PushButton();
     ptrBtnMin->setPix("min.png");
 
-
-    ptrBtnMax = new PushButton(this);
+    ptrBtnMax = new PushButton();
     ptrBtnMax->setPix("max.png");
 
-    ptrBtnClose = new PushButton(this);
+    ptrBtnClose = new PushButton();
     ptrBtnClose->setPix("close.png");
 
+    ///////Tool Button///////////////
+    ptrBtnSite = new ToolButton(":/image/toolButton/build.png",this);
+    ptrBtnDevice = new ToolButton(":/image/toolButton/wdm.png",this);
 
-    const QObjectList &objList = children();   //获得子部件
-    for(int nIndex=0; nIndex<objList.count();++nIndex)
-    {
-        ((QWidget*)(objList.at(nIndex)))->setMouseTracking(true);  //设置子部件的MouseTracking属性
-        if(0==qstrcmp(objList.at(nIndex)->metaObject()->className(),"PushButton"))  //如果是QToolButton部件
-        {
-            connect(((PushButton*)(objList.at(nIndex))),SIGNAL(pressed()),this,SLOT(slot_btnpress()));  //连接pressed信号为slot_btnpress
-            connect(((PushButton*)(objList.at(nIndex))),SIGNAL(clicked()),this,SLOT(slot_btnclick())); //连接clicked信号为slot_btnclick
-           ((QToolButton*)(objList.at(nIndex)))->setContentsMargins(0,0,0,0);//设置顶部间距
-        }
-    }
+    connect(ptrBtnMenu,SIGNAL(clicked()),this,SLOT(slot_btnclick()));
+    connect(ptrBtnMin,SIGNAL(clicked()),this,SLOT(slot_btnclick()));
+    connect(ptrBtnMax,SIGNAL(clicked()),this,SLOT(slot_btnclick()));
+    connect(ptrBtnClose,SIGNAL(clicked()),this,SLOT(slot_btnclick()));
 }
 
 
@@ -78,20 +74,23 @@ void HeaderBar::SetWidgetStyle()  //设置子部件样式(qss)
 
 void HeaderBar::CreateLayout()  //创建设置布局
 { 
-    ptrTitleLayout = new QHBoxLayout(this); //水平布局
+    ptrTitleLayout = new QHBoxLayout(); //水平布局
     ptrTitleLayout->addWidget(ptrLabelIcon, 0, Qt::AlignTop);  //添加部件
     ptrTitleLayout->addStretch();
     ptrTitleLayout->addWidget(ptrBtnMenu, 0, Qt::AlignTop);
     ptrTitleLayout->addWidget(ptrBtnMin, 0, Qt::AlignTop);
     ptrTitleLayout->addWidget(ptrBtnMax, 0, Qt::AlignTop);
     ptrTitleLayout->addWidget(ptrBtnClose, 0, Qt::AlignTop);
-    ptrTitleLayout->setContentsMargins(0,0,0,0); //设置Margin
+    ptrTitleLayout->setContentsMargins(2,2,2,2); //设置Margin
     ptrTitleLayout->setSpacing(0); //设置部件之间的space
 
 
-    ptrToolLayout = new QHBoxLayout(this);
-   /* QWidget *widget = new QWidget(this);
-    ptrToolLayout->addWidget(widget);*/
+    ptrToolLayout = new QHBoxLayout();
+    ptrToolLayout->addWidget(ptrBtnSite,0,Qt::AlignBottom);
+    ptrToolLayout->addWidget(ptrBtnDevice,0,Qt::AlignBottom);
+    ptrToolLayout->addStretch();
+    ptrToolLayout->setContentsMargins(2,2,2,2); //设置Margin
+    ptrToolLayout->setSpacing(0);
     ptrHeaderLayout =new QVBoxLayout(this);
 
     ptrHeaderLayout->addLayout(ptrTitleLayout);\

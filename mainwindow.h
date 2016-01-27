@@ -6,7 +6,7 @@
 
 #define VALUE_DIS 5
 #define TITLE_H  30
-#define HEADER_H 90
+#define HEADER_H 80
 
 class HeaderBar;
 class ContentWidget;

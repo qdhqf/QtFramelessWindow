@@ -68,20 +68,20 @@ MainWindow::MainWindow(QWidget *parent)
     setMouseTracking(true);
     setAttribute(Qt::WA_Hover, true);
 
-    ptrHeaderBar = new HeaderBar();//创建标题栏
+    ptrHeaderBar = new HeaderBar(this);//创建标题栏
 
-    ptrContentWidget = new ContentWidget();//创建内容区域
-    ptrContentWidget->setStyleSheet("QWidget {border:1px solid white;}");
-    ptrStatusBar = new StatusBar();//创建状态栏
+    ptrContentWidget = new ContentWidget(this);//创建内容区域
+    //ptrContentWidget->setStyleSheet("QWidget {border:1px solid white;}");
+    ptrStatusBar = new StatusBar(this);//创建状态栏
     //ptrStatusBar->setStyleSheet("QWidget {border:0px solid black;}");
 
     //setStyleSheet("QFrame {background-image:url(:/image/frame.jpg);border:0px solid black;}");
-
+/*
     setAutoFillBackground(true);
     QPalette pal;
     QPixmap pix(":/image/frame.jpg");
     pal.setBrush(backgroundRole(),QBrush(pix));
-    setPalette(pal);
+    setPalette(pal);*/
 
     ptrMainLayout = new QVBoxLayout(this);//创建布局
     //ptrHeaderBar->setStyleSheet("QWidget {background-image:url(:/image/header.png);border:0px solid black;}");

@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     headerbar.cpp \
     statusbar.cpp \
     push_button.cpp \
-    tool_button.cpp
+    tool_button.cpp \
+    contentwidget.cpp
 
 HEADERS  += mainwindow.h \
     contentwidget.h \
