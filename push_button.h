@@ -9,11 +9,11 @@ class PushButton : public QPushButton
 	Q_OBJECT
 
 public:
-
 	explicit PushButton(QWidget *parent = 0);
 	~PushButton();
     void setPix(QString origPix);
     void switchPix(QString newPix);
+    static QString dirPixBase;
 protected:
 
 	void enterEvent(QEvent *);
@@ -27,8 +27,7 @@ private:
 
     enum ButtonStatus{NORMAL, ENTER, PRESS, NOSTATUS}; //枚举按钮的几种状态
 	ButtonStatus status;
-    QString pathPix;
-    QStringList namesec;
+    QString namePixFile;
     QPixmap pixmap;
     int btn_width; //按钮宽度
     int btn_height; //按钮高度

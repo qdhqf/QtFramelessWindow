@@ -1,5 +1,7 @@
 #include "push_button.h"
 
+QString PushButton::dirPixBase = ":/image/sysButton/";
+
 PushButton::PushButton(QWidget *parent)
 	:QPushButton(parent)
 {	
@@ -14,16 +16,13 @@ PushButton::~PushButton()
 
 void PushButton::setPix(QString origPix)
 {
-    this->pathPix = origPix;
-    setFixedSize(QPixmap(pathPix).size());
-    namesec = pathPix.split(".");
+    this->namePixFile = origPix;
+    setFixedSize(QPixmap(dirPixBase+namePixFile).size());
 }
 
 void PushButton::switchPix(QString newPix)
 {
-    this->pathPix = newPix;
-    namesec.clear();
-    namesec = pathPix.split(".");
+    this->namePixFile = newPix;
 }
 
 void PushButton::enterEvent(QEvent *)
@@ -69,31 +68,26 @@ void PushButton::paintEvent(QPaintEvent *)
 	{
 	case NORMAL:
 		{
-            //pixmap =selfPix->copy(0,0,btn_width,btn_height);
-            pixmap.load(pathPix);
+            pixmap.load(dirPixBase+namePixFile);
 			break;
 		}    
 	case ENTER:
 		{
-            //pixmap =selfPix->copy(btn_width,0,btn_width*2,btn_height);
-            pixmap.load(namesec[0] + QString("_enter.")+namesec[1]);
+            pixmap.load(dirPixBase+QString("enter_")+namePixFile);
 			break;
 		} 
 	case PRESS:
 		{
-            //pixmap =selfPix->copy(btn_width*2,0,btn_width*3,btn_height);
-            pixmap.load(namesec[0] + QString("_press.")+namesec[1]);
+            pixmap.load(dirPixBase+QString("press_")+namePixFile);
 			break;
 		}   
 	case NOSTATUS:
 		{
-            //pixmap =selfPix->copy(0,0,btn_width,btn_height);
-            pixmap.load(pathPix);
+            pixmap.load(dirPixBase+namePixFile);
 			break;
 		}   
 	default:
-        //pixmap =selfPix->copy(0,0,btn_width,btn_height);
-        pixmap.load(pathPix);
+        pixmap.load(dirPixBase+namePixFile);
 	}
 	
 	painter.drawPixmap(rect(), pixmap);

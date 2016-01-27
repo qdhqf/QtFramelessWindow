@@ -10,7 +10,7 @@ HeaderBar::HeaderBar(QWidget *parent) :
 
     CreateWidget();
     CreateLayout();
-    CreateEventFiter();
+    //CreateEventFiter();
     SetWidgetStyle();
 }
 
@@ -27,18 +27,18 @@ void HeaderBar::CreateWidget() //创建子部件
     ptrLabelIcon->setPixmap(objPixmap.scaled(77,30));
 
     ptrBtnMenu = new PushButton(this);
-    ptrBtnMenu->setPix(":/image/sysButton/menu.png");
+    ptrBtnMenu->setPix("menu.png");
 
 
-    ptrBtnMin = new PushButton(this); //QToolButton(this); //按钮--最小化
-    ptrBtnMin->setPix(":/image/sysButton/min.png");
+    ptrBtnMin = new PushButton(this);
+    ptrBtnMin->setPix("min.png");
 
 
-    ptrBtnMax = new PushButton(this);//QToolButton(this); //按钮--最大化/还原
-    ptrBtnMax->setPix(":/image/sysButton/max.png");
+    ptrBtnMax = new PushButton(this);
+    ptrBtnMax->setPix("max.png");
 
-    ptrBtnClose = new PushButton(this); //QToolButton(this);  //按钮--关闭
-    ptrBtnClose->setPix(":/image/sysButton/close.png");
+    ptrBtnClose = new PushButton(this);
+    ptrBtnClose->setPix("close.png");
 
 
     const QObjectList &objList = children();   //获得子部件
@@ -96,48 +96,7 @@ void HeaderBar::CreateLayout()  //创建设置布局
     setLayout(ptrHeaderLayout);
 }
 
-void HeaderBar::CreateEventFiter()//创建事件过滤器
-{
-   /* ptrBtnMenu->installEventFilter(this);
-    ptrBtnMin->installEventFilter(this);
-    ptrBtnMax->installEventFilter(this);
-    ptrBtnClose->installEventFilter(this);*/
-}
 
-
-bool HeaderBar::eventFilter(QObject *obj, QEvent *event)  //事件过滤
-{
- /*   //按钮状态
-    eBtnMoustState eState = eBtnStateNone;
-    //判断事件类型--QEvent::Enter
-    if (event->type() == QEvent::Enter)
-    {
-        eState = eBtnStateHover;
-    }
-    //判断事件类型--QEvent::Leave
-    if (event->type() == QEvent::Leave)
-    {
-        eState = eBtnStateDefault;
-    }
-    //判断事件类型--QEvent::MouseButtonPress
-    if (event->type() == QEvent::MouseButtonPress && ((QMouseEvent*)(event))->button()== Qt::LeftButton)
-    {
-        eState = eBtnStatePress;
-    }
-    //判断目标
-    if(ptrBtnMenu==obj)
-    {
-        //如果状态有效
-        if(eState != eBtnStateNone)
-        {
-            //根据状态设置按钮图标
-            //SetBtnIcon((QToolButton *)obj,eState);
-            return false;
-        }
-    }
-    return QWidget::eventFilter(obj,event);*/
-    return true;
-}
 
 
 void HeaderBar::slot_btnpress()   //槽函数--slot_btnpress()
