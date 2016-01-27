@@ -69,7 +69,6 @@ MainWindow::MainWindow(QWidget *parent)
     setAttribute(Qt::WA_Hover, true);
 
     ptrHeaderBar = new HeaderBar();//创建标题栏
-<<<<<<< HEAD
 
     ptrContentWidget = new ContentWidget();//创建内容区域
     ptrContentWidget->setStyleSheet("QWidget {border:1px solid white;}");
@@ -86,19 +85,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     ptrMainLayout = new QVBoxLayout(this);//创建布局
     //ptrHeaderBar->setStyleSheet("QWidget {background-image:url(:/image/header.png);border:0px solid black;}");
-=======
-    ptrHeaderBar->setStyleSheet("QWidget {border:1px solid black;}");
-
-    ptrContentWidget = new ContentWidget();//创建内容区域
-    ptrContentWidget->setStyleSheet("QWidget {border:1px solid black;}");
-    ptrStatusBar = new StatusBar();//创建状态栏
-    ptrStatusBar->setStyleSheet("QWidget {border:1px solid black;}");
-
-    setStyleSheet("QFrame {background-image:url(:/image/frame.jpg);border:0px solid black;}");
-
-    ptrMainLayout = new QVBoxLayout(this);//创建布局
-
->>>>>>> remotes/QtDirectUI/master
     ptrMainLayout->addWidget(ptrHeaderBar);//将部件加入到布局中
     ptrMainLayout->addWidget(ptrContentWidget);
     ptrMainLayout->addWidget(ptrStatusBar);
@@ -113,11 +99,7 @@ MainWindow::MainWindow(QWidget *parent)
     isSizedCursor = false;
     isAllowAnyDrag = false;
 
-<<<<<<< HEAD
 
-=======
-    installEventFilter(this);
->>>>>>> remotes/QtDirectUI/master
     connect(ptrHeaderBar, SIGNAL(signal_min()), this, SLOT(showMinimized()));
     connect(ptrHeaderBar, SIGNAL(signal_maxrestore()), this, SLOT(showMaxRestore()));
     connect(ptrHeaderBar, SIGNAL(signal_close()), this, SLOT(close()));
@@ -134,24 +116,17 @@ void MainWindow::showMaxRestore()
     if(isMaximized()||isFullScreen())
     {
         this->showNormal();
-<<<<<<< HEAD
         ptrHeaderBar->updateMaxIcon(false);
-=======
->>>>>>> remotes/QtDirectUI/master
     }
     else
     {
         this->showMaximized();
-<<<<<<< HEAD
         ptrHeaderBar->updateMaxIcon();
-=======
->>>>>>> remotes/QtDirectUI/master
     }
 }
 
 void MainWindow::paintEvent(QPaintEvent *event)
 {
-<<<<<<< HEAD
     QBitmap objBitmap(size());//生成一张位图
     QPainter painter(&objBitmap); //QPainter用于在位图上绘画
     painter.fillRect(rect(),Qt::white);//填充位图矩形框(用白色填充)
@@ -162,30 +137,6 @@ void MainWindow::paintEvent(QPaintEvent *event)
 }
 
 
-=======
- //生成一张位图
-    QBitmap objBitmap(size());
-    //QPainter用于在位图上绘画
-    QPainter painter(&objBitmap);
-    //填充位图矩形框(用白色填充)
-    painter.fillRect(rect(),Qt::white);
-    painter.setBrush(QColor(0,0,0));
-    //在位图上画圆角矩形(用黑色填充)
-    painter.drawRoundedRect(this->rect(),10,10);
-    //使用setmask过滤即可
-    setMask(objBitmap);
-    QFrame::paintEvent(event);
-}
-
-//鼠标双击事件
-void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton && event->y()<= ptrHeaderBar->height())
-    {
-        showMaxRestore();
-    }
- }
->>>>>>> remotes/QtDirectUI/master
 
 /////////////////////////////new resize implementation///////////
 void MainWindow::updateSizedCursor(const QPoint &gMousePos)
@@ -314,7 +265,6 @@ void MainWindow::moveTopFrame(const QPoint& gMousePos)
     move(gMousePos - posPressedInFrame);
 }
 
-<<<<<<< HEAD
 bool MainWindow::event(QEvent *event)
 {
     switch (event->type())
@@ -361,47 +311,6 @@ void MainWindow::handleMouseDblClickEvent(QMouseEvent *event)
         showMaxRestore();
     }
  }
-=======
-bool MainWindow::eventFilter(QObject *obj, QEvent *event)
-{
-    switch (event->type())
-    {
-        case QEvent::MouseMove:
-        case QEvent::HoverMove:
-        case QEvent::MouseButtonPress:
-        case QEvent::MouseButtonRelease:
-        case QEvent::Leave:
-        {
-           handleSelfEvent(event);
-        }
-    }
-     return QObject::eventFilter(obj, event);
-}
-
-void MainWindow::handleSelfEvent(QEvent *event)
-{
-    switch (event->type())
-    {
-    default:
-        break;
-    case QEvent::MouseButtonPress:
-        handleMousePressEvent(static_cast<QMouseEvent*>(event));
-        break;
-    case QEvent::MouseButtonRelease:
-        handleMouseReleaseEvent(static_cast<QMouseEvent*>(event));
-        break;
-    case QEvent::MouseMove:
-        handleMouseMoveEvent(static_cast<QMouseEvent*>(event));
-        break;
-    case QEvent::Leave:
-        handleLeaveEvent(static_cast<QMouseEvent*>(event));
-        break;
-    case QEvent::HoverMove:
-        handleHoverMoveEvent(static_cast<QHoverEvent*>(event));
-        break;
-    }
-}
->>>>>>> remotes/QtDirectUI/master
 
 void MainWindow::handleMousePressEvent(QMouseEvent *event)
 {
@@ -411,18 +320,11 @@ void MainWindow::handleMousePressEvent(QMouseEvent *event)
 
         QRect frameRect = frameGeometry();
         posMousePressed.recalculate(event->globalPos(), frameRect);
-<<<<<<< HEAD
-=======
-
->>>>>>> remotes/QtDirectUI/master
         posPressedInFrame = event->globalPos() - frameRect.topLeft();
     }
 }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> remotes/QtDirectUI/master
 void MainWindow::handleMouseReleaseEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton)
@@ -446,11 +348,7 @@ void MainWindow::handleMouseMoveEvent(QMouseEvent *event)
             {
                 if(isMaximized()||isFullScreen())
                  {
-<<<<<<< HEAD
                     this->showMaxRestore();
-=======
-                    this->showNormal();
->>>>>>> remotes/QtDirectUI/master
                 }
                 else
                 {
@@ -463,11 +361,7 @@ void MainWindow::handleMouseMoveEvent(QMouseEvent *event)
                 {
                     if(isMaximized()||isFullScreen())
                     {
-<<<<<<< HEAD
                         this->showMaxRestore();
-=======
-                        this->showNormal();
->>>>>>> remotes/QtDirectUI/master
                     }
                     else
                     {
@@ -487,18 +381,11 @@ void MainWindow::handleLeaveEvent(QEvent *event)
     if (!isLeftButtonPressed)
     {
         unsetCursor();
-<<<<<<< HEAD
         isSizedCursor = false;
-=======
->>>>>>> remotes/QtDirectUI/master
     }
 }
 
 void MainWindow::handleHoverMoveEvent(QHoverEvent *event)
 {
-<<<<<<< HEAD
     updateSizedCursor(mapToGlobal(event->pos()));
-=======
-   updateSizedCursor(mapToGlobal(event->pos()));
->>>>>>> remotes/QtDirectUI/master
 }

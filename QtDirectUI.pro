@@ -15,24 +15,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     headerbar.cpp \
-<<<<<<< HEAD
     statusbar.cpp \
     push_button.cpp \
     tool_button.cpp
-=======
-    statusbar.cpp
->>>>>>> remotes/QtDirectUI/master
 
 HEADERS  += mainwindow.h \
     contentwidget.h \
     statusbar.h \
-<<<<<<< HEAD
     headerbar.h \
     push_button.h \
     tool_button.h
-=======
-    headerbar.h
->>>>>>> remotes/QtDirectUI/master
 
 RESOURCES += \
     qtdirectui.qrc
