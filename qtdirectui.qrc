@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/frame.jpg</file>
+        <file>image/title_bar_menu.png</file>
+        <file>image/logo.png</file>
+        <file>image/main.jpg</file>
+        <file>image/sysButton/Close.png</file>
+        <file>image/sysButton/Max.png</file>
+        <file>image/sysButton/Menu.png</file>
+        <file>image/sysButton/Min.png</file>
+        <file>image/sysButton/Restore.png</file>
+        <file>image/header.png</file>
+    </qresource>
+</RCC>
