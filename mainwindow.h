@@ -44,10 +44,19 @@ public:
 public slots:
     void showMaxRestore();
 protected:
+<<<<<<< HEAD
     bool event(QEvent *event);
 
 private:
     HeaderBar       *ptrHeaderBar;
+=======
+    void mouseDoubleClickEvent(QMouseEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event);
+    void handleSelfEvent(QEvent *event);
+private:
+    HeaderBar       *ptrHeaderBar;
+//    ToolBar         *ptrToolBar;
+>>>>>>> remotes/QtDirectUI/master
     ContentWidget   *ptrContentWidget;
     StatusBar        *ptrStatusBar;
     QVBoxLayout     *ptrMainLayout;
@@ -64,7 +73,10 @@ private:
     bool isAllowAnyDrag;
 
     QPoint posPressedInFrame;//m_ptDragPos;
+<<<<<<< HEAD
     void handleMouseDblClickEvent(QMouseEvent *event);
+=======
+>>>>>>> remotes/QtDirectUI/master
     void handleMousePressEvent(QMouseEvent *event);
     void handleMouseReleaseEvent(QMouseEvent *event);
     void handleMouseMoveEvent(QMouseEvent *event);

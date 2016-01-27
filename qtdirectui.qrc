@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>image/frame.jpg</file>
+<<<<<<< HEAD
         <file>image/logo.png</file>
         <file>image/main.jpg</file>
         <file>image/header.png</file>
@@ -19,5 +20,27 @@
         <file>image/sysButton/press_menu.png</file>
         <file>image/sysButton/press_min.png</file>
         <file>image/sysButton/press_restore.png</file>
+=======
+        <file>image/arrow_down.png</file>
+        <file>image/close_hover.png</file>
+        <file>image/close_pressed.png</file>
+        <file>image/feedback.png</file>
+        <file>image/feedback_hover.png</file>
+        <file>image/feedback_pressed.png</file>
+        <file>image/medal_pressed.png</file>
+        <file>image/menu_hover.png</file>
+        <file>image/menu_pressed.png</file>
+        <file>image/min_hover.png</file>
+        <file>image/min_pressed.png</file>
+        <file>image/skin_hover.png</file>
+        <file>image/skin_pressed.png</file>
+        <file>image/SkinButtom.png</file>
+        <file>image/sys_button_close.png</file>
+        <file>image/sys_button_max.png</file>
+        <file>image/sys_button_min.png</file>
+        <file>image/sys_button_restore.png</file>
+        <file>image/title_bar_menu.png</file>
+        <file>image/logo.png</file>
+>>>>>>> remotes/QtDirectUI/master
     </qresource>
 </RCC>
