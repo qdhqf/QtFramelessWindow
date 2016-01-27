@@ -18,6 +18,17 @@ HeaderBar::~HeaderBar()
 {
 }
 
+void HeaderBar::updateMaxIcon(bool max)
+{
+    if(max)
+    {
+        if(NULL != ptrBtnMax) ptrBtnMax->setPix("restore.png");
+    }
+    else
+    {
+        if(NULL != ptrBtnMax) ptrBtnMax->setPix("max.png");
+    }
+}
 
 void HeaderBar::CreateWidget() //创建子部件
 {
@@ -57,7 +68,7 @@ void HeaderBar::CreateWidget() //创建子部件
 
 void HeaderBar::SetWidgetStyle()  //设置子部件样式(qss)
 {   
-    //setStyleSheet("QWidget {background-image:url(:/image/header.png);border:0px solid black;}");
+    setStyleSheet("QWidget {background-image:url(:/image/header.png);border:0px solid black;}");
     //setStyleSheet("QLabel{color:#CCCCCC;font-size:12px;font-weight:bold;}QToolButton{border:0px;}"); //设置标签的文本颜色，大小等以及按钮的边框
     //设置左边距
     //m_pLabelTitle->setStyleSheet("margin-left:6px;");
@@ -81,8 +92,8 @@ void HeaderBar::CreateLayout()  //创建设置布局
     ptrTitleLayout->addWidget(ptrBtnMax, 0, Qt::AlignTop);
     ptrTitleLayout->addWidget(ptrBtnClose, 0, Qt::AlignTop);
     ptrTitleLayout->setContentsMargins(0,0,0,0); //设置Margin
-    ptrTitleLayout->setSpacing(0);
-     //设置部件之间的space
+    ptrTitleLayout->setSpacing(0); //设置部件之间的space
+
 
     ptrToolLayout = new QHBoxLayout(this);
    /* QWidget *widget = new QWidget(this);

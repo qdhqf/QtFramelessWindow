@@ -12,8 +12,7 @@ public:
 	explicit PushButton(QWidget *parent = 0);
 	~PushButton();
     void setPix(QString origPix);
-    void switchPix(QString newPix);
-    static QString dirPixBase;
+     static QString dirPixBase;
 protected:
 
 	void enterEvent(QEvent *);

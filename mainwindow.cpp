@@ -117,10 +117,12 @@ void MainWindow::showMaxRestore()
     if(isMaximized()||isFullScreen())
     {
         this->showNormal();
+        ptrHeaderBar->updateMaxIcon(false);
     }
     else
     {
         this->showMaximized();
+        ptrHeaderBar->updateMaxIcon();
     }
 }
 
@@ -319,7 +321,6 @@ void MainWindow::handleMousePressEvent(QMouseEvent *event)
 
         QRect frameRect = frameGeometry();
         posMousePressed.recalculate(event->globalPos(), frameRect);
-
         posPressedInFrame = event->globalPos() - frameRect.topLeft();
     }
 }
@@ -348,7 +349,7 @@ void MainWindow::handleMouseMoveEvent(QMouseEvent *event)
             {
                 if(isMaximized()||isFullScreen())
                  {
-                    this->showNormal();
+                    this->showMaxRestore();
                 }
                 else
                 {
@@ -361,7 +362,7 @@ void MainWindow::handleMouseMoveEvent(QMouseEvent *event)
                 {
                     if(isMaximized()||isFullScreen())
                     {
-                        this->showNormal();
+                        this->showMaxRestore();
                     }
                     else
                     {

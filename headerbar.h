@@ -14,10 +14,7 @@ public:
     explicit HeaderBar(QWidget *parent = 0);
     ~HeaderBar();
 
-    void CreateWidget();//创建子部件
-    void SetWidgetStyle();//设置子部件样式(qss)
-    void CreateLayout();  //创建设置布局
-    const QString GetBtnImagePath(QToolButton *pBtn,bool bInit/*=false*/);//获得图片路径(固定值)
+    void updateMaxIcon(bool max = true);
     //void CreateEventFiter();//创建事件过滤器
     //bool eventFilter(QObject *obj, QEvent *event);//事件过滤
 
@@ -41,6 +38,9 @@ private:
     QHBoxLayout *ptrTitleLayout;
     QHBoxLayout *ptrToolLayout;
     QVBoxLayout *ptrHeaderLayout;
+    void CreateWidget();//创建子部件
+    void SetWidgetStyle();//设置子部件样式(qss)
+    void CreateLayout();  //创建设置布局
 };
 
 

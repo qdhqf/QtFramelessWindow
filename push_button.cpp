@@ -20,11 +20,6 @@ void PushButton::setPix(QString origPix)
     setFixedSize(QPixmap(dirPixBase+namePixFile).size());
 }
 
-void PushButton::switchPix(QString newPix)
-{
-    this->namePixFile = newPix;
-}
-
 void PushButton::enterEvent(QEvent *)
 {
 	status = ENTER;
