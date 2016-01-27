@@ -12,10 +12,18 @@ PushButton::~PushButton()
 
 }
 
-void PushButton::setPicName(QString pic_name)
+void PushButton::setPix(QString origPix)
 {
-	this->pic_name = pic_name;
-	setFixedSize(QPixmap(pic_name).size());
+    this->pathPix = origPix;
+    setFixedSize(QPixmap(pathPix).size());
+    namesec = pathPix.split(".");
+}
+
+void PushButton::switchPix(QString newPix)
+{
+    this->pathPix = newPix;
+    namesec.clear();
+    namesec = pathPix.split(".");
 }
 
 void PushButton::enterEvent(QEvent *)
@@ -26,8 +34,8 @@ void PushButton::enterEvent(QEvent *)
 
 void PushButton::mousePressEvent(QMouseEvent *event)
 {
-	//若点击鼠标左键
-	if(event->button() == Qt::LeftButton)
+
+    if(event->button() == Qt::LeftButton) //若点击鼠标左键
 	{
 		mouse_press = true;
 		status = PRESS;
@@ -37,8 +45,8 @@ void PushButton::mousePressEvent(QMouseEvent *event)
 
 void PushButton::mouseReleaseEvent(QMouseEvent *event)
 {
-	//若点击鼠标左键
-	if(mouse_press  && this->rect().contains(event->pos()))
+
+    if(mouse_press  && this->rect().contains(event->pos())) //若点击鼠标左键
 	{
 		mouse_press = false;
 		status = ENTER;
@@ -56,31 +64,36 @@ void PushButton::leaveEvent(QEvent *)
 void PushButton::paintEvent(QPaintEvent *)
 {
 	QPainter painter(this);
-	QPixmap pixmap;
-	switch(status)
+
+    switch(status)
 	{
 	case NORMAL:
 		{
-			pixmap.load(pic_name);
+            //pixmap =selfPix->copy(0,0,btn_width,btn_height);
+            pixmap.load(pathPix);
 			break;
 		}    
 	case ENTER:
 		{
-			pixmap.load(pic_name + QString("_hover"));
+            //pixmap =selfPix->copy(btn_width,0,btn_width*2,btn_height);
+            pixmap.load(namesec[0] + QString("_enter.")+namesec[1]);
 			break;
 		} 
 	case PRESS:
 		{
-			pixmap.load(pic_name + QString("_pressed"));	
+            //pixmap =selfPix->copy(btn_width*2,0,btn_width*3,btn_height);
+            pixmap.load(namesec[0] + QString("_press.")+namesec[1]);
 			break;
 		}   
 	case NOSTATUS:
 		{
-			pixmap.load(pic_name);	
+            //pixmap =selfPix->copy(0,0,btn_width,btn_height);
+            pixmap.load(pathPix);
 			break;
 		}   
 	default:
-		pixmap.load(pic_name);
+        //pixmap =selfPix->copy(0,0,btn_width,btn_height);
+        pixmap.load(pathPix);
 	}
 	
 	painter.drawPixmap(rect(), pixmap);

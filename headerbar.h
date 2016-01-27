@@ -4,7 +4,7 @@
 #include <QtWidgets>
 #include <QtCore>
 #include <QtGui>
-
+#include "push_button.h"
 
 class HeaderBar : public QWidget
 {
@@ -44,10 +44,10 @@ public slots:
 private:
     QLabel *ptrLabelIcon;
 
-    QToolButton *ptrBtnMenu;
-    QToolButton *ptrBtnMin;
-    QToolButton *ptrBtnMax;
-    QToolButton *ptrBtnClose;
+    PushButton *ptrBtnMenu;
+    PushButton *ptrBtnMin;//QToolButton *ptrBtnMin;
+    PushButton *ptrBtnMax;//QToolButton *ptrBtnMax;
+    PushButton *ptrBtnClose;//QToolButton *ptrBtnClose;
     QHBoxLayout *ptrTitleLayout;
     QHBoxLayout *ptrToolLayout;
     QVBoxLayout *ptrHeaderLayout;

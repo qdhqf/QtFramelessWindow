@@ -4,11 +4,21 @@
         <file>image/title_bar_menu.png</file>
         <file>image/logo.png</file>
         <file>image/main.jpg</file>
-        <file>image/sysButton/Close.png</file>
-        <file>image/sysButton/Max.png</file>
-        <file>image/sysButton/Menu.png</file>
-        <file>image/sysButton/Min.png</file>
-        <file>image/sysButton/Restore.png</file>
         <file>image/header.png</file>
+        <file>image/sysButton/close.png</file>
+        <file>image/sysButton/close_enter.png</file>
+        <file>image/sysButton/close_press.png</file>
+        <file>image/sysButton/max.png</file>
+        <file>image/sysButton/max_enter.png</file>
+        <file>image/sysButton/max_press.png</file>
+        <file>image/sysButton/menu.png</file>
+        <file>image/sysButton/menu_enter.png</file>
+        <file>image/sysButton/menu_press.png</file>
+        <file>image/sysButton/min.png</file>
+        <file>image/sysButton/min_enter.png</file>
+        <file>image/sysButton/min_press.png</file>
+        <file>image/sysButton/restore.png</file>
+        <file>image/sysButton/restore_enter.png</file>
+        <file>image/sysButton/restore_press.png</file>
     </qresource>
 </RCC>
