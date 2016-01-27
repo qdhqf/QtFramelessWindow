@@ -30,7 +30,7 @@ public:
     const QString GetBtnImagePath(QToolButton *pBtn,bool bInit/*=false*/);//获得图片路径(固定值)
     void CreateEventFiter();//创建事件过滤器
     bool eventFilter(QObject *obj, QEvent *event);//事件过滤
-    void paintEvent(QPaintEvent *event);
+
 signals:
     void signal_min();
     void signal_maxrestore();

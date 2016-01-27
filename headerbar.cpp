@@ -160,13 +160,6 @@ const QString HeaderBar::GetBtnImagePath(QToolButton *pBtn,bool bInit/*=false*/)
     return strImagePath;
 }
 
-void HeaderBar::paintEvent(QPaintEvent *event)  //为什么不起作用呢？！！！
-{
-    QBitmap objBitmap(size());//生成一张位图
-    QPainter painter(&objBitmap); //QPainter用于在位图上绘画
-    painter.fillRect(rect(),Qt::white);//填充位图矩形框(用白色填充)
-    QWidget::paintEvent(event);
-}
 
 
 void HeaderBar::CreateEventFiter()//创建事件过滤器
