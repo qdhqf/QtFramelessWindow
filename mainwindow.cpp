@@ -69,12 +69,11 @@ MainWindow::MainWindow(QWidget *parent)
     setAttribute(Qt::WA_Hover, true);
 
     ptrHeaderBar = new HeaderBar();//创建标题栏
-    ptrHeaderBar->setStyleSheet("QWidget {border:1px solid black;}");
 
     ptrContentWidget = new ContentWidget();//创建内容区域
-    ptrContentWidget->setStyleSheet("QWidget {border:1px solid black;}");
+    ptrContentWidget->setStyleSheet("QWidget {border:1px solid white;}");
     ptrStatusBar = new StatusBar();//创建状态栏
-    ptrStatusBar->setStyleSheet("QWidget {border:1px solid black;}");
+    //ptrStatusBar->setStyleSheet("QWidget {border:0px solid black;}");
 
     //setStyleSheet("QFrame {background-image:url(:/image/frame.jpg);border:0px solid black;}");
 

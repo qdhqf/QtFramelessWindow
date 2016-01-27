@@ -3,9 +3,12 @@
 StatusBar::StatusBar(QWidget *parent):
     QWidget(parent)
 {
-     setFixedHeight(30);
-     setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
-
+     setFixedHeight(20);
+     setAutoFillBackground(true);
+     QPalette pal;
+     QPixmap pix(":/image/header.png");
+     pal.setBrush(backgroundRole(),QBrush(pix));
+     setPalette(pal);
 }
 
 StatusBar::~StatusBar()

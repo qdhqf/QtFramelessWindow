@@ -68,17 +68,11 @@ void HeaderBar::CreateWidget() //创建子部件
 
 void HeaderBar::SetWidgetStyle()  //设置子部件样式(qss)
 {   
-    setStyleSheet("QWidget {background-image:url(:/image/header.png);border:0px solid black;}");
-    //setStyleSheet("QLabel{color:#CCCCCC;font-size:12px;font-weight:bold;}QToolButton{border:0px;}"); //设置标签的文本颜色，大小等以及按钮的边框
-    //设置左边距
-    //m_pLabelTitle->setStyleSheet("margin-left:6px;");
-    //设置右边距以及鼠标移上去时的文本颜色
-   // m_pLabelVersion->setStyleSheet("QLabel{margin-right:10px;}QLabel:hover{color:#00AA00;}");
-   /* setAutoFillBackground(true);
+    setAutoFillBackground(true);
     QPalette pal;
     QPixmap pix(":/image/header.png");
     pal.setBrush(backgroundRole(),QBrush(pix));
-    setPalette(pal);*/
+    setPalette(pal);
 }
 
 
