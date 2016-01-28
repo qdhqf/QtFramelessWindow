@@ -8,5 +8,8 @@ class StatusBar:public QWidget
 public:
     explicit StatusBar(QWidget *parent = 0);
     ~StatusBar();
+    void setMessage(QString &msg);
+private:
+       QLabel *ptrMsg;
 };
 #endif // STATUSBAR_H

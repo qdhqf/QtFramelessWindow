@@ -73,6 +73,8 @@ MainWindow::MainWindow(QWidget *parent)
     ptrContentWidget = new ContentWidget(this);//创建内容区域
     //ptrContentWidget->setStyleSheet("QWidget {border:1px solid white;}");
     ptrStatusBar = new StatusBar(this);//创建状态栏
+    QString msg = "Ready";
+    ptrStatusBar->setMessage(msg);
     //ptrStatusBar->setStyleSheet("QWidget {border:0px solid black;}");
 
     //setStyleSheet("QFrame {background-image:url(:/image/frame.jpg);border:0px solid black;}");

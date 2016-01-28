@@ -20,7 +20,7 @@ class ToolButton : public QToolButton
 
 public:
 
-	explicit ToolButton(QString pic_name, QWidget *parent = 0);
+    explicit ToolButton(QString namePix, QWidget *parent = 0);
 	~ToolButton();
 	void setMousePress(bool mouse_press);
 

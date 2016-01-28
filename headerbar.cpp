@@ -36,8 +36,6 @@ void HeaderBar::CreateWidget() //创建子部件
     ptrLabelIcon = new QLabel();  //图像标签--logo
     QPixmap objPixmap(":/image/logo.png");
     ptrLabelIcon->setPixmap(objPixmap);
-    //ptrLabelIcon->setText("TransInsight");
-    //ptrLabelIcon->setTextFormat(Qt::TextFormat);
 
     ptrBtnMenu = new PushButton();
     ptrBtnMenu->setPix("menu.png");
@@ -53,7 +51,9 @@ void HeaderBar::CreateWidget() //创建子部件
 
     ///////Tool Button///////////////
     ptrBtnSite = new ToolButton(":/image/toolButton/build.png",this);
+    ptrBtnSite->setText("Building");
     ptrBtnDevice = new ToolButton(":/image/toolButton/wdm.png",this);
+    ptrBtnDevice->setText("Devices");
 
     connect(ptrBtnMenu,SIGNAL(clicked()),this,SLOT(slot_btnclick()));
     connect(ptrBtnMin,SIGNAL(clicked()),this,SLOT(slot_btnclick()));
