@@ -39,6 +39,7 @@ private:
 
     ToolButton *ptrBtnSite;
     ToolButton *ptrBtnDevice;
+    ToolButton *ptrBtnCable;
     QHBoxLayout *ptrTitleLayout;
     QHBoxLayout *ptrToolLayout;
     QVBoxLayout *ptrHeaderLayout;

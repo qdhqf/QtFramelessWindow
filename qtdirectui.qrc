@@ -21,5 +21,6 @@
         <file>image/sysButton/press_restore.png</file>
         <file>image/toolButton/build.png</file>
         <file>image/toolButton/wdm.png</file>
+        <file>image/toolButton/cable.png</file>
     </qresource>
 </RCC>

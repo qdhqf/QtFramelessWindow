@@ -62,6 +62,8 @@ private:
     bool isLeftButtonPressed;
     bool isSizedCursor;
     bool isAllowAnyDrag;
+    bool noMove;
+    double xfactor;
 
     QPoint posPressedInFrame;//m_ptDragPos;
     void handleMouseDblClickEvent(QMouseEvent *event);

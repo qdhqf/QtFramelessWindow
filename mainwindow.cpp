@@ -100,7 +100,8 @@ MainWindow::MainWindow(QWidget *parent)
     isLeftButtonPressed = false;
     isSizedCursor = false;
     isAllowAnyDrag = false;
-
+    noMove = false;
+    xfactor = 1.0;
 
     connect(ptrHeaderBar, SIGNAL(signal_min()), this, SLOT(showMinimized()));
     connect(ptrHeaderBar, SIGNAL(signal_maxrestore()), this, SLOT(showMaxRestore()));
@@ -322,7 +323,13 @@ void MainWindow::handleMousePressEvent(QMouseEvent *event)
 
         QRect frameRect = frameGeometry();
         posMousePressed.recalculate(event->globalPos(), frameRect);
+
         posPressedInFrame = event->globalPos() - frameRect.topLeft();
+        if(isMaximized()||isFullScreen()) xfactor = 1.0*posPressedInFrame.x()/frameRect.width();
+        // debug message
+        QString msg;
+        msg.setNum(xfactor);
+        ptrStatusBar->setMessage(msg);
     }
 }
 
@@ -338,6 +345,7 @@ void MainWindow::handleMouseReleaseEvent(QMouseEvent *event)
 
 void MainWindow::handleMouseMoveEvent(QMouseEvent *event)
 {
+
     if (isLeftButtonPressed)
     {
 
@@ -350,11 +358,22 @@ void MainWindow::handleMouseMoveEvent(QMouseEvent *event)
             {
                 if(isMaximized()||isFullScreen())
                  {
+                    if(isMaximized()||isFullScreen()) noMove = true;
                     this->showMaxRestore();
-                }
+                 }
                 else
                 {
-                    moveTopFrame(event->globalPos());
+                    if(!noMove)
+                    {
+                        moveTopFrame(event->globalPos());
+                    }
+                    else
+                    {
+                       QRect frameRect = frameGeometry();
+                       posPressedInFrame.setX(frameRect.width()*xfactor);
+                       moveTopFrame(event->globalPos());
+                       noMove = false;
+                    }
                 }
 
             }
@@ -367,7 +386,7 @@ void MainWindow::handleMouseMoveEvent(QMouseEvent *event)
                     }
                     else
                     {
-                        moveTopFrame(event->globalPos());
+                          moveTopFrame(event->globalPos());
                     }
                  }
     }

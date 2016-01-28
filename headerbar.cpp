@@ -54,6 +54,8 @@ void HeaderBar::CreateWidget() //创建子部件
     ptrBtnSite->setText("Building");
     ptrBtnDevice = new ToolButton(":/image/toolButton/wdm.png",this);
     ptrBtnDevice->setText("Devices");
+    ptrBtnCable = new ToolButton(":/image/toolButton/cable.png");
+    ptrBtnCable->setText("Connect");
 
     connect(ptrBtnMenu,SIGNAL(clicked()),this,SLOT(slot_btnclick()));
     connect(ptrBtnMin,SIGNAL(clicked()),this,SLOT(slot_btnclick()));
@@ -88,6 +90,8 @@ void HeaderBar::CreateLayout()  //创建设置布局
     ptrToolLayout = new QHBoxLayout();
     ptrToolLayout->addWidget(ptrBtnSite,0,Qt::AlignBottom);
     ptrToolLayout->addWidget(ptrBtnDevice,0,Qt::AlignBottom);
+    ptrToolLayout->addWidget(ptrBtnCable,0,Qt::AlignBottom);
+
     ptrToolLayout->addStretch();
     ptrToolLayout->setContentsMargins(2,2,2,2); //设置Margin
     ptrToolLayout->setSpacing(0);

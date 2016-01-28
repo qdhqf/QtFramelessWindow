@@ -19,7 +19,7 @@ ToolButton::ToolButton(QString namePix, QWidget *parent)
 	setIconSize(pixmap.size());
 
 
-    setFixedSize(pixmap.width()+30, pixmap.height()+20);//设置大小
+    setFixedSize(pixmap.width()+40, pixmap.height()+20);//设置大小
 	setAutoRaise(true);
 	setObjectName("transparentToolButton");
 
@@ -46,8 +46,21 @@ void ToolButton::mousePressEvent(QMouseEvent *event)
 {
 	if(event->button() == Qt::LeftButton)
 	{
-		emit clicked();
+        mouse_press = true;
+        update();
+        //emit clicked();
 	}
+}
+
+void ToolButton::mouseReleaseEvent(QMouseEvent *event)
+{
+
+    if(mouse_press  && this->rect().contains(event->pos())) //若点击鼠标左键
+    {
+        mouse_press = false;
+        update();
+        emit clicked();
+    }
 }
 
 void ToolButton::setMousePress(bool mouse_press)
