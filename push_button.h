@@ -12,7 +12,6 @@ public:
 	explicit PushButton(QWidget *parent = 0);
 	~PushButton();
     void setPix(QString origPix);
-     static QString dirPixBase;
 protected:
 
 	void enterEvent(QEvent *);
@@ -27,7 +26,10 @@ private:
     enum ButtonStatus{NORMAL, ENTER, PRESS, NOSTATUS}; //枚举按钮的几种状态
 	ButtonStatus status;
     QString namePixFile;
-    QPixmap pixmap;
+
+    QPixmap normPix;
+    QPixmap enterPix;
+    QPixmap pressPix;
     int btn_width; //按钮宽度
     int btn_height; //按钮高度
 	bool mouse_press; //按钮左键是否按下

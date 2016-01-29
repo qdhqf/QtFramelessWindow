@@ -4,21 +4,11 @@
         <file>image/logo.png</file>
         <file>image/main.jpg</file>
         <file>image/header.png</file>
-        <file>image/sysButton/close.png</file>
-        <file>image/sysButton/max.png</file>
-        <file>image/sysButton/menu.png</file>
-        <file>image/sysButton/min.png</file>
-        <file>image/sysButton/restore.png</file>
-        <file>image/sysButton/enter_close.png</file>
-        <file>image/sysButton/enter_max.png</file>
-        <file>image/sysButton/enter_menu.png</file>
-        <file>image/sysButton/enter_min.png</file>
-        <file>image/sysButton/enter_restore.png</file>
-        <file>image/sysButton/press_close.png</file>
-        <file>image/sysButton/press_max.png</file>
-        <file>image/sysButton/press_menu.png</file>
-        <file>image/sysButton/press_min.png</file>
-        <file>image/sysButton/press_restore.png</file>
+        <file>image/sysButton/Closes.png</file>
+        <file>image/sysButton/Maxs.png</file>
+        <file>image/sysButton/Menus.png</file>
+        <file>image/sysButton/Mins.png</file>
+        <file>image/sysButton/Restores.png</file>
         <file>image/toolButton/build.png</file>
         <file>image/toolButton/wdm.png</file>
         <file>image/toolButton/cable.png</file>

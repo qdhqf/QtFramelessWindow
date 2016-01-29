@@ -11,6 +11,7 @@ StatusBar::StatusBar(QWidget *parent):
      setPalette(pal);
 
      ptrMsg = new QLabel(this);
+     ptrMsg->setFixedWidth(300); //for testing
      ptrMsg->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
      ptrMsg->setStyleSheet("QLabel{margin-left:10px;color:white}QLabel:hover{color:#00AA00;}");
 

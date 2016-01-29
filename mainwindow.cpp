@@ -99,9 +99,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     isLeftButtonPressed = false;
     isSizedCursor = false;
-    isAllowAnyDrag = false;
-    noMove = false;
-    xfactor = 1.0;
+    isAllowAnyDrag = true;
+
+    xfactor = 1.0; yfactor = 1.0;
 
     connect(ptrHeaderBar, SIGNAL(signal_min()), this, SLOT(showMinimized()));
     connect(ptrHeaderBar, SIGNAL(signal_maxrestore()), this, SLOT(showMaxRestore()));
@@ -312,6 +312,8 @@ void MainWindow::handleMouseDblClickEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton && event->y()<= ptrHeaderBar->height())
     {
         showMaxRestore();
+        xfactor = 1.0;
+        yfactor = 1.0;
     }
  }
 
@@ -320,15 +322,22 @@ void MainWindow::handleMousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton)
     {
         isLeftButtonPressed = true;
-
+        xfactor = 1.0;
+        yfactor = 1.0;
         QRect frameRect = frameGeometry();
         posMousePressed.recalculate(event->globalPos(), frameRect);
 
         posPressedInFrame = event->globalPos() - frameRect.topLeft();
-        if(isMaximized()||isFullScreen()) xfactor = 1.0*posPressedInFrame.x()/frameRect.width();
+        if(isMaximized()||isFullScreen())
+        {
+            xfactor = 1.0*posPressedInFrame.x()/frameRect.width();
+            yfactor = 1.0*posPressedInFrame.y()/frameRect.height();
+        }
         // debug message
         QString msg;
         msg.setNum(xfactor);
+        msg += ",";
+        msg += msg.number(yfactor);
         ptrStatusBar->setMessage(msg);
     }
 }
@@ -340,6 +349,8 @@ void MainWindow::handleMouseReleaseEvent(QMouseEvent *event)
     {
         isLeftButtonPressed = false;
         posMousePressed.reset();
+        xfactor = 1.0;
+        yfactor = 1.0;
     }
 }
 
@@ -358,12 +369,12 @@ void MainWindow::handleMouseMoveEvent(QMouseEvent *event)
             {
                 if(isMaximized()||isFullScreen())
                  {
-                    if(isMaximized()||isFullScreen()) noMove = true;
+                    if(isMaximized()||isFullScreen())
                     this->showMaxRestore();
                  }
                 else
                 {
-                    if(!noMove)
+                    if(1.0 == xfactor)
                     {
                         moveTopFrame(event->globalPos());
                     }
@@ -372,7 +383,7 @@ void MainWindow::handleMouseMoveEvent(QMouseEvent *event)
                        QRect frameRect = frameGeometry();
                        posPressedInFrame.setX(frameRect.width()*xfactor);
                        moveTopFrame(event->globalPos());
-                       noMove = false;
+                       xfactor = 1.0;
                     }
                 }
 
@@ -386,7 +397,18 @@ void MainWindow::handleMouseMoveEvent(QMouseEvent *event)
                     }
                     else
                     {
-                          moveTopFrame(event->globalPos());
+                        if(1.0 == xfactor)
+                        {
+                            moveTopFrame(event->globalPos());
+                        }
+                        else
+                        {
+                           QRect frameRect = frameGeometry();
+                           posPressedInFrame.setX(frameRect.width()*xfactor);
+                           posPressedInFrame.setY(frameRect.height()*yfactor);
+                           moveTopFrame(event->globalPos());
+                           xfactor = 1.0;
+                        }
                     }
                  }
     }

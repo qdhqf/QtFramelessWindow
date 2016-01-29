@@ -8,5 +8,8 @@ class ContentWidget:public QWidget
 public:
    explicit ContentWidget(QWidget *parent = 0);
    ~ContentWidget();
+
+private:
+    QSplitter mainSplitter;
 };
 #endif // CONTENTWIDGET_H

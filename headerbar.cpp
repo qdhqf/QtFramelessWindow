@@ -22,11 +22,11 @@ void HeaderBar::updateMaxIcon(bool max)
 {
     if(max)
     {
-        if(NULL != ptrBtnMax) ptrBtnMax->setPix("restore.png");
+        if(NULL != ptrBtnMax) ptrBtnMax->setPix(":/image/sysButton/Restores.png");
     }
     else
     {
-        if(NULL != ptrBtnMax) ptrBtnMax->setPix("max.png");
+        if(NULL != ptrBtnMax) ptrBtnMax->setPix(":/image/sysButton/Maxs.png");
     }
 }
 
@@ -38,16 +38,16 @@ void HeaderBar::CreateWidget() //创建子部件
     ptrLabelIcon->setPixmap(objPixmap);
 
     ptrBtnMenu = new PushButton();
-    ptrBtnMenu->setPix("menu.png");
+    ptrBtnMenu->setPix(":/image/sysButton/Menus.png");
 
     ptrBtnMin = new PushButton();
-    ptrBtnMin->setPix("min.png");
+    ptrBtnMin->setPix(":/image/sysButton/Mins.png");
 
     ptrBtnMax = new PushButton();
-    ptrBtnMax->setPix("max.png");
+    ptrBtnMax->setPix(":/image/sysButton/Maxs.png");
 
     ptrBtnClose = new PushButton();
-    ptrBtnClose->setPix("close.png");
+    ptrBtnClose->setPix(":/image/sysButton/Closes.png");
 
     ///////Tool Button///////////////
     ptrBtnSite = new ToolButton(":/image/toolButton/build.png",this);
