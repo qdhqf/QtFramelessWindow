@@ -99,7 +99,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     isLeftButtonPressed = false;
     isSizedCursor = false;
-    isAllowAnyDrag = true;
+    isOnlyHeadDrag = true;
 
     xfactor = 1.0; yfactor = 1.0;
 
@@ -389,7 +389,7 @@ void MainWindow::handleMouseMoveEvent(QMouseEvent *event)
 
             }
             else
-                if(isAllowAnyDrag)
+                if(!isOnlyHeadDrag)
                 {
                     if(isMaximized()||isFullScreen())
                     {

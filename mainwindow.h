@@ -61,7 +61,7 @@ private:
     CursorPosCalculator posMouseMove;
     bool isLeftButtonPressed;
     bool isSizedCursor;
-    bool isAllowAnyDrag;
+    bool isOnlyHeadDrag;
 
     double xfactor;
     double yfactor;
