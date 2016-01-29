@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-# QtDirectUI
-=======
 # QtFramelessWindow
 
->>>>>>> 211e50a2a6968823da5ff2329f9491f8895820d4
 Qt FramelessWindow Customization activity,able to move, resize.   
 is studing code inspired by these two authors(almost just duplicate their code),thanks to the both.
 
