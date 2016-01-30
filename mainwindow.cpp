@@ -1,5 +1,4 @@
-# pragma warning (disable:4819)
-
+﻿
 #include "mainwindow.h"
 #include "headerbar.h"
 #include "statusbar.h"

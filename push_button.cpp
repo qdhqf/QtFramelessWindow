@@ -1,4 +1,4 @@
-# pragma warning (disable:4819)
+﻿
 
 #include "push_button.h"
 
