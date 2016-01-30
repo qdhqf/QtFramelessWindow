@@ -1,8 +1,10 @@
+# pragma warning (disable:4819)
+
 #include "mainwindow.h"
 #include "headerbar.h"
-#include "contentwidget.h"
 #include "statusbar.h"
 
+#include "tabwidget.h"
 
 //////////////Begin CursorPosCalculator//////////////
 
@@ -69,26 +71,18 @@ MainWindow::MainWindow(QWidget *parent)
     setAttribute(Qt::WA_Hover, true);
 
     ptrHeaderBar = new HeaderBar(this);//创建标题栏
-
-    ptrContentWidget = new ContentWidget(this);//创建内容区域
-    //ptrContentWidget->setStyleSheet("QWidget {border:1px solid white;}");
     ptrStatusBar = new StatusBar(this);//创建状态栏
     QString msg = "Ready";
     ptrStatusBar->setMessage(msg);
-    //ptrStatusBar->setStyleSheet("QWidget {border:0px solid black;}");
-
-    //setStyleSheet("QFrame {background-image:url(:/image/frame.jpg);border:0px solid black;}");
-/*
-    setAutoFillBackground(true);
-    QPalette pal;
-    QPixmap pix(":/image/frame.jpg");
-    pal.setBrush(backgroundRole(),QBrush(pix));
-    setPalette(pal);*/
 
     ptrMainLayout = new QVBoxLayout(this);//创建布局
-    //ptrHeaderBar->setStyleSheet("QWidget {background-image:url(:/image/header.png);border:0px solid black;}");
     ptrMainLayout->addWidget(ptrHeaderBar);//将部件加入到布局中
-    ptrMainLayout->addWidget(ptrContentWidget);
+    QSplitter *mainSplitter = new QSplitter(this);
+    TabWidget *t1 = new TabWidget();
+    TabWidget *t2 = new TabWidget();
+    mainSplitter->addWidget(t1);
+    mainSplitter->addWidget(t2);
+    ptrMainLayout->addWidget(mainSplitter);
     ptrMainLayout->addWidget(ptrStatusBar);
     //设置间距与边缘空白
     ptrMainLayout->setSpacing(0);

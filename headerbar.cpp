@@ -1,3 +1,5 @@
+# pragma warning (disable:4819)
+
 #include "headerbar.h"
 #include "mainwindow.h"
 
@@ -68,7 +70,7 @@ void HeaderBar::SetWidgetStyle()  //设置子部件样式(qss)
 {   
     setAutoFillBackground(true);
     QPalette pal;
-    QPixmap pix(":/image/header.png");
+    QPixmap pix(":/image/head.png");
     pal.setBrush(backgroundRole(),QBrush(pix));
     setPalette(pal);
 }

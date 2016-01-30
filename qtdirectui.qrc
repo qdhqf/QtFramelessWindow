@@ -1,9 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>image/frame.jpg</file>
         <file>image/logo.png</file>
-        <file>image/main.jpg</file>
-        <file>image/header.png</file>
         <file>image/sysButton/Closes.png</file>
         <file>image/sysButton/Maxs.png</file>
         <file>image/sysButton/Menus.png</file>
@@ -12,5 +9,6 @@
         <file>image/toolButton/build.png</file>
         <file>image/toolButton/wdm.png</file>
         <file>image/toolButton/cable.png</file>
+        <file>image/head.png</file>
     </qresource>
 </RCC>

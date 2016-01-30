@@ -9,7 +9,6 @@
 #define HEADER_H 80
 
 class HeaderBar;
-class ContentWidget;
 class StatusBar;
 
 class CursorPosCalculator
@@ -48,7 +47,6 @@ protected:
 
 private:
     HeaderBar       *ptrHeaderBar;
-    ContentWidget   *ptrContentWidget;
     StatusBar        *ptrStatusBar;
     QVBoxLayout     *ptrMainLayout;
 

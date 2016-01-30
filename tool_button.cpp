@@ -1,3 +1,5 @@
+# pragma warning (disable:4819)
+
 #include "tool_button.h"
 
 ToolButton::ToolButton(QString namePix, QWidget *parent)

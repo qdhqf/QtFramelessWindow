@@ -1,3 +1,4 @@
+# pragma warning (disable:4819)
 
 #ifndef SYSTEMBUTTON_H
 #define SYSTEMBUTTON_H

@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = QtDirectUI
+TARGET = TransInsight
 TEMPLATE = app
 
 
@@ -18,14 +18,17 @@ SOURCES += main.cpp\
     statusbar.cpp \
     push_button.cpp \
     tool_button.cpp \
-    contentwidget.cpp
+    tabwidget.cpp
 
 HEADERS  += mainwindow.h \
-    contentwidget.h \
     statusbar.h \
     headerbar.h \
     push_button.h \
-    tool_button.h
+    tool_button.h \
+    tabwidget.h
 
 RESOURCES += \
     qtdirectui.qrc
+
+FORMS += \
+    tabwidget.ui

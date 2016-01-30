@@ -1,3 +1,5 @@
+# pragma warning (disable:4819)
+
 #ifndef HEADERBAR_H
 #define HEADERBAR_H
 
