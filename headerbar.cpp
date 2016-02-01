@@ -85,23 +85,23 @@ void HeaderBar::CreateLayout()  //创建设置布局
     ptrTitleLayout->addWidget(ptrBtnMin, 0, Qt::AlignTop);
     ptrTitleLayout->addWidget(ptrBtnMax, 0, Qt::AlignTop);
     ptrTitleLayout->addWidget(ptrBtnClose, 0, Qt::AlignTop);
-    ptrTitleLayout->setContentsMargins(2,2,2,2); //设置Margin
+    ptrTitleLayout->setContentsMargins(0,0,0,0); //设置Margin
     ptrTitleLayout->setSpacing(0); //设置部件之间的space
 
 
     ptrToolLayout = new QHBoxLayout();
-    ptrToolLayout->addWidget(ptrBtnSite,0,Qt::AlignBottom);
-    ptrToolLayout->addWidget(ptrBtnDevice,0,Qt::AlignBottom);
-    ptrToolLayout->addWidget(ptrBtnCable,0,Qt::AlignBottom);
+    ptrToolLayout->addWidget(ptrBtnSite,0,Qt::AlignTop);
+    ptrToolLayout->addWidget(ptrBtnDevice,0,Qt::AlignTop);
+    ptrToolLayout->addWidget(ptrBtnCable,0,Qt::AlignTop);
 
     ptrToolLayout->addStretch();
-    ptrToolLayout->setContentsMargins(2,2,2,2); //设置Margin
+    ptrToolLayout->setContentsMargins(0,0,0,0); //设置Margin
     ptrToolLayout->setSpacing(0);
     ptrHeaderLayout =new QVBoxLayout(this);
 
     ptrHeaderLayout->addLayout(ptrTitleLayout);\
     ptrHeaderLayout->addLayout(ptrToolLayout);
-    ptrHeaderLayout->setContentsMargins(0,0,0,0); //设置Margin
+    ptrHeaderLayout->setContentsMargins(2,2,2,2); //设置Margin
     ptrHeaderLayout->setSpacing(0);
     setLayout(ptrHeaderLayout);
 }

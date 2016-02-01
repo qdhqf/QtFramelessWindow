@@ -1,12 +1,12 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QFrame>
 #include <QLayout>
 
 #define VALUE_DIS 5
-#define TITLE_H  30
-#define HEADER_H 80
+#define TITLE_H  20
+#define HEADER_H 70
 
 class HeaderBar;
 class StatusBar;
