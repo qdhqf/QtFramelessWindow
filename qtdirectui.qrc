@@ -10,5 +10,6 @@
         <file>image/toolButton/wdm.png</file>
         <file>image/toolButton/cable.png</file>
         <file>image/head.png</file>
+        <file>image/status.png</file>
     </qresource>
 </RCC>

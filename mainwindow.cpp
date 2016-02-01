@@ -77,10 +77,11 @@ MainWindow::MainWindow(QWidget *parent)
     ptrMainLayout = new QVBoxLayout(this);//创建布局
     ptrMainLayout->addWidget(ptrHeaderBar);//将部件加入到布局中
     QSplitter *mainSplitter = new QSplitter(this);
-    TabWidget *t1 = new TabWidget();
-    TabWidget *t2 = new TabWidget();
+    TabWidget *t1 = new TabWidget(this);
+    //TabWidget *t2 = new TabWidget(this);
+    QGraphicsView *v = new QGraphicsView(this);
     mainSplitter->addWidget(t1);
-    mainSplitter->addWidget(t2);
+    mainSplitter->addWidget(v);
     ptrMainLayout->addWidget(mainSplitter);
     ptrMainLayout->addWidget(ptrStatusBar);
     //设置间距与边缘空白

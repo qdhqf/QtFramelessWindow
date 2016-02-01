@@ -1,4 +1,4 @@
-#include "statusbar.h"
+﻿#include "statusbar.h"
 
 StatusBar::StatusBar(QWidget *parent):
     QWidget(parent)
@@ -6,7 +6,7 @@ StatusBar::StatusBar(QWidget *parent):
      setFixedHeight(28);
      setAutoFillBackground(true);
      QPalette pal;
-     QPixmap pix(":/image/header.png");
+     QPixmap pix(":/image/status.png");
      pal.setBrush(backgroundRole(),QBrush(pix));
      setPalette(pal);
 

@@ -35,20 +35,20 @@ void HeaderBar::updateMaxIcon(bool max)
 void HeaderBar::CreateWidget() //创建子部件
 {
 
-    ptrLabelIcon = new QLabel();  //图像标签--logo
+    ptrLabelIcon = new QLabel(this);  //图像标签--logo
     QPixmap objPixmap(":/image/logo.png");
     ptrLabelIcon->setPixmap(objPixmap);
 
-    ptrBtnMenu = new PushButton();
+    ptrBtnMenu = new PushButton(this);
     ptrBtnMenu->setPix(":/image/sysButton/Menus.png");
 
-    ptrBtnMin = new PushButton();
+    ptrBtnMin = new PushButton(this);
     ptrBtnMin->setPix(":/image/sysButton/Mins.png");
 
-    ptrBtnMax = new PushButton();
+    ptrBtnMax = new PushButton(this);
     ptrBtnMax->setPix(":/image/sysButton/Maxs.png");
 
-    ptrBtnClose = new PushButton();
+    ptrBtnClose = new PushButton(this);
     ptrBtnClose->setPix(":/image/sysButton/Closes.png");
 
     ///////Tool Button///////////////
@@ -56,7 +56,7 @@ void HeaderBar::CreateWidget() //创建子部件
     ptrBtnSite->setText("Building");
     ptrBtnDevice = new ToolButton(":/image/toolButton/wdm.png",this);
     ptrBtnDevice->setText("Devices");
-    ptrBtnCable = new ToolButton(":/image/toolButton/cable.png");
+    ptrBtnCable = new ToolButton(":/image/toolButton/cable.png",this);
     ptrBtnCable->setText("Connect");
 
     connect(ptrBtnMenu,SIGNAL(clicked()),this,SLOT(slot_btnclick()));
