@@ -2,7 +2,7 @@
 #include "mainwindow.h"
 #include "headerbar.h"
 #include "statusbar.h"
-
+#include "defs.h"
 #include "tabwidget.h"
 
 //////////////Begin CursorPosCalculator//////////////
@@ -96,10 +96,9 @@ MainWindow::MainWindow(QWidget *parent)
     isOnlyHeadDrag = true;
 
     xfactor = 1.0; yfactor = 1.0;
-
-    connect(ptrHeaderBar, SIGNAL(signal_min()), this, SLOT(showMinimized()));
+    connect(ptrHeaderBar, SIGNAL(signal_menu()), this, SLOT(showMenu()));
     connect(ptrHeaderBar, SIGNAL(signal_maxrestore()), this, SLOT(showMaxRestore()));
-    connect(ptrHeaderBar, SIGNAL(signal_close()), this, SLOT(close()));
+
 }
 
 MainWindow::~MainWindow()
@@ -108,6 +107,12 @@ MainWindow::~MainWindow()
     setAttribute(Qt::WA_Hover, false);
 
 }
+
+void MainWindow::showMenu()
+{
+
+}
+
 void MainWindow::showMaxRestore()
 {
     if(isMaximized()||isFullScreen())

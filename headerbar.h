@@ -4,8 +4,8 @@
 #include <QtWidgets>
 #include <QtCore>
 #include <QtGui>
-#include "push_button.h"
-#include "tool_button.h"
+#include "pushbutton.h"
+#include "toolbutton.h"
 
 class HeaderBar : public QWidget
 {
@@ -20,16 +20,16 @@ public:
     //bool eventFilter(QObject *obj, QEvent *event);//事件过滤
 
 signals:
-    void signal_min();
+    void signal_menu();
+    //void signal_min();
     void signal_maxrestore();
-    void signal_close();
+    //void signal_close();
     //void signal_popupMenu(const QPoint &pos);
 
-public slots:  
-    void slot_btnpress();
-    void slot_btnclick();//槽函数--slot_btnclick
+
 
 private:
+    QWidget *thisParent;
     QLabel *ptrLabelIcon;
 
     PushButton *ptrBtnMenu;

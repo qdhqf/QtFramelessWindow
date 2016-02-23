@@ -16,16 +16,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     headerbar.cpp \
     statusbar.cpp \
-    push_button.cpp \
-    tool_button.cpp \
-    tabwidget.cpp
+    tabwidget.cpp \
+    pushbutton.cpp \
+    toolbutton.cpp
 
 HEADERS  += mainwindow.h \
     statusbar.h \
     headerbar.h \
-    push_button.h \
-    tool_button.h \
-    tabwidget.h
+    tabwidget.h \
+    toolbutton.h \
+    pushbutton.h \
+    defs.h
 
 RESOURCES += \
     qtdirectui.qrc

@@ -4,9 +4,7 @@
 #include <QFrame>
 #include <QLayout>
 
-#define VALUE_DIS 5
-#define TITLE_H  20
-#define HEADER_H 70
+
 
 class HeaderBar;
 class StatusBar;
@@ -42,6 +40,7 @@ public:
 
 public slots:
     void showMaxRestore();
+    void showMenu();
 protected:
     bool event(QEvent *event);
 

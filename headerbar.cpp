@@ -1,7 +1,7 @@
 ﻿
 
 #include "headerbar.h"
-#include "mainwindow.h"
+#include "defs.h"
 
 
 HeaderBar::HeaderBar(QWidget *parent) :
@@ -10,6 +10,7 @@ HeaderBar::HeaderBar(QWidget *parent) :
     setFixedHeight(HEADER_H);
     setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
 
+    thisParent = parent;
     CreateWidget();
     CreateLayout();
     //CreateEventFiter();
@@ -59,10 +60,11 @@ void HeaderBar::CreateWidget() //创建子部件
     ptrBtnCable = new ToolButton(":/image/toolButton/cable.png",this);
     ptrBtnCable->setText("Connect");
 
-    connect(ptrBtnMenu,SIGNAL(clicked()),this,SLOT(slot_btnclick()));
-    connect(ptrBtnMin,SIGNAL(clicked()),this,SLOT(slot_btnclick()));
-    connect(ptrBtnMax,SIGNAL(clicked()),this,SLOT(slot_btnclick()));
-    connect(ptrBtnClose,SIGNAL(clicked()),this,SLOT(slot_btnclick()));
+    connect(ptrBtnMenu,SIGNAL(clicked()),this,SIGNAL(signal_menu()));
+    connect(ptrBtnMax,SIGNAL(clicked()),this,SIGNAL(signal_maxrestore()));
+
+    connect(ptrBtnMin,SIGNAL(clicked()),thisParent,SLOT(showMinimized()));
+    connect(ptrBtnClose,SIGNAL(clicked()),thisParent,SLOT(close()));
 }
 
 
@@ -104,44 +106,5 @@ void HeaderBar::CreateLayout()  //创建设置布局
     ptrHeaderLayout->setContentsMargins(2,2,2,2); //设置Margin
     ptrHeaderLayout->setSpacing(0);
     setLayout(ptrHeaderLayout);
-}
-
-
-
-
-void HeaderBar::slot_btnpress()   //槽函数--slot_btnpress()
-{
- /*   QToolButton *pBtn = (QToolButton*)(sender());
-    if(pBtn==ptrBtnMin)
-    {
-        emit signal_min();
-    }
-    if(pBtn==ptrBtnMax)
-    {
-        emit signal_maxrestore();
-    }
-    if(pBtn==ptrBtnClose)
-    {
-        emit signal_close();
-    }*/
-}
-
-
-
-void HeaderBar::slot_btnclick()  //槽函数--slot_btnclick
-{
-    PushButton *ptrBtn = (PushButton*)(sender());
-    if(ptrBtn==ptrBtnMin)
-    {
-        emit signal_min();
-    }
-    if(ptrBtn==ptrBtnMax)
-    {
-        emit signal_maxrestore();
-    }
-    if(ptrBtn==ptrBtnClose)
-    {
-        emit signal_close();
-    }
 }
 
