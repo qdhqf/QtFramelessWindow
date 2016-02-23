@@ -20,12 +20,11 @@ public:
     //bool eventFilter(QObject *obj, QEvent *event);//事件过滤
 
 signals:
-    void signal_menu();
-    //void signal_min();
+    void signal_menu(QPoint pt);
     void signal_maxrestore();
-    //void signal_close();
     //void signal_popupMenu(const QPoint &pos);
-
+private slots:
+    void slot_menu();
 
 
 private:

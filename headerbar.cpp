@@ -60,7 +60,7 @@ void HeaderBar::CreateWidget() //创建子部件
     ptrBtnCable = new ToolButton(":/image/toolButton/cable.png",this);
     ptrBtnCable->setText("Connect");
 
-    connect(ptrBtnMenu,SIGNAL(clicked()),this,SIGNAL(signal_menu()));
+    connect(ptrBtnMenu,SIGNAL(clicked()),this,SLOT(slot_menu()));
     connect(ptrBtnMax,SIGNAL(clicked()),this,SIGNAL(signal_maxrestore()));
 
     connect(ptrBtnMin,SIGNAL(clicked()),thisParent,SLOT(showMinimized()));
@@ -108,3 +108,8 @@ void HeaderBar::CreateLayout()  //创建设置布局
     setLayout(ptrHeaderLayout);
 }
 
+void HeaderBar::slot_menu()
+{
+    QPoint pt = QCursor::pos();
+    emit signal_menu(pt);
+}

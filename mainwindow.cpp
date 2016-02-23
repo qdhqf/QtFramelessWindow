@@ -96,7 +96,7 @@ MainWindow::MainWindow(QWidget *parent)
     isOnlyHeadDrag = true;
 
     xfactor = 1.0; yfactor = 1.0;
-    connect(ptrHeaderBar, SIGNAL(signal_menu()), this, SLOT(showMenu()));
+    connect(ptrHeaderBar, SIGNAL(signal_menu(QPoint)), this, SLOT(showMenu(QPoint)));
     connect(ptrHeaderBar, SIGNAL(signal_maxrestore()), this, SLOT(showMaxRestore()));
 
 }
@@ -108,9 +108,13 @@ MainWindow::~MainWindow()
 
 }
 
-void MainWindow::showMenu()
+void MainWindow::showMenu(QPoint pt)
 {
-
+   QMenu *m = new QMenu();
+   QAction *action_setting = new QAction(m);
+   action_setting->setIconText("Setting");
+   m->addAction(action_setting);
+   m->exec(pt);
 }
 
 void MainWindow::showMaxRestore()

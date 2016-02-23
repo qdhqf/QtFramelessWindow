@@ -40,7 +40,7 @@ public:
 
 public slots:
     void showMaxRestore();
-    void showMenu();
+    void showMenu(QPoint pt);
 protected:
     bool event(QEvent *event);
 
