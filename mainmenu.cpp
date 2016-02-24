@@ -27,7 +27,6 @@ void MainMenu::createActions()
 	//设置信号连接
 	connect(action_setting, SIGNAL(triggered()), this, SIGNAL(showSettingDialog()));
 	connect(action_about_us, SIGNAL(triggered()), this, SIGNAL(showAboutUs()));
-	connect(action_help_online, SIGNAL(triggered()), this, SLOT(showPage()));
 }
 
 void MainMenu::translateActions()
