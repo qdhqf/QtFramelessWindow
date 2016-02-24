@@ -4,6 +4,7 @@
 #include "statusbar.h"
 #include "defs.h"
 #include "tabwidget.h"
+#include "mainmenu.h"
 
 //////////////Begin CursorPosCalculator//////////////
 
@@ -110,10 +111,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::showMenu(QPoint pt)
 {
-   QMenu *m = new QMenu();
-   QAction *action_setting = new QAction(m);
-   action_setting->setIconText("Setting");
-   m->addAction(action_setting);
+   MainMenu *m = new MainMenu(this);
+
    m->exec(pt);
 }
 

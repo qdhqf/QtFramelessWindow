@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     statusbar.cpp \
     tabwidget.cpp \
     pushbutton.cpp \
-    toolbutton.cpp
+    toolbutton.cpp \
+    mainmenu.cpp
 
 HEADERS  += mainwindow.h \
     statusbar.h \
@@ -26,7 +27,8 @@ HEADERS  += mainwindow.h \
     tabwidget.h \
     toolbutton.h \
     pushbutton.h \
-    defs.h
+    defs.h \
+    mainmenu.h
 
 RESOURCES += \
     qtdirectui.qrc
