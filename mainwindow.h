@@ -1,9 +1,10 @@
-﻿#ifndef MAINWINDOW_H
+#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QFrame>
 #include <QLayout>
-
+#include "database.h"
+#include <QtSql>
 
 
 class HeaderBar;
@@ -17,12 +18,12 @@ public:
     void recalculate(const QPoint &globalMousePos, const QRect &frameRect);
 
 public:
-    bool isOnEdge              : true;
-    bool isOnLeftEdge           : true;
-    bool isOnRightEdge          : true;
-    bool isOnTopEdge            : true;
-    bool isOnBottomEdge         : true;
-    bool isOnLeftTopCorner      : true;
+    bool isOnEdge                 : true;
+    bool isOnLeftEdge             : true;
+    bool isOnRightEdge            : true;
+    bool isOnTopEdge              : true;
+    bool isOnBottomEdge           : true;
+    bool isOnLeftTopCorner        : true;
     bool isOnLeftBottomCorner     : true;
     bool isOnRightTopCorner       : true;
     bool isOnRightBottomCorner    : true;
@@ -48,7 +49,7 @@ private:
     HeaderBar       *ptrHeaderBar;
     StatusBar        *ptrStatusBar;
     QVBoxLayout     *ptrMainLayout;
-
+    DataLayer        db;
 
  //Resize Move handling related staffs
     void updateSizedCursor(const QPoint &gMousePos);

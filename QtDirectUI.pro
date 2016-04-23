@@ -4,8 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-
+QT       += core gui sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = TransInsight
@@ -19,7 +18,8 @@ SOURCES += main.cpp\
     tabwidget.cpp \
     pushbutton.cpp \
     toolbutton.cpp \
-    mainmenu.cpp
+    mainmenu.cpp \
+    database.cpp
 
 HEADERS  += mainwindow.h \
     statusbar.h \
@@ -28,7 +28,8 @@ HEADERS  += mainwindow.h \
     toolbutton.h \
     pushbutton.h \
     defs.h \
-    mainmenu.h
+    mainmenu.h \
+    database.h
 
 RESOURCES += \
     qtdirectui.qrc

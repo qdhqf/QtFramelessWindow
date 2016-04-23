@@ -99,7 +99,7 @@ MainWindow::MainWindow(QWidget *parent)
     xfactor = 1.0; yfactor = 1.0;
     connect(ptrHeaderBar, SIGNAL(signal_menu(QPoint)), this, SLOT(showMenu(QPoint)));
     connect(ptrHeaderBar, SIGNAL(signal_maxrestore()), this, SLOT(showMaxRestore()));
-
+    db.initdbcon();
 }
 
 MainWindow::~MainWindow()
