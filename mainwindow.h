@@ -20,10 +20,11 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void paintEvent(QPaintEvent *event);
+    void changeEvent(QEvent *e);
 
 public slots:
     void showMenu(QPoint pt);
-
+    void showMaxRestore();
 private:
     HeaderBar       *ptrHeaderBar;
     StatusBar        *ptrStatusBar;

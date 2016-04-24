@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     ptrMainLayout->addWidget(ptrHeaderBar);//将部件加入到布局中
     QSplitter *mainSplitter = new QSplitter(this);
     TabWidget *t1 = new TabWidget(this);
-    //TabWidget *t2 = new TabWidget(this);
+
     QGraphicsView *v = new QGraphicsView(this);
     mainSplitter->addWidget(t1);
     mainSplitter->addWidget(v);
@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     FramelessHelper *pHelper = new FramelessHelper(this);
     pHelper->activateOn(this);  //激活当前窗体
+    pHelper->setBorderWidth(VALUE_DIS);
     pHelper->setTitleHeight(HEADER_H);  //设置窗体的标题栏高度
     pHelper->setWidgetMovable(true);  //设置窗体可移动
     pHelper->setWidgetResizable(true);  //设置窗体可缩放
@@ -58,6 +59,33 @@ void MainWindow::showMenu(QPoint pt)
 {
    MainMenu *m = new MainMenu(this);
    m->exec(pt);
+}
+
+void MainWindow::showMaxRestore()
+{
+    if(isMaximized()||isFullScreen())
+    {
+        this->showNormal();
+    }
+    else
+    {
+        this->showMaximized();
+    }
+}
+
+void MainWindow::changeEvent(QEvent *e)
+{
+    if(e->type() == QEvent::WindowStateChange)
+    {
+        if(isMaximized()||isFullScreen())
+        {
+            ptrHeaderBar->updateMaxIcon();
+        }
+        else
+        {
+            ptrHeaderBar->updateMaxIcon(false);
+        }
+    }
 }
 
 
