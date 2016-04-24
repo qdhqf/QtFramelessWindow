@@ -94,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     isLeftButtonPressed = false;
     isSizedCursor = false;
-    isOnlyHeadDrag = true;
+   // isOnlyHeadDrag = true;
 
     xfactor = 1.0; yfactor = 1.0;
     connect(ptrHeaderBar, SIGNAL(signal_menu(QPoint)), this, SLOT(showMenu(QPoint)));
@@ -388,31 +388,7 @@ void MainWindow::handleMouseMoveEvent(QMouseEvent *event)
                        xfactor = 1.0;
                     }
                 }
-
             }
-            else
-                if(!isOnlyHeadDrag)
-                {
-                    if(isMaximized()||isFullScreen())
-                    {
-                        this->showMaxRestore();
-                    }
-                    else
-                    {
-                        if(1.0 == xfactor)
-                        {
-                            moveTopFrame(event->globalPos());
-                        }
-                        else
-                        {
-                           QRect frameRect = frameGeometry();
-                           posPressedInFrame.setX(frameRect.width()*xfactor);
-                           posPressedInFrame.setY(frameRect.height()*yfactor);
-                           moveTopFrame(event->globalPos());
-                           xfactor = 1.0;
-                        }
-                    }
-                 }
     }
     else
     {

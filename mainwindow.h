@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QFrame>
@@ -59,7 +59,7 @@ private:
     CursorPosCalculator posMouseMove;
     bool isLeftButtonPressed;
     bool isSizedCursor;
-    bool isOnlyHeadDrag;
+
 
     double xfactor;
     double yfactor;
