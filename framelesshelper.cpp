@@ -1,7 +1,4 @@
-﻿#include <QRect>
-#include <QApplication>
-#include <QtGui>
-#include <QtWidgets>
+﻿#include <QtWidgets>
 #include "framelesshelper.h"
 
 
