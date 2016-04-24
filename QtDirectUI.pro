@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     pushbutton.cpp \
     toolbutton.cpp \
     mainmenu.cpp \
-    database.cpp
+    database.cpp \
+    framelesshelper.cpp
 
 HEADERS  += mainwindow.h \
     statusbar.h \
@@ -29,7 +30,8 @@ HEADERS  += mainwindow.h \
     pushbutton.h \
     defs.h \
     mainmenu.h \
-    database.h
+    database.h \
+    framelesshelper.h
 
 RESOURCES += \
     qtdirectui.qrc

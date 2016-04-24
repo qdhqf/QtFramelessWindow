@@ -50,7 +50,7 @@ void ToolButton::mousePressEvent(QMouseEvent *event)
 	{
         mouse_press = true;
         update();
-        //emit clicked();
+        emit clicked();
 	}
 }
 
