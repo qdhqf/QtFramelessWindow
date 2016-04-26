@@ -11,5 +11,6 @@
         <file>image/toolButton/cable.png</file>
         <file>image/head.png</file>
         <file>image/status.png</file>
+        <file>image/background.png</file>
     </qresource>
 </RCC>

@@ -7,6 +7,12 @@
 #include "mainmenu.h"
 #include "framelesshelper.h"
 
+
+#include "myitem.h"
+#include "myview.h"
+#include "myscene.h"
+#include <QTime>
+
 MainWindow::MainWindow(QWidget *parent)
     : QFrame(parent)
 {
@@ -25,9 +31,27 @@ MainWindow::MainWindow(QWidget *parent)
     QSplitter *mainSplitter = new QSplitter(this);
     TabWidget *t1 = new TabWidget(this);
 
-    QGraphicsView *v = new QGraphicsView(this);
+    MyScene *scene = new MyScene();
+    scene->setSceneRect(-200, -150, 400, 300);
+    for(int i = 0; i < 5; ++i) {
+        MyItem *item = new MyItem;
+        item->setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256));
+        item->setPos(i * 50 - 90, -50);
+        scene->addItem(item);
+    }
+
+
+    MyView *v =new MyView(this);
+    v->setScene(scene);
+    v->setBackgroundBrush(QPixmap(":image/background.png"));
+    //view.show();
+
+    //QGraphicsView *v = new QGraphicsView(this);
     mainSplitter->addWidget(t1);
     mainSplitter->addWidget(v);
+    mainSplitter->setStretchFactor(0,20);
+    mainSplitter->setStretchFactor(1,80);
+    mainSplitter->setAutoFillBackground(true);
     ptrMainLayout->addWidget(mainSplitter);
     ptrMainLayout->addWidget(ptrStatusBar);
     //设置间距与边缘空白

@@ -20,7 +20,10 @@ SOURCES += main.cpp\
     toolbutton.cpp \
     mainmenu.cpp \
     database.cpp \
-    framelesshelper.cpp
+    framelesshelper.cpp \
+    myitem.cpp \
+    myscene.cpp \
+    myview.cpp
 
 HEADERS  += mainwindow.h \
     statusbar.h \
@@ -31,7 +34,10 @@ HEADERS  += mainwindow.h \
     defs.h \
     mainmenu.h \
     database.h \
-    framelesshelper.h
+    framelesshelper.h \
+    myitem.h \
+    myscene.h \
+    myview.h
 
 RESOURCES += \
     qtdirectui.qrc
