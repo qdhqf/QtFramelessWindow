@@ -1,4 +1,4 @@
-#include "myview.h"
+﻿#include "myview.h"
 #include <QKeyEvent>
 
 MyView::MyView(QWidget *parent) :

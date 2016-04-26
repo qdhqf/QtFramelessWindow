@@ -1,4 +1,4 @@
-#include "myscene.h"
+﻿#include "myscene.h"
 
 MyScene::MyScene(QObject *parent) :
     QGraphicsScene(parent)

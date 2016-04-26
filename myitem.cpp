@@ -1,4 +1,4 @@
-#include "myitem.h"
+ï»¿#include "myitem.h"
 #include <QPainter>
 #include <QCursor>
 #include <QKeyEvent>
@@ -36,7 +36,7 @@ void MyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawRect(-10, -10, 20, 20);
 }
 
-// Êó±ê°´ÏÂÊÂ¼ş´¦Àíº¯Êı£¬ÉèÖÃ±»µã»÷µÄÍ¼ĞÎÏî»ñµÃ½¹µã£¬²¢¸Ä±ä¹â±êÍâ¹Û
+// é¼ æ ‡æŒ‰ä¸‹äº‹ä»¶å¤„ç†å‡½æ•°ï¼Œè®¾ç½®è¢«ç‚¹å‡»çš„å›¾å½¢é¡¹è·å¾—ç„¦ç‚¹ï¼Œå¹¶æ”¹å˜å…‰æ ‡å¤–è§‚
 void MyItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
@@ -45,7 +45,7 @@ void MyItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
     setCursor(Qt::ClosedHandCursor);
 }
 
-// ¼üÅÌ°´ÏÂÊÂ¼ş´¦Àíº¯Êı£¬ÅĞ¶ÏÊÇ·ñÊÇÏòÏÂ·½Ïò¼ü£¬Èç¹ûÊÇ£¬ÔòÏòÏÂÒÆ¶¯Í¼ĞÎÏî
+// é”®ç›˜æŒ‰ä¸‹äº‹ä»¶å¤„ç†å‡½æ•°ï¼Œåˆ¤æ–­æ˜¯å¦æ˜¯å‘ä¸‹æ–¹å‘é”®ï¼Œå¦‚æœæ˜¯ï¼Œåˆ™å‘ä¸‹ç§»åŠ¨å›¾å½¢é¡¹
 void MyItem::keyPressEvent(QKeyEvent *event)
 {
     qDebug("************MyItem::keyPressEvent*****************");
@@ -53,7 +53,7 @@ void MyItem::keyPressEvent(QKeyEvent *event)
         moveBy(0, 10);
 }
 
-// ĞüÍ£ÊÂ¼ş´¦Àíº¯Êı£¬ÉèÖÃ¹â±êÍâ¹ÛºÍÌáÊ¾
+// æ‚¬åœäº‹ä»¶å¤„ç†å‡½æ•°ï¼Œè®¾ç½®å…‰æ ‡å¤–è§‚å’Œæç¤º
 void MyItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
      Q_UNUSED(event)
@@ -70,7 +70,7 @@ void MyItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 }
 
 
-// ÓÒ¼ü²Ëµ¥ÊÂ¼ş´¦Àíº¯Êı£¬ÎªÍ¼ĞÎÏîÌí¼ÓÒ»¸öÓÒ¼ü²Ëµ¥
+// å³é”®èœå•äº‹ä»¶å¤„ç†å‡½æ•°ï¼Œä¸ºå›¾å½¢é¡¹æ·»åŠ ä¸€ä¸ªå³é”®èœå•
 void MyItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
     QMenu menu;

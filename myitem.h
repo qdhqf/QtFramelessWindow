@@ -1,4 +1,4 @@
-#ifndef MYITEM_H
+﻿#ifndef MYITEM_H
 #define MYITEM_H
 
 #include <QtWidgets>

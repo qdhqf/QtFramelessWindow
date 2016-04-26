@@ -1,4 +1,4 @@
-#ifndef MYSCENE_H
+﻿#ifndef MYSCENE_H
 #define MYSCENE_H
 
 #include <QGraphicsScene>
