@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     framelesshelper.cpp \
     myitem.cpp \
     myscene.cpp \
-    myview.cpp
+    myview.cpp \
+    nodeitem.cpp
 
 HEADERS  += mainwindow.h \
     statusbar.h \
@@ -37,7 +38,8 @@ HEADERS  += mainwindow.h \
     framelesshelper.h \
     myitem.h \
     myscene.h \
-    myview.h
+    myview.h \
+    nodeitem.h
 
 RESOURCES += \
     qtdirectui.qrc

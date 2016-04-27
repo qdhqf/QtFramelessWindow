@@ -8,7 +8,8 @@
 #include "framelesshelper.h"
 
 
-#include "myitem.h"
+//#include "myitem.h"
+#include "nodeitem.h"
 #include "myview.h"
 #include "myscene.h"
 #include <QTime>
@@ -33,12 +34,20 @@ MainWindow::MainWindow(QWidget *parent)
 
     MyScene *scene = new MyScene();
     scene->setSceneRect(-200, -150, 400, 300);
-    for(int i = 0; i < 5; ++i) {
+  /*  for(int i = 0; i < 5; ++i) {
         MyItem *item = new MyItem;
         item->setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256));
         item->setPos(i * 50 - 90, -50);
         scene->addItem(item);
-    }
+    }*/
+
+    NodeItem *item = new NodeItem();
+
+   /* QGraphicsPixmapItem *item = new QGraphicsPixmapItem(QPixmap(":/image/NodeIcon/OTN.png"));
+    item->setFlags(QGraphicsItem::ItemIsFocusable);
+    item->setFlags(QGraphicsItem::ItemIsMovable);*/
+    item->setPos( - 90, -50);
+    scene->addItem(item);
 
 
     MyView *v =new MyView(this);

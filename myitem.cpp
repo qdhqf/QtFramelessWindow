@@ -18,7 +18,7 @@ QRectF MyItem::boundingRect() const
 {
     qreal adjust = 0.5;
     return QRectF(-10 - adjust, -10 - adjust,
-                  20 + adjust, 20 + adjust);
+                  50 + adjust, 50 + adjust);
 }
 
 void MyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -33,7 +33,9 @@ void MyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->setPen(QPen(QColor(100,100,100,100)));
     }
     painter->setBrush(brushColor);
-    painter->drawRect(-10, -10, 20, 20);
+    painter->drawRect(-10, -10, 50, 50);
+
+    painter->drawText(QRectF(0,0,30,30),/*Qt::TextWrapAnywhere*/Qt::TextWordWrap,"超级长的中文网元名称如何处理");
 }
 
 // 鼠标按下事件处理函数，设置被点击的图形项获得焦点，并改变光标外观

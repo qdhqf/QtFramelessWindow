@@ -12,5 +12,10 @@
         <file>image/head.png</file>
         <file>image/status.png</file>
         <file>image/background.png</file>
+        <file>image/NodeIcon/OLA.png</file>
+        <file>image/NodeIcon/OTN.png</file>
+        <file>image/NodeIcon/OTN2LEFT.png</file>
+        <file>image/NodeIcon/OTN2RIGHT.png</file>
+        <file>image/NodeIcon/ROUTER.png</file>
     </qresource>
 </RCC>
