@@ -34,12 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     NetTopoScene *scene = new NetTopoScene();
     scene->setSceneRect(-200, -150, 400, 300);
-  /*  for(int i = 0; i < 5; ++i) {
-        MyItem *item = new MyItem;
-        item->setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256));
-        item->setPos(i * 50 - 90, -50);
-        scene->addItem(item);
-    }*/
+
 
     NodeItem *item = new NodeItem();
 
