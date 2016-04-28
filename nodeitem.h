@@ -3,15 +3,15 @@
 
 #include <QtWidgets>
 
-class NodeItem : public QGraphicsItem
+class NodeItem : public QGraphicsPixmapItem
 {
 public:
     NodeItem();
-
-   QRectF boundingRect() const;
-     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+    void setMyText(QString &text);
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                   QWidget *widget);
-   /* void setColor(const QColor &color) { brushColor = color; }
+    void setColor(const QColor &color) { brushColor = color; }
 
 protected:
     void keyPressEvent(QKeyEvent *event);
@@ -19,11 +19,10 @@ protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
     void hoverLeaveEvent (QGraphicsSceneHoverEvent * event);
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);*/
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 private:
     QColor brushColor;
-    QGraphicsPixmapItem *pix;
-    QGraphicsTextItem *text;
+    QString nodeText;
 };
 
 

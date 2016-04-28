@@ -1,16 +1,16 @@
-﻿#ifndef MYSCENE_H
-#define MYSCENE_H
+﻿#ifndef NetTopoScene_H
+#define NetTopoScene_H
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QPaintEvent>
 #include <QKeyEvent>
 
-class MyScene : public QGraphicsScene
+class NetTopoScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    explicit MyScene(QObject *parent = 0);
+    explicit NetTopoScene(QObject *parent = 0);
 
 protected:
     void keyPressEvent(QKeyEvent *event);
@@ -22,4 +22,4 @@ public slots:
 
 };
 
-#endif // MYSCENE_H
+#endif // NetTopoScene_H

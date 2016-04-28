@@ -10,8 +10,8 @@
 
 //#include "myitem.h"
 #include "nodeitem.h"
-#include "myview.h"
-#include "myscene.h"
+#include "nettopoview.h"
+#include "nettoposcene.h"
 #include <QTime>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
     QSplitter *mainSplitter = new QSplitter(this);
     TabWidget *t1 = new TabWidget(this);
 
-    MyScene *scene = new MyScene();
+    NetTopoScene *scene = new NetTopoScene();
     scene->setSceneRect(-200, -150, 400, 300);
   /*  for(int i = 0; i < 5; ++i) {
         MyItem *item = new MyItem;
@@ -50,7 +50,7 @@ MainWindow::MainWindow(QWidget *parent)
     scene->addItem(item);
 
 
-    MyView *v =new MyView(this);
+    NetTopoView *v =new NetTopoView(this);
     v->setScene(scene);
     v->setBackgroundBrush(QPixmap(":image/background.png"));
     //view.show();

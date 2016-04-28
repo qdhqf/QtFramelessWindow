@@ -21,10 +21,9 @@ SOURCES += main.cpp\
     mainmenu.cpp \
     database.cpp \
     framelesshelper.cpp \
-    myitem.cpp \
-    myscene.cpp \
-    myview.cpp \
-    nodeitem.cpp
+    nodeitem.cpp \
+    nettopoview.cpp \
+    nettoposcene.cpp
 
 HEADERS  += mainwindow.h \
     statusbar.h \
@@ -36,10 +35,9 @@ HEADERS  += mainwindow.h \
     mainmenu.h \
     database.h \
     framelesshelper.h \
-    myitem.h \
-    myscene.h \
-    myview.h \
-    nodeitem.h
+    nodeitem.h \
+    nettopoview.h \
+    nettoposcene.h
 
 RESOURCES += \
     qtdirectui.qrc

@@ -1,13 +1,13 @@
-﻿#ifndef MYVIEW_H
-#define MYVIEW_H
+﻿#ifndef NetTopoView_H
+#define NetTopoView_H
 
 #include <QGraphicsView>
 
-class MyView : public QGraphicsView
+class NetTopoView : public QGraphicsView
 {
     Q_OBJECT
 public:
-    explicit MyView(QWidget *parent = 0);
+    explicit NetTopoView(QWidget *parent = 0);
 
 protected:
     void keyPressEvent(QKeyEvent *event);
@@ -20,4 +20,4 @@ public slots:
 
 };
 
-#endif // MYVIEW_H
+#endif // NetTopoView_H
