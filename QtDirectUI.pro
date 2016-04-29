@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     framelesshelper.cpp \
     nodeitem.cpp \
     nettopoview.cpp \
-    nettoposcene.cpp
+    nettoposcene.cpp \
+    portlinkitem.cpp
 
 HEADERS  += mainwindow.h \
     statusbar.h \
@@ -37,7 +38,8 @@ HEADERS  += mainwindow.h \
     framelesshelper.h \
     nodeitem.h \
     nettopoview.h \
-    nettoposcene.h
+    nettoposcene.h \
+    portlinkitem.h
 
 RESOURCES += \
     qtdirectui.qrc

@@ -12,6 +12,7 @@
 #include "nodeitem.h"
 #include "nettopoview.h"
 #include "nettoposcene.h"
+#include "portlinkitem.h"
 #include <QTime>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -43,7 +44,12 @@ MainWindow::MainWindow(QWidget *parent)
     item->setFlags(QGraphicsItem::ItemIsMovable);*/
     item->setPos( - 90, -50);
     scene->addItem(item);
+    NodeItem *item1 = new NodeItem();
+    item1->setPos( 90, -50);
+    scene->addItem(item1);
 
+    PortLinkItem *link = new PortLinkItem(item,item1);
+    scene->addItem(link);
 
     NetTopoView *v =new NetTopoView(this);
     v->setScene(scene);

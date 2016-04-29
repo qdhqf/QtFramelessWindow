@@ -1,4 +1,5 @@
 ﻿#include "nodeitem.h"
+#include "portlinkitem.h"
 
 NodeItem::NodeItem()
 {
@@ -6,7 +7,7 @@ NodeItem::NodeItem()
     setFlag(QGraphicsItem::ItemIsMovable);
     setAcceptHoverEvents(true);
     setPixmap(QPixmap(":/image/NodeIcon/OTN.png"));
-    nodeText =  QStringLiteral("网元名称:UNKNOW");
+    nodeText =  QStringLiteral("ITMC(中蒙)-N-二连浩特廉租楼-H-OTM/6853-ITMC(中蒙)-N-二连浩特廉租楼-H-OTM");
 }
 
 void NodeItem::setMyText(QString &text)
@@ -17,7 +18,7 @@ void NodeItem::setMyText(QString &text)
 QRectF NodeItem::boundingRect() const
 {
     QRect rect = this->pixmap().rect();
-    return QRectF(-10,0,rect.width()+20,rect.height()+20);
+    return QRectF(-10-rect.width()/2.0,-rect.height()/2.0,rect.width()+20,rect.height()+50);
 }
 
 void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -28,7 +29,7 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     QPixmap pixmap = this->pixmap();
     QRect rect = pixmap.rect();
 
-    painter->drawPixmap(rect,pixmap);
+    painter->drawPixmap(-rect.width()/2.0,-rect.height()/2.0,pixmap);
 
 
     //print name,calculate the text's heigh & width for center layout
@@ -39,7 +40,7 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->setFont(font);
 
     QFontMetrics fm(font);
-    QString str = fm.elidedText(nodeText, /*Qt::TextElideMode*/Qt::ElideRight, rect.width()+20);
+    QString str = fm.elidedText(nodeText, /*Qt::TextElideMode*/Qt::ElideRight, 3*(rect.width()+20)-10);
     /*
     enum Qt::TextElideMode
             Constant	Value	Description
@@ -47,7 +48,7 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             Qt::ElideRight	1	The ellipsis should appear at the end of the text.
             Qt::ElideMiddle	2	The ellipsis should appear in the middle of the text.
             Qt::ElideNone	3	Ellipsis should NOT appear in the text.*/
-    painter->drawText(QRectF(-10,rect.height()+5,rect.width()+20,15),Qt::AlignLeft|Qt::TextWrapAnywhere/*Qt::TextWordWrap*/,str);
+    painter->drawText(QRectF(-10-rect.width()/2.0,rect.height()/2.0+5,rect.width()+20,45),Qt::AlignLeft|Qt::TextWrapAnywhere/*Qt::TextWordWrap*/,str);
 
  /*   if (option->state & QStyle::State_Sunken)
     {
@@ -84,7 +85,7 @@ void NodeItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
      Q_UNUSED(event)
     qDebug("************MyItem::hoverEnterEvent*****************");
     setCursor(Qt::OpenHandCursor);
-    setToolTip("I am item");
+    setToolTip(nodeText);
 }
 
 void NodeItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
@@ -114,3 +115,17 @@ void NodeItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseMoveEvent(event);
 }
 
+QVariant NodeItem::itemChange(GraphicsItemChange change, const QVariant &value)
+{
+    if (change == QGraphicsItem::ItemPositionChange) {
+        foreach (PortLinkItem *link, links) {
+            link->updatePosition();
+        }
+    }
+
+    return value;
+}
+void NodeItem::addLink(PortLinkItem *link)
+{
+    links.append(link);
+}

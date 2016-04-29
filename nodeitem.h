@@ -3,11 +3,14 @@
 
 #include <QtWidgets>
 
+class PortLinkItem;
+
 class NodeItem : public QGraphicsPixmapItem
 {
 public:
     NodeItem();
     void setMyText(QString &text);
+    void addLink(PortLinkItem *link);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                   QWidget *widget);
@@ -20,9 +23,11 @@ protected:
     void hoverLeaveEvent (QGraphicsSceneHoverEvent * event);
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value) Q_DECL_OVERRIDE;
 private:
     QColor brushColor;
     QString nodeText;
+    QList<PortLinkItem *> links;
 };
 
 
