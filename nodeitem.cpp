@@ -22,6 +22,17 @@ QRectF NodeItem::boundingRect() const
     return QRectF(-10-rect.width()/2.0,-rect.height()/2.0,rect.width()+20,rect.height()+50);
 }
 
+QPainterPath NodeItem::shape() const
+{
+    QRectF r = this->pixmap().rect();
+    QRectF shaperect;
+    shaperect.setCoords(-r.width()/2.0-10,-r.height()/2.0-5,r.width()/2.0+10,r.height()/2.0+5);
+
+    QPainterPath p;
+    p.addRect(shaperect);
+    return p;
+}
+
 void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                    QWidget *widget)
 {
@@ -50,7 +61,7 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             Qt::ElideMiddle	2	The ellipsis should appear in the middle of the text.
             Qt::ElideNone	3	Ellipsis should NOT appear in the text.*/
     painter->drawText(QRectF(-10-rect.width()/2.0,rect.height()/2.0+5,rect.width()+20,45),Qt::AlignLeft|Qt::TextWrapAnywhere/*Qt::TextWordWrap*/,str);
-
+    //painter->drawPath(shape());
  /*   if (option->state & QStyle::State_Sunken)
     {
         QRectF rect1 = boundingRect();
@@ -102,11 +113,11 @@ void NodeItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 void NodeItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
     QMenu menu;
-    QAction *moveAction = menu.addAction("move back");
-    QAction *actAction = menu.addAction("test");
+    QAction *moveAction = menu.addAction(QStringLiteral("相关circuit"));
+    QAction *actAction = menu.addAction(QStringLiteral("网元属性"));
     QAction *selectedAction = menu.exec(event->screenPos());
     if(selectedAction == moveAction) {
-        setPos(0, 0);
+        //setPos(0, 0);
     }
      Q_UNUSED(actAction)
 }

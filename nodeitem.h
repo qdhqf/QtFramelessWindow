@@ -12,6 +12,7 @@ public:
     void setMyText(QString &text);
     void addLink(PortLinkItem *link);
     QRectF boundingRect() const;
+    QPainterPath shape() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                   QWidget *widget);
     void setColor(const QColor &color) { brushColor = color; }
