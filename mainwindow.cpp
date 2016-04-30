@@ -37,20 +37,31 @@ MainWindow::MainWindow(QWidget *parent)
     scene->setSceneRect(-200, -150, 400, 300);
 
 
-    NodeItem *item = new NodeItem();
+    NodeItem *item1 = new NodeItem();
 
    /* QGraphicsPixmapItem *item = new QGraphicsPixmapItem(QPixmap(":/image/NodeIcon/OTN.png"));
     item->setFlags(QGraphicsItem::ItemIsFocusable);
     item->setFlags(QGraphicsItem::ItemIsMovable);*/
-    item->setPos( - 90, -50);
-    scene->addItem(item);
-    NodeItem *item1 = new NodeItem();
-    item1->setPos( 90, -50);
+    item1->setPos( - 90, -50);
     scene->addItem(item1);
+    NodeItem *item2 = new NodeItem();
+    item2->setPos( 90, -50);
+    scene->addItem(item2);
 
-    PortLinkItem *link = new PortLinkItem(item,item1);
-    scene->addItem(link);
+    NodeItem *item3 = new NodeItem();
+    item3->setPos( 0, 100);
+    scene->addItem(item3);
 
+
+    PortLinkItem *link1 = new PortLinkItem(item1,item2);
+    scene->addItem(link1);
+
+    PortLinkItem *link2 = new PortLinkItem(item1,item3);
+    scene->addItem(link2);
+
+    PortLinkItem *link3 = new PortLinkItem(item2,item3);
+    scene->addItem(link3);
+    //scene->clearSelection();
     NetTopoView *v =new NetTopoView(this);
     v->setScene(scene);
     v->setBackgroundBrush(QPixmap(":image/background.png"));

@@ -14,6 +14,7 @@ protected:
     void mousePressEvent(QMouseEvent *event);
     void paintEvent(QPaintEvent * event);
     void mouseMoveEvent(QMouseEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event);
 signals:
 
 public slots:

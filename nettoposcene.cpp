@@ -1,4 +1,6 @@
 ﻿#include "nettoposcene.h"
+#include <QMenu>
+
 
 NetTopoScene::NetTopoScene(QObject *parent) :
     QGraphicsScene(parent)
@@ -16,4 +18,18 @@ void NetTopoScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug("*********NetTopoScene::mousePressEvent***************");
     QGraphicsScene::mousePressEvent(event);
+}
+
+void NetTopoScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug("*********NetTopoScene::mousePressEvent***************");
+    QGraphicsScene::mousePressEvent(event);
+}
+
+void NetTopoScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+{
+    QMenu menu;
+    QAction *moveAction = menu.addAction(QStringLiteral("添加网元"));
+    QAction *actAction = menu.addAction(QStringLiteral("添加连接"));
+    QGraphicsScene::contextMenuEvent(event);
 }

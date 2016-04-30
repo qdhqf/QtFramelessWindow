@@ -16,12 +16,14 @@ PortLinkItem::PortLinkItem(NodeItem *startItem, NodeItem *endItem, QGraphicsItem
     updatePosition();
     startItem->addLink(this);
     endItem->addLink(this);
+
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFlag(QGraphicsItem::ItemIsSelectable);
-    setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+
     setAcceptHoverEvents(true);
     myColor = Qt::black;
-    setPen(QPen(myColor, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    setPen(QPen(myColor, 4, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     setZValue(-100.0);
     setSelected(false);
 }
@@ -46,13 +48,13 @@ PortLinkItem::PortLinkItem(NodeItem *startItem, NodeItem *endItem, QGraphicsItem
 void PortLinkItem::updatePosition()
 {
     QLineF line(mapFromItem(myStartItem, 0, 0), mapFromItem(myEndItem, 0, 0));
-    setSelected(false);
     setLine(line);
 }
 
 
 void PortLinkItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
+   setSelected(true);
     QMenu menu;
     QAction *moveAction = menu.addAction(QStringLiteral("查看相关电路"));
     QAction *actAction = menu.addAction(QStringLiteral("属性"));
@@ -60,7 +62,7 @@ void PortLinkItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
     if(selectedAction == moveAction) {
         setPos(0, 0);
     }
-    setSelected(true);
+
      Q_UNUSED(actAction)
 }
 
@@ -70,8 +72,6 @@ void PortLinkItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
     qDebug("************PortLinkItem::mousePressEvent*****************");
     setFocus();
     //setCursor(Qt::ClosedHandCursor);
-    setSelected(true);
-    update();
 }
 
 

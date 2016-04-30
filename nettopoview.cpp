@@ -1,5 +1,6 @@
 ﻿#include "nettopoview.h"
 #include <QKeyEvent>
+#include <QMenu>
 
 NetTopoView::NetTopoView(QWidget *parent) :
     QGraphicsView(parent)
@@ -42,3 +43,10 @@ void NetTopoView::mouseMoveEvent(QMouseEvent *event)
     QGraphicsView::mouseMoveEvent(event);
 }
 
+void NetTopoView::contextMenuEvent(QContextMenuEvent *event)
+{
+    /*QMenu menu;
+    QAction *moveAction = menu.addAction(QStringLiteral("添加网元"));
+    QAction *actAction = menu.addAction(QStringLiteral("添加连接"));*/
+    QGraphicsView::contextMenuEvent(event);
+}

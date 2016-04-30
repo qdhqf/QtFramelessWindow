@@ -5,8 +5,10 @@ NodeItem::NodeItem()
 {
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFlag(QGraphicsItem::ItemIsMovable);
-    setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges);// 非常重要，没有这个，移动item时link不会跟着变
+    setFlag(QGraphicsItem::ItemIsSelectable);
     setAcceptHoverEvents(true);
+
     setPixmap(QPixmap(":/image/NodeIcon/OTN.png"));
     nodeText =  QStringLiteral("ITMC(中蒙)-N-二连浩特廉租楼-H-OTM/6853-ITMC(中蒙)-N-二连浩特廉租楼-H-OTM");
 }
@@ -61,16 +63,11 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             Qt::ElideMiddle	2	The ellipsis should appear in the middle of the text.
             Qt::ElideNone	3	Ellipsis should NOT appear in the text.*/
     painter->drawText(QRectF(-10-rect.width()/2.0,rect.height()/2.0+5,rect.width()+20,45),Qt::AlignLeft|Qt::TextWrapAnywhere/*Qt::TextWordWrap*/,str);
-    //painter->drawPath(shape());
- /*   if (option->state & QStyle::State_Sunken)
+    if (isSelected())
     {
-        QRectF rect1 = boundingRect();
-        //QPen pen(Qt::darkGreen);
-        painter->setPen(QPen(Qt::darkGreen));
-    }else
-    {
-
-    }*/
+        painter->setPen(QPen(Qt::yellow, 1, Qt::SolidLine));
+        painter->drawRect(QRectF(-10-rect.width()/2.0,-rect.height()/2.0,rect.width()+20,rect.height()+3));
+    }
 }
 
 
@@ -79,17 +76,14 @@ void NodeItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
     qDebug("************MyItem::mousePressEvent*****************");
-    setFocus();
-    setCursor(Qt::ClosedHandCursor);
-    setSelected(true);
 }
 
 // 键盘按下事件处理函数，判断是否是向下方向键，如果是，则向下移动图形项
 void NodeItem::keyPressEvent(QKeyEvent *event)
 {
     qDebug("************MyItem::keyPressEvent*****************");
-    if(event->key() == Qt::Key_Down)
-        moveBy(0, 10);
+    //if(event->key() == Qt::Key_Down)
+        //moveBy(0, 10);
 }
 
 // 悬停事件处理函数，设置光标外观和提示
@@ -112,6 +106,7 @@ void NodeItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 // 右键菜单事件处理函数，为图形项添加一个右键菜单
 void NodeItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
+    setSelected(true);
     QMenu menu;
     QAction *moveAction = menu.addAction(QStringLiteral("相关circuit"));
     QAction *actAction = menu.addAction(QStringLiteral("网元属性"));
@@ -119,6 +114,7 @@ void NodeItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
     if(selectedAction == moveAction) {
         //setPos(0, 0);
     }
+
      Q_UNUSED(actAction)
 }
 
@@ -135,7 +131,6 @@ QVariant NodeItem::itemChange(GraphicsItemChange change, const QVariant &value)
         foreach (PortLinkItem *link, links) {
             link->updatePosition();
         }
-        setSelected(true);
     }
 
     return value;
