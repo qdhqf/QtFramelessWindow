@@ -5,6 +5,7 @@ NodeItem::NodeItem()
 {
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFlag(QGraphicsItem::ItemIsMovable);
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
     setAcceptHoverEvents(true);
     setPixmap(QPixmap(":/image/NodeIcon/OTN.png"));
     nodeText =  QStringLiteral("ITMC(中蒙)-N-二连浩特廉租楼-H-OTM/6853-ITMC(中蒙)-N-二连浩特廉租楼-H-OTM");
@@ -69,6 +70,7 @@ void NodeItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
     qDebug("************MyItem::mousePressEvent*****************");
     setFocus();
     setCursor(Qt::ClosedHandCursor);
+    setSelected(true);
 }
 
 // 键盘按下事件处理函数，判断是否是向下方向键，如果是，则向下移动图形项
@@ -112,6 +114,7 @@ void NodeItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 void NodeItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug("************MyItem::mouseMoveEvent*****************");
+
     QGraphicsItem::mouseMoveEvent(event);
 }
 
@@ -121,6 +124,7 @@ QVariant NodeItem::itemChange(GraphicsItemChange change, const QVariant &value)
         foreach (PortLinkItem *link, links) {
             link->updatePosition();
         }
+        setSelected(true);
     }
 
     return value;

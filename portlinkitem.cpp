@@ -14,13 +14,16 @@ PortLinkItem::PortLinkItem(NodeItem *startItem, NodeItem *endItem, QGraphicsItem
     myStartItem = startItem;
     myEndItem = endItem;
     updatePosition();
-    //startItem->addLink(this);
-    //endItem->addLink(this);
-    setFlag(QGraphicsItem::ItemIsSelectable, true);
-    //setFlag(QGraphicsItem::ItemIsMovable);
+    startItem->addLink(this);
+    endItem->addLink(this);
+    setFlag(QGraphicsItem::ItemIsFocusable);
+    setFlag(QGraphicsItem::ItemIsSelectable);
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
+    setAcceptHoverEvents(true);
     myColor = Qt::black;
     setPen(QPen(myColor, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-    setZValue(-1.0);
+    setZValue(-100.0);
+    setSelected(false);
 }
 
 /*QRectF PortLinkItem::boundingRect() const
@@ -43,22 +46,46 @@ PortLinkItem::PortLinkItem(NodeItem *startItem, NodeItem *endItem, QGraphicsItem
 void PortLinkItem::updatePosition()
 {
     QLineF line(mapFromItem(myStartItem, 0, 0), mapFromItem(myEndItem, 0, 0));
+    setSelected(false);
     setLine(line);
 }
-/*
+
+
+void PortLinkItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+{
+    QMenu menu;
+    QAction *moveAction = menu.addAction(QStringLiteral("查看相关电路"));
+    QAction *actAction = menu.addAction(QStringLiteral("属性"));
+    QAction *selectedAction = menu.exec(event->screenPos());
+    if(selectedAction == moveAction) {
+        setPos(0, 0);
+    }
+    setSelected(true);
+     Q_UNUSED(actAction)
+}
+
+void PortLinkItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    Q_UNUSED(event)
+    qDebug("************PortLinkItem::mousePressEvent*****************");
+    setFocus();
+    //setCursor(Qt::ClosedHandCursor);
+    setSelected(true);
+    update();
+}
+
+
 void PortLinkItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
           QWidget *)
 {
-    if (myStartItem->collidesWithItem(myEndItem))
-        return;
 
     QPen myPen = pen();
     myPen.setColor(myColor);
-    qreal PortLinkItemSize = 20;
+//    qreal PortLinkItemSize = 20;
     painter->setPen(myPen);
     painter->setBrush(myColor);
 
-
+ /*
     QLineF centerLine(myStartItem->pos(), myEndItem->pos());
    QPolygonF endPolygon = myEndItem->polygon();
     QPointF p1 = endPolygon.first() + myEndItem->pos();
@@ -99,6 +126,32 @@ void PortLinkItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
         painter->drawLine(myLine);
         myLine.translate(0,-8.0);
         painter->drawLine(centerLine);
-    }
+    }*/
     painter->drawLine(line());
-}*/
+    if (isSelected()) {
+        /*   painter->setPen(QPen(Qt::yellow, 1, Qt::DashLine));
+            QLineF myLine = line();
+            QLineF l1,l2;
+            if(myLine.y1() != myLine.y2())
+            {
+                l1.setP1(QPointF(myLine.x1()-6,myLine.y1()));
+                l1.setP2(QPointF(myLine.x2()-6,myLine.y2()));
+                l2.setP1(QPointF(myLine.x1()+6,myLine.y1()));
+                l2.setP2(QPointF(myLine.x2()+6,myLine.y2()));
+            }
+             else
+            {
+                l1.setP1(QPointF(myLine.x1(),myLine.y1()-6));
+                l1.setP2(QPointF(myLine.x2(),myLine.y2()-6));
+                l2.setP1(QPointF(myLine.x1(),myLine.y1()+6));
+                l2.setP2(QPointF(myLine.x2(),myLine.y2()+6));
+            }
+
+           // myLine.translate(0, 4.0);
+            painter->drawLine(l1);
+            //myLine.translate(0,-8.0);
+            painter->drawLine(l2);*/
+           painter->setPen(QPen(Qt::blue, 4, Qt::SolidLine));
+            painter->drawLine(line());
+        }
+}
