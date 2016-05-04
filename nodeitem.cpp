@@ -3,11 +3,8 @@
 
 NodeItem::NodeItem()
 {
-    setFlag(QGraphicsItem::ItemIsFocusable);
-    setFlag(QGraphicsItem::ItemIsMovable);
-    setFlag(QGraphicsItem::ItemSendsGeometryChanges);// 非常重要，没有这个，移动item时link不会跟着变
-    setFlag(QGraphicsItem::ItemIsSelectable);
-    setAcceptHoverEvents(true);
+    setFlags(QGraphicsItem::ItemIsFocusable|QGraphicsItem::ItemIsMovable|QGraphicsItem::ItemSendsGeometryChanges|QGraphicsItem::ItemIsSelectable);
+    //setFlag();// QGraphicsItem::ItemSendsGeometryChanges非常重要，没有这个，移动item时link不会跟着变
 
     setPixmap(QPixmap(":/image/NodeIcon/OTN.png"));
     nodeText =  QStringLiteral("ITMC(中蒙)-N-二连浩特廉租楼-H-OTM/6853-ITMC(中蒙)-N-二连浩特廉租楼-H-OTM");
@@ -38,8 +35,8 @@ QPainterPath NodeItem::shape() const
 void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                    QWidget *widget)
 {
-    Q_UNUSED(widget)
-    Q_UNUSED(option)
+    //Q_UNUSED(widget)
+    //Q_UNUSED(option)
     QPixmap pixmap = this->pixmap();
     QRect rect = pixmap.rect();
 
@@ -63,7 +60,7 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             Qt::ElideMiddle	2	The ellipsis should appear in the middle of the text.
             Qt::ElideNone	3	Ellipsis should NOT appear in the text.*/
     painter->drawText(QRectF(-10-rect.width()/2.0,rect.height()/2.0+5,rect.width()+20,45),Qt::AlignLeft|Qt::TextWrapAnywhere/*Qt::TextWordWrap*/,str);
-    if (isSelected())
+    if (this->isSelected())
     {
         painter->setPen(QPen(Qt::yellow, 1, Qt::SolidLine));
         painter->drawRect(QRectF(-10-rect.width()/2.0,-rect.height()/2.0,rect.width()+20,rect.height()+3));
@@ -75,6 +72,8 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 void NodeItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
+    scene()->clearSelection();
+    setSelected(true);
     qDebug("************MyItem::mousePressEvent*****************");
 }
 

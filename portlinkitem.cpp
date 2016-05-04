@@ -17,15 +17,14 @@ PortLinkItem::PortLinkItem(NodeItem *startItem, NodeItem *endItem, QGraphicsItem
     startItem->addLink(this);
     endItem->addLink(this);
 
-    setFlag(QGraphicsItem::ItemIsFocusable);
-    setFlag(QGraphicsItem::ItemIsSelectable);
-    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+    setFlags(QGraphicsItem::ItemIsFocusable|QGraphicsItem::ItemIsSelectable|QGraphicsItem::ItemSendsGeometryChanges);
+
 
     setAcceptHoverEvents(true);
     myColor = Qt::black;
     setPen(QPen(myColor, 4, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     setZValue(-100.0);
-    setSelected(false);
+
 }
 
 /*QRectF PortLinkItem::boundingRect() const
@@ -70,8 +69,8 @@ void PortLinkItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
     qDebug("************PortLinkItem::mousePressEvent*****************");
-    setFocus();
-    //setCursor(Qt::ClosedHandCursor);
+    scene()->clearSelection();
+    setSelected(true);
 }
 
 

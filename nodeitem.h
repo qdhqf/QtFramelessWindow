@@ -8,6 +8,7 @@ class PortLinkItem;
 class NodeItem : public QGraphicsPixmapItem
 {
 public:
+    enum {Type = UserType + 1};
     NodeItem();
     void setMyText(QString &text);
     void addLink(PortLinkItem *link);
@@ -16,7 +17,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                   QWidget *widget);
     void setColor(const QColor &color) { brushColor = color; }
-
+    int type() const {return Type;}
 protected:
     void keyPressEvent(QKeyEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

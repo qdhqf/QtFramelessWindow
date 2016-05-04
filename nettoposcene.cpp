@@ -5,7 +5,7 @@
 NetTopoScene::NetTopoScene(QObject *parent) :
     QGraphicsScene(parent)
 {
-    clearFocus();
+    //clearFocus();
 }
 
 void NetTopoScene::keyPressEvent(QKeyEvent *event)
@@ -22,14 +22,20 @@ void NetTopoScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void NetTopoScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug("*********NetTopoScene::mousePressEvent***************");
-    QGraphicsScene::mousePressEvent(event);
+    qDebug("*********NetTopoScene::mouseMoveEvent***************");
+    QGraphicsScene::mouseMoveEvent(event);
 }
 
 void NetTopoScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
-    QMenu menu;
+   /* QMenu menu;
     QAction *moveAction = menu.addAction(QStringLiteral("添加网元"));
-    QAction *actAction = menu.addAction(QStringLiteral("添加连接"));
+    QAction *actAction = menu.addAction(QStringLiteral("添加连接"));*/
     QGraphicsScene::contextMenuEvent(event);
+}
+
+void NetTopoScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug("*********NetTopoScene::mouseReleaseEvent***************");
+    QGraphicsScene::mouseReleaseEvent(event);
 }
