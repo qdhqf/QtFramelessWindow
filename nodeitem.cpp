@@ -72,16 +72,26 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 void NodeItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
-    scene()->clearSelection();
-    setSelected(true);
-    qDebug("************MyItem::mousePressEvent*****************");
+    if(!( QApplication::keyboardModifiers () == Qt::ControlModifier))
+    {
+        scene()->clearSelection();
+        setSelected(true);
+    }
+    qDebug("************NodeItem::mousePressEvent*****************");
+    QGraphicsItem::mousePressEvent(event);
 }
+
+void NodeItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+     QGraphicsItem::mouseReleaseEvent(event);
+}
+
 
 // 键盘按下事件处理函数，判断是否是向下方向键，如果是，则向下移动图形项
 void NodeItem::keyPressEvent(QKeyEvent *event)
 {
-    qDebug("************MyItem::keyPressEvent*****************");
-    //if(event->key() == Qt::Key_Down)
+    qDebug("************NodeItem::keyPressEvent*****************");
+    //if(event->key() == Qt::CTRL)
         //moveBy(0, 10);
 }
 
@@ -89,7 +99,7 @@ void NodeItem::keyPressEvent(QKeyEvent *event)
 void NodeItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
      Q_UNUSED(event)
-    qDebug("************MyItem::hoverEnterEvent*****************");
+    qDebug("************NodeItem::hoverEnterEvent*****************");
     setCursor(Qt::OpenHandCursor);
     setToolTip(nodeText);
 }
@@ -97,7 +107,7 @@ void NodeItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 void NodeItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
     Q_UNUSED(event)
-    qDebug("************MyItem::hoverLeaveEvent*****************");
+    qDebug("************NodeItem::hoverLeaveEvent*****************");
     setCursor(Qt::ArrowCursor);
 }
 
@@ -119,10 +129,19 @@ void NodeItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
 void NodeItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug("************MyItem::mouseMoveEvent*****************");
+    qDebug("************NodeItem::mouseMoveEvent*****************");
 
     QGraphicsItem::mouseMoveEvent(event);
 }
+
+
+void NodeItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug("************NodeItem::mouseDoubleClickEvent*****************");
+    QGraphicsItem::mouseDoubleClickEvent(event);
+}
+
+
 
 QVariant NodeItem::itemChange(GraphicsItemChange change, const QVariant &value)
 {
