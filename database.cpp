@@ -7,6 +7,7 @@ QSqlError DataLayer::initdbcon()
     selfdb.setPassword("12345");
     //selfdb.setHostName("localhost");
     selfdb.setDatabaseName("transdb.db");
+    selfdb.setConnectOptions("QSQLITE_CREATE_KEY");
     //selfdb.setUserName("postgres");
     //selfdb.setPassword("Cqupt1953");
     if(!selfdb.open()){
