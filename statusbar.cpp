@@ -3,7 +3,8 @@
 StatusBar::StatusBar(QWidget *parent):
     QWidget(parent)
 {
-     setFixedHeight(28);
+     setFixedHeight(25);
+     //setStyleSheet("QWidget{ border: none; padding: 0px; }");
      setAutoFillBackground(true);
      QPalette pal;
      QPixmap pix(":/image/status.png");

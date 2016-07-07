@@ -1,4 +1,4 @@
-<?xml version='1.0'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>TabWidget</class>
  <widget class="QTabWidget" name="TabWidget">
@@ -13,15 +13,20 @@
   <property name="windowTitle">
    <string>TabWidget</string>
   </property>
-  <widget class="QWidget" name="tab">
+  <property name="currentIndex">
+   <number>0</number>
+  </property>
+  <widget class="QWidget" name="SiteTab">
    <attribute name="title">
     <string>Tab 1</string>
    </attribute>
   </widget>
-  <widget class="QWidget" name="tab">
+  <widget class="QWidget" name="NetTab">
    <attribute name="title">
     <string>Tab 2</string>
    </attribute>
   </widget>
  </widget>
+ <resources/>
+ <connections/>
 </ui>

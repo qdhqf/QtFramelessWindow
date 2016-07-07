@@ -50,3 +50,6 @@ void NetTopoView::contextMenuEvent(QContextMenuEvent *event)
     QAction *actAction = menu.addAction(QStringLiteral("添加连接"));*/
     QGraphicsView::contextMenuEvent(event);
 }
+
+
+

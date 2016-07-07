@@ -17,5 +17,18 @@
         <file>image/NodeIcon/OTN2LEFT.png</file>
         <file>image/NodeIcon/OTN2RIGHT.png</file>
         <file>image/NodeIcon/ROUTER.png</file>
+        <file>image/naviBar/add.png</file>
+        <file>image/naviBar/filter.png</file>
+        <file>image/naviBar/find.png</file>
+        <file>image/naviBar/update.png</file>
+        <file>image/find/ArrowFind.png</file>
+        <file>image/find/ClearFind.png</file>
+        <file>image/find/FindContent.png</file>
+        <file>image/find/selectFind.png</file>
+        <file>image/find/SimFind.png</file>
+        <file>image/naviBar/netHide.png</file>
+        <file>image/naviBar/netShow.png</file>
+        <file>image/naviBar/siteHide.png</file>
+        <file>image/naviBar/siteShow.png</file>
     </qresource>
 </RCC>

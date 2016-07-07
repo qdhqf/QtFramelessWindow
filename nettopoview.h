@@ -15,6 +15,7 @@ protected:
     void paintEvent(QPaintEvent * event);
     void mouseMoveEvent(QMouseEvent *event);
     void contextMenuEvent(QContextMenuEvent *event);
+    //void drawBackground(QPainter *painter, const QRectF &rect);
 signals:
 
 public slots:

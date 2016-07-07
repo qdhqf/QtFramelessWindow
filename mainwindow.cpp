@@ -3,7 +3,6 @@
 #include "headerbar.h"
 #include "statusbar.h"
 #include "defs.h"
-#include "tabwidget.h"
 #include "mainmenu.h"
 #include "framelesshelper.h"
 
@@ -13,6 +12,7 @@
 #include "nettopoview.h"
 #include "nettoposcene.h"
 #include "portlinkitem.h"
+#include "leftnavi.h"
 #include <QTime>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -24,24 +24,43 @@ MainWindow::MainWindow(QWidget *parent)
     setAttribute(Qt::WA_Hover, true);
 
     ptrHeaderBar = new HeaderBar(this);//创建标题栏
+
     ptrStatusBar = new StatusBar(this);//创建状态栏
     QString msg = "Ready";
     ptrStatusBar->setMessage(msg);
 
     ptrMainLayout = new QVBoxLayout(this);//创建布局
     ptrMainLayout->addWidget(ptrHeaderBar);//将部件加入到布局中
+
+     //TabWidget *t1 = new TabWidget(this);
+    LeftNavi *lft = new LeftNavi(this);
     QSplitter *mainSplitter = new QSplitter(this);
-    TabWidget *t1 = new TabWidget(this);
+    mainSplitter->setFrameStyle(QFrame::NoFrame);
+    mainSplitter->setHandleWidth(1);
+    mainSplitter->setStyleSheet(
+                QString("QSplitter::handle {background: qlineargradient("
+                        "x1: 0, y1: 0, x2: 0, y2: 1,"
+                        "stop: 0 %1, stop: 0.07 %2);}").
+                arg(lft->palette().background().color().name()).
+                arg(qApp->palette().color(QPalette::Dark).name()));
+
+    //mainSplitter->setChildrenCollapsible(false);
+
+
+
 
     NetTopoScene *scene = new NetTopoScene();
-    scene->setSceneRect(-200, -150, 400, 300);
+    scene->setSceneRect(-683, -384, 1366, 768);
+
+    QGraphicsPixmapItem *pixItem =new QGraphicsPixmapItem();
+    pixItem->setPixmap(QPixmap(":image/background.png"));
+    pixItem->setOpacity(0.3);
+    pixItem->setPos(-517,-379);
+    pixItem->setZValue(-500.0);
+    scene->addItem(pixItem);
 
 
     NodeItem *item1 = new NodeItem();
-
-   /* QGraphicsPixmapItem *item = new QGraphicsPixmapItem(QPixmap(":/image/NodeIcon/OTN.png"));
-    item->setFlags(QGraphicsItem::ItemIsFocusable);
-    item->setFlags(QGraphicsItem::ItemIsMovable);*/
     item1->setPos( - 90, -50);
     scene->addItem(item1);
     NodeItem *item2 = new NodeItem();
@@ -61,18 +80,21 @@ MainWindow::MainWindow(QWidget *parent)
 
     PortLinkItem *link3 = new PortLinkItem(item2,item3);
     scene->addItem(link3);
-    //scene->clearSelection();
-    NetTopoView *v =new NetTopoView(this);
-    v->setScene(scene);
-    v->setBackgroundBrush(QPixmap(":image/background.png"));
-    //view.show();
 
-    //QGraphicsView *v = new QGraphicsView(this);
-    mainSplitter->addWidget(t1);
+    NetTopoView *v =new NetTopoView(this);
+
+
+  /*  v->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+    v->setBackgroundBrush(QPixmap(":image/background.png"));
+    v->setCacheMode(QGraphicsView::CacheNone);*/
+    v->setScene(scene);
+
+
+    mainSplitter->addWidget(lft);
     mainSplitter->addWidget(v);
     mainSplitter->setStretchFactor(0,20);
     mainSplitter->setStretchFactor(1,80);
-    mainSplitter->setAutoFillBackground(true);
+    //mainSplitter->setAutoFillBackground(true);
     ptrMainLayout->addWidget(mainSplitter);
     ptrMainLayout->addWidget(ptrStatusBar);
     //设置间距与边缘空白

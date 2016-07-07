@@ -5,7 +5,7 @@
 #include <QtCore>
 #include <QtGui>
 #include "pushbutton.h"
-#include "toolbutton.h"
+#include "tabbar.h"
 
 class HeaderBar : public QWidget
 {
@@ -30,18 +30,18 @@ private slots:
 private:
     QWidget *thisParent;
     QLabel *ptrLabelIcon;
-
+    TabBar *tabBar_;
     PushButton *ptrBtnMenu;
     PushButton *ptrBtnMin;
     PushButton *ptrBtnMax;
     PushButton *ptrBtnClose;
 
-    ToolButton *ptrBtnSite;
-    ToolButton *ptrBtnDevice;
-    ToolButton *ptrBtnCable;
+    //ToolButton *ptrBtnSite;
+    //ToolButton *ptrBtnDevice;
+    //ToolButton *ptrBtnCable;
     QHBoxLayout *ptrTitleLayout;
-    QHBoxLayout *ptrToolLayout;
-    QVBoxLayout *ptrHeaderLayout;
+    //QHBoxLayout *ptrToolLayout;
+    //QVBoxLayout *ptrHeaderLayout;
     void CreateWidget();//创建子部件
     void SetWidgetStyle();//设置子部件样式(qss)
     void CreateLayout();  //创建设置布局

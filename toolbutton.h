@@ -1,32 +1,34 @@
-#ifndef TOOlBUTTON_H
-#define TOOlBUTTON_H
+#ifndef TOOLBUTTON_H
+#define TOOLBUTTON_H
 
+#include <QPushButton>
 #include <QToolButton>
-#include <QMouseEvent>
-#include <QPainter>
 
+#ifdef Q_OS_MAC
+class ToolButton : public QPushButton
+{
+  Q_OBJECT
+public:
+  explicit ToolButton(QWidget *parent = 0);
+
+  void setIconSize(const QSize &size);
+
+  void setAutoRaise(bool enable);
+  bool autoRaise() const;
+
+private:
+  bool autoRise_;
+  QSize buttonFixedSize_;
+
+};
+#else
 class ToolButton : public QToolButton
 {
-
+  Q_OBJECT
 public:
+  explicit ToolButton(QWidget *parent = 0);
 
-    explicit ToolButton(QString namePix, QWidget *parent = 0);
-	~ToolButton();
-	void setMousePress(bool mouse_press);
-
-protected:
-
-	void enterEvent(QEvent *);
-	void leaveEvent(QEvent *);
-	void mousePressEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
-	void paintEvent(QPaintEvent *event);
-	void painterInfo(int top_color, int middle_color, int bottom_color);
-
-public:
-
-	bool mouse_over; //鼠标是否移过
-	bool mouse_press; //鼠标是否按下
 };
+#endif
 
-#endif //TOOlBUTTON_H
+#endif // TOOLBUTTON_H

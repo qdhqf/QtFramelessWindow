@@ -10,12 +10,12 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = TransInsight
 TEMPLATE = app
 
+RC_ICONS = otn.ico
 
 SOURCES += main.cpp\
         mainwindow.cpp \
     headerbar.cpp \
     statusbar.cpp \
-    tabwidget.cpp \
     pushbutton.cpp \
     toolbutton.cpp \
     mainmenu.cpp \
@@ -24,12 +24,14 @@ SOURCES += main.cpp\
     nodeitem.cpp \
     nettopoview.cpp \
     nettoposcene.cpp \
-    portlinkitem.cpp
+    portlinkitem.cpp \
+    tabbar.cpp \
+    leftnavi.cpp \
+    findtext.cpp
 
 HEADERS  += mainwindow.h \
     statusbar.h \
     headerbar.h \
-    tabwidget.h \
     toolbutton.h \
     pushbutton.h \
     defs.h \
@@ -39,10 +41,16 @@ HEADERS  += mainwindow.h \
     nodeitem.h \
     nettopoview.h \
     nettoposcene.h \
-    portlinkitem.h
+    portlinkitem.h \
+    tabbar.h \
+    leftnavi.h \
+    findtext.h
 
 RESOURCES += \
     qtdirectui.qrc
 
 FORMS += \
     tabwidget.ui
+
+DISTFILES += \
+    image/Find/find.png
