@@ -25,14 +25,14 @@ TabBar::TabBar(QWidget *parent)
   , indexClickedTab_(-1)
   , tabFixed_(false)
 {
-  setObjectName("tabBar_");
+  setObjectName("tabBar");
   setFocusPolicy(Qt::NoFocus);
   setDocumentMode(true);
   setMouseTracking(true);
   setExpanding(false);
   setMovable(true);
   setElideMode(Qt::ElideNone);
-  setIconSize(QSize(0, 0));
+  setIconSize(QSize(48, 24));
   setContextMenuPolicy(Qt::CustomContextMenu);
 
 

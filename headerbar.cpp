@@ -40,12 +40,17 @@ void HeaderBar::CreateWidget() //创建子部件
     ptrLabelIcon->setPixmap(objPixmap);
     tabBar = new TabBar(this);
     tabBar->addTab(QStringLiteral("拓扑"));
-    tabBar->setTabIcon(0,QIcon(":/image/toolButton/wdm.png"));
+
     tabBar->addTab(QStringLiteral("路径"));
-    tabBar->setTabIcon(1,QIcon(":/image/toolButton/cable.png"));
+
+    tabBar->addTab(QStringLiteral("业务/电路"));
+    tabBar->addTab(QStringLiteral("系统管理"));
+    tabBar->addTab(QStringLiteral("没想好1"));
+    tabBar->addTab(QStringLiteral("没想好2"));
     tabBar->setObjectName("tabBar");
-   // tabBar->setMinimumHeight(HEADER_H-4);
-   tabBar->setStyleSheet(QString("#tabBar QToolButton {border: 1px solid %1; border-radius: 2px; background: %2;}").
+    tabBar->setTabIcon(0,QIcon(":/image/toolButton/wdm.png"));
+    tabBar->setTabIcon(1,QIcon(":/image/toolButton/cable.png"));
+    tabBar->setStyleSheet(QString("#tabBar QToolButton {border: 1px solid %1; border-radius: 2px; background: %2;}").
                   arg(qApp->palette().color(QPalette::Dark).name()).
                   arg(qApp->palette().background().color().name()));
     ptrBtnMenu = new PushButton(this);
