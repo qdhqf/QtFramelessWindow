@@ -30,7 +30,7 @@ private slots:
 private:
     QWidget *thisParent;
     QLabel *ptrLabelIcon;
-    TabBar *tabBar_;
+    TabBar *tabBar;
     PushButton *ptrBtnMenu;
     PushButton *ptrBtnMin;
     PushButton *ptrBtnMax;

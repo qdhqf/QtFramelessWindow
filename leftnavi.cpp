@@ -4,11 +4,10 @@
 LeftNavi::LeftNavi(QFrame *parent) :
     QFrame(parent)
 {
-    setFrameStyle(QFrame::NoFrame);
-    setStyleSheet("QFrame { border: none; padding: 0px; }");
     naviToolBar = new QToolBar(this);
     naviToolBar->setObjectName("naviToolBar");
-    naviToolBar->setStyleSheet("QToolBar { border: none; padding: 0px; }");
+    naviToolBar->setStyleSheet(QString("#naviToolBar { border-bottom: 1px solid %1;}").
+                               arg(qApp->palette().color(QPalette::Dark).name()));
     fillToolBar();
 
     find = new FindTextContent(this);
@@ -29,7 +28,8 @@ LeftNavi::LeftNavi(QFrame *parent) :
     QWidget *sitePanel = new QWidget(this);
     sitePanel->setObjectName("sitePanel");
     sitePanel->setLayout(sitePanelLayout);
-
+    sitePanel->setStyleSheet(QString("#sitePanel { border-bottom: 1px solid %1;}").
+                                   arg(qApp->palette().color(QPalette::Dark).name()));
     siteTree = new QTreeView(this);
     siteTree->setObjectName("siteTree");
 
@@ -58,8 +58,11 @@ LeftNavi::LeftNavi(QFrame *parent) :
     QWidget *netPanel = new QWidget(this);
     netPanel->setObjectName("netPanel");
     netPanel->setLayout(netPanelLayout);
+    netPanel->setStyleSheet(QString("#netPanel { border-bottom: 1px solid %1;}").
+                                   arg(qApp->palette().color(QPalette::Dark).name()));
     netTree =  new QTreeView(this);
     netTree->setObjectName("netTree");
+    netTree->setStyleSheet("#netTree { border: none; padding: 0px;}");
     QVBoxLayout *netLayout = new QVBoxLayout();
     netLayout->setMargin(0);
     netLayout->setSpacing(0);
@@ -68,18 +71,24 @@ LeftNavi::LeftNavi(QFrame *parent) :
     QWidget *netWidget = new QWidget(this);
     netWidget->setLayout(netLayout);
 //End Network Tree
-
+    siteWidget->setStyleSheet("QWidget { border: none; padding: 0px;}");
     vSplit = new QSplitter(Qt::Vertical);
+    vSplit->setFrameStyle(QFrame::NoFrame);
     vSplit->setChildrenCollapsible(false);
     vSplit->setHandleWidth(1);
-    setStyleSheet(
-            QString("QSplitter::handle {background: %1;}").
+
+    vSplit->setStyleSheet(
+            QString("QSplitter::handle {background: qlineargradient("
+                    "x1: 0, y1: 0, x2: 0, y2: 1,"
+                    "stop: 0 %1, stop: 0.07 %2);}").
+            arg(qApp->palette().background().color().name()).
             arg(qApp->palette().color(QPalette::Dark).name()));
     vSplit->addWidget(siteWidget);
     vSplit->addWidget(netWidget);
+
     QVBoxLayout *navilay = new QVBoxLayout(this);
-    navilay->setMargin(1);
-    navilay->setSpacing(1);
+    navilay->setMargin(0);
+    navilay->setSpacing(0);
     navilay->addWidget(naviToolBar);
     navilay->addWidget(find);
     navilay->addWidget(vSplit);

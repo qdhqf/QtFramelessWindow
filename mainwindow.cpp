@@ -22,6 +22,15 @@ MainWindow::MainWindow(QWidget *parent)
   //setWindowFlags(Qt::CustomizeWindowHint);
     setMouseTracking(true);
     setAttribute(Qt::WA_Hover, true);
+    QString fileName("/style/system.qss");
+    QFile file(fileName);
+    if (!file.open(QFile::ReadOnly)) {
+      file.setFileName(":/style/system.qss");
+      file.open(QFile::ReadOnly);
+    }
+    setStyleSheet(QLatin1String(file.readAll()));
+    file.close();
+
 
     ptrHeaderBar = new HeaderBar(this);//创建标题栏
 
@@ -32,8 +41,12 @@ MainWindow::MainWindow(QWidget *parent)
     ptrMainLayout = new QVBoxLayout(this);//创建布局
     ptrMainLayout->addWidget(ptrHeaderBar);//将部件加入到布局中
 
-     //TabWidget *t1 = new TabWidget(this);
+
     LeftNavi *lft = new LeftNavi(this);
+    lft->setFrameStyle(QFrame::NoFrame);
+    lft->setStyleSheet("QFrame { border: none; padding: 0px; }");
+
+
     QSplitter *mainSplitter = new QSplitter(this);
     mainSplitter->setFrameStyle(QFrame::NoFrame);
     mainSplitter->setHandleWidth(1);
@@ -41,10 +54,10 @@ MainWindow::MainWindow(QWidget *parent)
                 QString("QSplitter::handle {background: qlineargradient("
                         "x1: 0, y1: 0, x2: 0, y2: 1,"
                         "stop: 0 %1, stop: 0.07 %2);}").
-                arg(lft->palette().background().color().name()).
+                arg(qApp->palette().background().color().name()).
                 arg(qApp->palette().color(QPalette::Dark).name()));
 
-    //mainSplitter->setChildrenCollapsible(false);
+    mainSplitter->setChildrenCollapsible(false);
 
 
 
@@ -84,16 +97,14 @@ MainWindow::MainWindow(QWidget *parent)
     NetTopoView *v =new NetTopoView(this);
 
 
-  /*  v->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-    v->setBackgroundBrush(QPixmap(":image/background.png"));
-    v->setCacheMode(QGraphicsView::CacheNone);*/
-    v->setScene(scene);
 
+    v->setScene(scene);
+    v->setFrameStyle(QFrame::NoFrame);
 
     mainSplitter->addWidget(lft);
     mainSplitter->addWidget(v);
-    mainSplitter->setStretchFactor(0,20);
-    mainSplitter->setStretchFactor(1,80);
+    //mainSplitter->setStretchFactor(0,20);
+    mainSplitter->setStretchFactor(20,80);
     //mainSplitter->setAutoFillBackground(true);
     ptrMainLayout->addWidget(mainSplitter);
     ptrMainLayout->addWidget(ptrStatusBar);

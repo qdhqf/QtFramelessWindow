@@ -38,12 +38,16 @@ void HeaderBar::CreateWidget() //创建子部件
     ptrLabelIcon = new QLabel(this);  //图像标签--logo
     QPixmap objPixmap(":/image/logo.png");
     ptrLabelIcon->setPixmap(objPixmap);
-    tabBar_ = new TabBar();
-    tabBar_->addTab(QStringLiteral("拓扑"));
-    tabBar_->addTab(QStringLiteral("路径"));
-    tabBar_->setMinimumHeight(HEADER_H-4);
-    tabBar_->setTabsClosable(true);
-
+    tabBar = new TabBar(this);
+    tabBar->addTab(QStringLiteral("拓扑"));
+    tabBar->setTabIcon(0,QIcon(":/image/toolButton/wdm.png"));
+    tabBar->addTab(QStringLiteral("路径"));
+    tabBar->setTabIcon(1,QIcon(":/image/toolButton/cable.png"));
+    tabBar->setObjectName("tabBar");
+   // tabBar->setMinimumHeight(HEADER_H-4);
+   tabBar->setStyleSheet(QString("#tabBar QToolButton {border: 1px solid %1; border-radius: 2px; background: %2;}").
+                  arg(qApp->palette().color(QPalette::Dark).name()).
+                  arg(qApp->palette().background().color().name()));
     ptrBtnMenu = new PushButton(this);
     ptrBtnMenu->setPix(":/image/sysButton/Menus.png");
 
@@ -87,15 +91,18 @@ void HeaderBar::SetWidgetStyle()  //设置子部件样式(qss)
 void HeaderBar::CreateLayout()  //创建设置布局
 { 
     ptrTitleLayout = new QHBoxLayout(); //水平布局
+    ptrTitleLayout->setContentsMargins(2,2,2,0); //设置Margin
+    ptrTitleLayout->setSpacing(0); //设置部件之间的space
+
     ptrTitleLayout->addWidget(ptrLabelIcon, 0, Qt::AlignCenter);  //添加部件
-    ptrTitleLayout->addWidget(tabBar_, 0, Qt::AlignBottom);
+    ptrTitleLayout->addSpacing(5);
+    ptrTitleLayout->addWidget(tabBar, 1, Qt::AlignBottom);
     ptrTitleLayout->addStretch();
     ptrTitleLayout->addWidget(ptrBtnMenu, 0, Qt::AlignTop);
     ptrTitleLayout->addWidget(ptrBtnMin, 0, Qt::AlignTop);
     ptrTitleLayout->addWidget(ptrBtnMax, 0, Qt::AlignTop);
     ptrTitleLayout->addWidget(ptrBtnClose, 0, Qt::AlignTop);
-    ptrTitleLayout->setContentsMargins(2,2,2,0); //设置Margin
-    ptrTitleLayout->setSpacing(0); //设置部件之间的space
+
 
 /*
     ptrToolLayout = new QHBoxLayout();

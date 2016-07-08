@@ -7,7 +7,7 @@
 QT       += core gui sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = TransInsight
+TARGET = LiteTrans
 TEMPLATE = app
 
 RC_ICONS = otn.ico

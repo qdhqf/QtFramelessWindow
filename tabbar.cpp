@@ -35,9 +35,7 @@ TabBar::TabBar(QWidget *parent)
   setIconSize(QSize(0, 0));
   setContextMenuPolicy(Qt::CustomContextMenu);
 
-  /*setStyleSheet(QString("#tabBar_ QToolButton {border: 1px solid %1; border-radius: 2px; background: %2;}").
-                arg(qApp->palette().color(QPalette::Dark).name()).
-                arg(palette().background().color().name()));*/
+
 
   //addTab("");
 

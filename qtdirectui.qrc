@@ -30,5 +30,6 @@
         <file>image/naviBar/netShow.png</file>
         <file>image/naviBar/siteHide.png</file>
         <file>image/naviBar/siteShow.png</file>
+        <file>style/system.qss</file>
     </qresource>
 </RCC>
