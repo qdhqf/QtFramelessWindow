@@ -16,16 +16,15 @@ public:
     ~HeaderBar();
 
     void updateMaxIcon(bool max = true);
-    //void CreateEventFiter();//创建事件过滤器
-    //bool eventFilter(QObject *obj, QEvent *event);//事件过滤
 
 signals:
     void signal_menu(QPoint pt);
     void signal_maxrestore();
-    //void signal_popupMenu(const QPoint &pos);
+    void sigTabClicked(int index);
+
 private slots:
     void slot_menu();
-
+    void slot_sigTabClicked(int index);
 
 private:
     QWidget *thisParent;
@@ -36,12 +35,8 @@ private:
     PushButton *ptrBtnMax;
     PushButton *ptrBtnClose;
 
-    //ToolButton *ptrBtnSite;
-    //ToolButton *ptrBtnDevice;
-    //ToolButton *ptrBtnCable;
     QHBoxLayout *ptrTitleLayout;
-    //QHBoxLayout *ptrToolLayout;
-    //QVBoxLayout *ptrHeaderLayout;
+
     void CreateWidget();//创建子部件
     void SetWidgetStyle();//设置子部件样式(qss)
     void CreateLayout();  //创建设置布局

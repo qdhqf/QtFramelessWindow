@@ -26,6 +26,7 @@ public:
 public slots:
     void showMenu(QPoint pt);
     void showMaxRestore();
+    void slot_switchPage(int index);
 
 private:
     void createToolBarNull();
@@ -33,10 +34,9 @@ private:
 private:
     HeaderBar       *ptrHeaderBar;
     StatusBar       *ptrStatusBar;
-  //  QVBoxLayout     *ptrCentreLayout;
-   // QHBoxLayout     *ptrMainViewLayout;
     QPushButton     *pushButtonNull_;
     LeftNavi        *lft;
+    QStackedWidget  *rgt;
     bool             isLeftNaviVisuable;
     DataLayer        db;
 private slots:

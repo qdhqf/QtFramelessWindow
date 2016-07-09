@@ -13,7 +13,6 @@ HeaderBar::HeaderBar(QWidget *parent) :
     thisParent = parent;
     CreateWidget();
     CreateLayout();
-    //CreateEventFiter();
     SetWidgetStyle();
 }
 
@@ -42,11 +41,11 @@ void HeaderBar::CreateWidget() //创建子部件
     tabBar->addTab(QStringLiteral("拓扑"));
 
     tabBar->addTab(QStringLiteral("路径"));
-
+/*
     tabBar->addTab(QStringLiteral("业务/电路"));
     tabBar->addTab(QStringLiteral("系统管理"));
     tabBar->addTab(QStringLiteral("没想好1"));
-    tabBar->addTab(QStringLiteral("没想好2"));
+    tabBar->addTab(QStringLiteral("没想好2"));*/
     tabBar->setObjectName("tabBar");
     tabBar->setTabIcon(0,QIcon(":/image/toolButton/wdm.png"));
     tabBar->setTabIcon(1,QIcon(":/image/toolButton/cable.png"));
@@ -65,13 +64,7 @@ void HeaderBar::CreateWidget() //创建子部件
     ptrBtnClose = new PushButton(this);
     ptrBtnClose->setPix(":/image/sysButton/Closes.png");
 
-    ///////Tool Button///////////////
-  /*  ptrBtnSite = new ToolButton(":/image/toolButton/build.png",this);
-    ptrBtnSite->setText("Building");
-    ptrBtnDevice = new ToolButton(":/image/toolButton/wdm.png",this);
-    ptrBtnDevice->setText("Devices");
-    ptrBtnCable = new ToolButton(":/image/toolButton/cable.png",this);
-    ptrBtnCable->setText("Connect");*/
+    connect(tabBar,SIGNAL(tabBarClicked(int)), this, SLOT(slot_sigTabClicked(int)));
 
     connect(ptrBtnMenu,SIGNAL(clicked()),this,SLOT(slot_menu()));
     connect(ptrBtnMax,SIGNAL(clicked()),this,SIGNAL(signal_maxrestore()));
@@ -107,24 +100,6 @@ void HeaderBar::CreateLayout()  //创建设置布局
     ptrTitleLayout->addWidget(ptrBtnMin, 0, Qt::AlignTop);
     ptrTitleLayout->addWidget(ptrBtnMax, 0, Qt::AlignTop);
     ptrTitleLayout->addWidget(ptrBtnClose, 0, Qt::AlignTop);
-
-
-/*
-    ptrToolLayout = new QHBoxLayout();
-    ptrToolLayout->addWidget(ptrBtnSite,0,Qt::AlignTop);
-    ptrToolLayout->addWidget(ptrBtnDevice,0,Qt::AlignTop);
-    ptrToolLayout->addWidget(ptrBtnCable,0,Qt::AlignTop);
-
-    ptrToolLayout->addStretch();
-    ptrToolLayout->setContentsMargins(0,0,0,0); //设置Margin
-    ptrToolLayout->setSpacing(0);
-    ptrHeaderLayout =new QVBoxLayout(this);
-
-    ptrHeaderLayout->addLayout(ptrTitleLayout);\
-    ptrHeaderLayout->addLayout(ptrToolLayout);
-    ptrHeaderLayout->setContentsMargins(2,2,2,2);
-    ptrHeaderLayout->setSpacing(0);
-    setLayout(ptrHeaderLayout);*/
     setLayout(ptrTitleLayout);
 }
 
@@ -132,4 +107,9 @@ void HeaderBar::slot_menu()
 {
     QPoint pt = QCursor::pos();
     emit signal_menu(pt);
+}
+
+void HeaderBar::slot_sigTabClicked(int index)
+{
+   emit sigTabClicked(index);
 }
