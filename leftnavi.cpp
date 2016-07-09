@@ -96,8 +96,8 @@ LeftNavi::LeftNavi(QFrame *parent) :
 
     connect(netHead, SIGNAL(clicked()),
             this, SLOT(showNetTree()));
-    connect(vSplit, SIGNAL(splitterMoved(int,int)),
-            this, SLOT(vSplitMoved(int,int)));
+/*    connect(vSplit, SIGNAL(splitterMoved(int,int)),
+            this, SLOT(vSplitMoved(int,int)));*/
 
     netHeadLabel->installEventFilter(this);
     netTree->installEventFilter(this);
@@ -138,6 +138,7 @@ void LeftNavi::fillToolBar()
     naviToolBar->addAction(actSer);
     actSer->setCheckable(true);
     actSer->setChecked(false);
+
     connect(actSer,SIGNAL(triggered()),this,SLOT(slotShowFind()));
 }
 

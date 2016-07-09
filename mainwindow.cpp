@@ -1,4 +1,4 @@
-﻿
+﻿#include <QtWidgets>
 #include "mainwindow.h"
 #include "headerbar.h"
 #include "statusbar.h"
@@ -7,16 +7,17 @@
 #include "framelesshelper.h"
 
 
-//#include "myitem.h"
+
 #include "nodeitem.h"
 #include "nettopoview.h"
 #include "nettoposcene.h"
 #include "portlinkitem.h"
 #include "leftnavi.h"
+
 #include <QTime>
 
-MainWindow::MainWindow(QWidget *parent)
-    : QFrame(parent)
+MainWindow::MainWindow(QFrame *parent)
+    : QFrame(parent),isLeftNaviVisuable(true)
 {
     setWindowFlags(Qt::FramelessWindowHint);
   //setWindowFlags(Qt::CustomizeWindowHint);
@@ -31,6 +32,9 @@ MainWindow::MainWindow(QWidget *parent)
     setStyleSheet(QLatin1String(file.readAll()));
     file.close();
 
+ /*   QWidget *centralWidget = new QWidget(this);
+    setCentralWidget(centralWidget);*/
+
 
     ptrHeaderBar = new HeaderBar(this);//创建标题栏
 
@@ -38,13 +42,13 @@ MainWindow::MainWindow(QWidget *parent)
     QString msg = "Ready";
     ptrStatusBar->setMessage(msg);
 
-    ptrMainLayout = new QVBoxLayout(this);//创建布局
-    ptrMainLayout->addWidget(ptrHeaderBar);//将部件加入到布局中
 
 
-    LeftNavi *lft = new LeftNavi(this);
+
+
+    lft = new LeftNavi(this);
     lft->setFrameStyle(QFrame::NoFrame);
-    lft->setStyleSheet("QFrame { border: none; padding: 0px; }");
+    //lft->setStyleSheet("#LeftNavi { border: none; padding: 0px; }");
 
 
     QSplitter *mainSplitter = new QSplitter(this);
@@ -100,20 +104,31 @@ MainWindow::MainWindow(QWidget *parent)
 
     v->setScene(scene);
     v->setFrameStyle(QFrame::NoFrame);
-
+    createToolBarNull();
     mainSplitter->addWidget(lft);
     mainSplitter->addWidget(v);
-    //mainSplitter->setStretchFactor(0,20);
     mainSplitter->setStretchFactor(20,80);
-    //mainSplitter->setAutoFillBackground(true);
-    ptrMainLayout->addWidget(mainSplitter);
-    ptrMainLayout->addWidget(ptrStatusBar);
-    //设置间距与边缘空白
+
+    QHBoxLayout *ptrMainLayout = new QHBoxLayout();
+    ptrMainLayout->setMargin(0);
     ptrMainLayout->setSpacing(0);
-    ptrMainLayout->setContentsMargins(VALUE_DIS,VALUE_DIS,VALUE_DIS,VALUE_DIS);
+    ptrMainLayout->addWidget(pushButtonNull_);
+    ptrMainLayout->addWidget(mainSplitter);
+
+    QVBoxLayout *ptrCentreLayout = new QVBoxLayout(this);//创建布局
+    ptrCentreLayout->addWidget(ptrHeaderBar);//将部件加入到布局中
+    //ptrCentreLayout->addWidget(mainSplitter);
+    ptrCentreLayout->addLayout(ptrMainLayout);
+    ptrCentreLayout->addWidget(ptrStatusBar);
+
+    ptrCentreLayout->setSpacing(0);  //设置间距与边缘空白
+    ptrCentreLayout->setContentsMargins(VALUE_DIS,VALUE_DIS,VALUE_DIS,VALUE_DIS);
 
     setMinimumWidth(800);
     setMinimumHeight(600);
+
+
+     createActions();
 
 
     FramelessHelper *pHelper = new FramelessHelper(this);
@@ -178,4 +193,31 @@ void MainWindow::paintEvent(QPaintEvent *event)
     QFrame::paintEvent(event);
 }
 
+void MainWindow::createToolBarNull()
+{
+    pushButtonNull_ = new QPushButton(this);
+    pushButtonNull_->setObjectName("pushButtonNull");
+    pushButtonNull_->setIcon(QIcon(":/image/triangleR.png"));
+    pushButtonNull_->setFixedWidth(10);
+    pushButtonNull_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    pushButtonNull_->setFocusPolicy(Qt::NoFocus);
+    pushButtonNull_->setStyleSheet("background: #E8E8E8; border: none; padding: 0px;");
+}
 
+void MainWindow::slotVisibledLeftWiew()
+{
+   if(isLeftNaviVisuable){
+       pushButtonNull_->setIcon(QIcon(":/image/triangleL.png"));
+       lft->hide();
+   }
+   else{
+       pushButtonNull_->setIcon(QIcon(":/image/triangleR.png"));
+       lft->show();
+   }
+   isLeftNaviVisuable = !isLeftNaviVisuable;
+}
+
+void MainWindow::createActions()
+{
+   connect(pushButtonNull_, SIGNAL(clicked()),  this, SLOT(slotVisibledLeftWiew()));
+}

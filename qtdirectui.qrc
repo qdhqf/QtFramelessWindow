@@ -31,5 +31,7 @@
         <file>image/naviBar/siteHide.png</file>
         <file>image/naviBar/siteShow.png</file>
         <file>style/system.qss</file>
+        <file>image/triangleL.png</file>
+        <file>image/triangleR.png</file>
     </qresource>
 </RCC>

@@ -1,8 +1,7 @@
 ﻿#ifndef LEFTNAVI_H
 #define LEFTNAVI_H
 #include <QtWidgets>
-#include <QtCore>
-#include <QtGui>
+
 #include "findtext.h"
 #include "toolbutton.h"
 

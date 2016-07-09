@@ -1,14 +1,15 @@
 ﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QFrame>
-#include <QLayout>
+#include <QtWidgets>
+
 #include "database.h"
-#include <QtSql>
+//#include <QtSql>
 
 
 class HeaderBar;
 class StatusBar;
+class LeftNavi;
 
 
 
@@ -17,7 +18,7 @@ class MainWindow : public QFrame
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QFrame *parent = 0);
     ~MainWindow();
     void paintEvent(QPaintEvent *event);
     void changeEvent(QEvent *e);
@@ -25,11 +26,21 @@ public:
 public slots:
     void showMenu(QPoint pt);
     void showMaxRestore();
+
+private:
+    void createToolBarNull();
+    void createActions();
 private:
     HeaderBar       *ptrHeaderBar;
-    StatusBar        *ptrStatusBar;
-    QVBoxLayout     *ptrMainLayout;
+    StatusBar       *ptrStatusBar;
+  //  QVBoxLayout     *ptrCentreLayout;
+   // QHBoxLayout     *ptrMainViewLayout;
+    QPushButton     *pushButtonNull_;
+    LeftNavi        *lft;
+    bool             isLeftNaviVisuable;
     DataLayer        db;
+private slots:
+    void slotVisibledLeftWiew();
 };
 
 
