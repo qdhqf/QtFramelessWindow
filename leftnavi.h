@@ -5,6 +5,8 @@
 #include "findtext.h"
 #include "toolbutton.h"
 
+class SiteView;
+
 class LeftNavi : public QFrame
 {
     Q_OBJECT
@@ -17,7 +19,7 @@ private:
      void     fillToolBar();
      QAction *actSer;
      FindTextContent *find;
-     QTreeView *siteTree;
+     SiteView *siteTree;
      QTreeView *netTree;
      ToolButton *netHead;
      QSplitter *vSplit;

@@ -1,5 +1,5 @@
 ﻿#include "leftnavi.h"
-
+#include "siteview.h"
 
 LeftNavi::LeftNavi(QFrame *parent) :
     QFrame(parent)
@@ -30,7 +30,7 @@ LeftNavi::LeftNavi(QFrame *parent) :
     sitePanel->setLayout(sitePanelLayout);
     sitePanel->setStyleSheet(QString("#sitePanel { border-bottom: 1px solid %1;}").
                                    arg(qApp->palette().color(QPalette::Dark).name()));
-    siteTree = new QTreeView(this);
+    siteTree = new SiteView(this);
     siteTree->setObjectName("siteTree");
 
     QVBoxLayout *siteLayout = new QVBoxLayout();

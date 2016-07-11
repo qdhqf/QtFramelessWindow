@@ -47,7 +47,7 @@ void HeaderBar::CreateWidget() //创建子部件
     tabBar->addTab(QStringLiteral("没想好1"));
     tabBar->addTab(QStringLiteral("没想好2"));*/
     tabBar->setObjectName("tabBar");
-    tabBar->setTabIcon(0,QIcon(":/image/toolButton/wdm.png"));
+    tabBar->setTabIcon(0,QIcon(":/image/toolButton/topo.png"));
     tabBar->setTabIcon(1,QIcon(":/image/toolButton/cable.png"));
     tabBar->setStyleSheet(QString("#tabBar QToolButton {border: 1px solid %1; border-radius: 2px; background: %2;}").
                   arg(qApp->palette().color(QPalette::Dark).name()).
@@ -93,8 +93,8 @@ void HeaderBar::CreateLayout()  //创建设置布局
     ptrTitleLayout->setSpacing(0); //设置部件之间的space
 
     ptrTitleLayout->addWidget(ptrLabelIcon, 0, Qt::AlignCenter);  //添加部件
-    ptrTitleLayout->addSpacing(5);
-    ptrTitleLayout->addWidget(tabBar, 1, Qt::AlignBottom);
+    ptrTitleLayout->addSpacing(20);
+    ptrTitleLayout->addWidget(tabBar, 0, Qt::AlignBottom);
     ptrTitleLayout->addStretch();
     ptrTitleLayout->addWidget(ptrBtnMenu, 0, Qt::AlignTop);
     ptrTitleLayout->addWidget(ptrBtnMin, 0, Qt::AlignTop);

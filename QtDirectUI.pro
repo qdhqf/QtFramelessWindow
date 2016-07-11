@@ -29,7 +29,9 @@ SOURCES += main.cpp\
     leftnavi.cpp \
     findtext.cpp \
     netplan/netplanview.cpp \
-    netres/netresview.cpp
+    netres/netresview.cpp \
+    siteview/sitemodel.cpp \
+    siteview/siteview.cpp
 
 HEADERS  += mainwindow.h \
     statusbar.h \
@@ -48,7 +50,9 @@ HEADERS  += mainwindow.h \
     leftnavi.h \
     findtext.h \
     netplan/netplanview.h \
-    netres/netresview.h
+    netres/netresview.h \
+    siteview/sitemodel.h \
+    siteview/siteview.h
 
 INCLUDEPATH +=  $$PWD/netplan \
                 $$PWD/netres \

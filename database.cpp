@@ -3,7 +3,7 @@
 QSqlError DataLayer::initdbcon()
 {
     qDebug() << QSqlDatabase::drivers();
-    selfdb = QSqlDatabase::addDatabase("SQLITECIPHER");
+    selfdb = QSqlDatabase::addDatabase(/*"QSQLITE"*/"SQLITECIPHER");
     selfdb.setPassword("12345");
     //selfdb.setHostName("localhost");
     selfdb.setDatabaseName("transdb.db");
