@@ -1,4 +1,4 @@
-#ifndef SITEMODEL_H
+﻿#ifndef SITEMODEL_H
 #define SITEMODEL_H
 
 #include <QSqlRecord>
@@ -27,7 +27,7 @@ public:
   ~SiteModel();
 
   void setView(QTreeView *view);
-
+  void setDatabase(QSqlDatabase db);
   QVariant dataField(const QModelIndex &index, const QString &fieldName) const;
 
   QModelIndex indexSibling(const QModelIndex &index, const QString &fieldName) const;
@@ -80,7 +80,7 @@ private:
   QMap<int,UserData*> userDataList_;
   QHash<int,int> columnsList_;
 
-
+  QSqlDatabase selfdb;
 };
 
 #endif  // SITEMODEL_H

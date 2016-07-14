@@ -3,6 +3,7 @@
 
 #include <QtCore>
 #include <QPainter>
+#include <QtSql>
 
 SiteModel::SiteModel(QObject *parent)
   : QAbstractItemModel(parent)
@@ -32,13 +33,17 @@ void SiteModel::clear()
 
 void SiteModel::refresh()
 {
-
+  qDebug() << "run Model code.";
   beginResetModel();
   clear();
   endResetModel();
 
-
-  queryModel_.setQuery("SELECT * FROM feeds ORDER BY parentId, rowToParent");
+  QSqlQuery query;
+  query.exec("select id, name from mapping");
+  while (query.next()) {
+      qDebug() << query.value(0).toInt() << ": " << query.value(1).toString();
+  }
+/*  queryModel_.setQuery("SELECT * FROM mapping");
   while (queryModel_.canFetchMore())
     queryModel_.fetchMore();
 
@@ -56,7 +61,7 @@ void SiteModel::refresh()
     int parid = queryModel_.record(i).value(indexParid_).toInt();
     parid2RowList_[i] = parid;
     userDataList_[id] = new UserData(id, parid, queryModel_.record(i));
-  }
+  }*/
 }
 
 UserData * SiteModel::userDataById(int id) const
@@ -340,4 +345,9 @@ QVariant SiteModel::dataField(const QModelIndex &index, const QString &fieldName
 QModelIndex SiteModel::indexSibling(const QModelIndex &index, const QString &fieldName) const
 {
   return this->index(index.row(), indexColumnOf(fieldName), index.parent());
+}
+
+void SiteModel::setDatabase(QSqlDatabase db)
+{
+    selfdb = db;
 }

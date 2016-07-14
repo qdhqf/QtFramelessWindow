@@ -6,6 +6,8 @@
 #include "toolbutton.h"
 
 class SiteView;
+class SiteModel;
+class QSqlDatabase;
 
 class LeftNavi : public QFrame
 {
@@ -14,6 +16,7 @@ class LeftNavi : public QFrame
 public:
     explicit LeftNavi(QFrame *parent = 0);
     ~LeftNavi();
+    void setDatabase(QSqlDatabase db);
 private:
      QToolBar *naviToolBar;
      void     fillToolBar();
@@ -24,6 +27,7 @@ private:
      ToolButton *netHead;
      QSplitter *vSplit;
      QByteArray vSplitState;
+     SiteModel *mode;
 private slots:
      void slotShowFind();
      void showNetTree();

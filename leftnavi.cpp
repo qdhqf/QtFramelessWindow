@@ -31,6 +31,8 @@ LeftNavi::LeftNavi(QFrame *parent) :
     sitePanel->setStyleSheet(QString("#sitePanel { border-bottom: 1px solid %1;}").
                                    arg(qApp->palette().color(QPalette::Dark).name()));
     siteTree = new SiteView(this);
+    mode = new SiteModel();
+    siteTree->setModel(mode);
     siteTree->setObjectName("siteTree");
 
     QVBoxLayout *siteLayout = new QVBoxLayout();
@@ -165,4 +167,9 @@ void LeftNavi::showNetTree()
     sizes << height() << 20;
     vSplit->setSizes(sizes);
   }
+}
+
+void LeftNavi::setDatabase(QSqlDatabase db)
+{
+    mode->setDatabase(db);
 }

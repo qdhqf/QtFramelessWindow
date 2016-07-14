@@ -3,13 +3,15 @@
 QSqlError DataLayer::initdbcon()
 {
     qDebug() << QSqlDatabase::drivers();
-    selfdb = QSqlDatabase::addDatabase(/*"QSQLITE"*/"SQLITECIPHER");
-    selfdb.setPassword("12345");
-    //selfdb.setHostName("localhost");
     selfdb.setDatabaseName("transdb.db");
-    selfdb.setConnectOptions("QSQLITE_CREATE_KEY");
-    //selfdb.setUserName("postgres");
-    //selfdb.setPassword("Cqupt1953");
+    /*
+    selfdb = QSqlDatabase::addDatabase("QSQLITE");
+    */
+    selfdb = QSqlDatabase::addDatabase("SQLITECIPHER");
+    selfdb.setPassword("12345");
+    selfdb.setConnectOptions("OPEN_WITH_KEY");
+    //selfdb.setConnectOptions("QSQLITE_CREATE_KEY"); // only for first time usage
+
     if(!selfdb.open()){
         qDebug() << "Can not open connection.";
         //exit(CONNECTION_FAILED);
@@ -28,9 +30,19 @@ QSqlError DataLayer::initdbcon()
     while (query.next()) {
         qDebug() << query.value(0).toInt() << ": " << query.value(1).toString();
     }
-    query.exec("drop table mapping");
+    //query.exec("drop table mapping");
     //selfdb.close();
 
 
     return QSqlError();
+}
+
+void DataLayer::closedbcon()
+{
+    selfdb.close();
+}
+
+QSqlDatabase  DataLayer::db()
+{
+    return selfdb;
 }

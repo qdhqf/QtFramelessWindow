@@ -27,6 +27,7 @@ MainWindow::MainWindow(QFrame *parent)
     setStyleSheet(file.readAll());
     file.close();
 
+
     ptrHeaderBar = new HeaderBar(this);//创建标题栏
     ptrStatusBar = new StatusBar(this);//创建状态栏
     QString msg = "Ready";
@@ -34,6 +35,7 @@ MainWindow::MainWindow(QFrame *parent)
 
     lft = new LeftNavi(this);
     lft->setFrameStyle(QFrame::NoFrame);
+
     rgt = new QStackedWidget(this);
     rgt->setObjectName("rgt");
     rgt->setFrameStyle(QFrame::NoFrame);
@@ -89,7 +91,8 @@ MainWindow::MainWindow(QFrame *parent)
 
     connect(ptrHeaderBar, SIGNAL(signal_menu(QPoint)), this, SLOT(showMenu(QPoint)));
     connect(ptrHeaderBar, SIGNAL(signal_maxrestore()), this, SLOT(showMaxRestore()));
-    db.initdbcon();
+
+     //lft->setDatabase(db.db());
 }
 
 MainWindow::~MainWindow()

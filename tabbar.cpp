@@ -32,7 +32,8 @@ TabBar::TabBar(QWidget *parent)
   setExpanding(false);
   setMovable(true);
   setElideMode(Qt::ElideNone);
-  setIconSize(QSize(48, 24));
+  setIconSize(QSize(22, 22));
+ // SetTextAlign()
   setContextMenuPolicy(Qt::CustomContextMenu);
 
 

@@ -3,8 +3,7 @@
 
 #include <QtWidgets>
 
-#include "database.h"
-//#include <QtSql>
+
 
 
 class HeaderBar;
@@ -38,7 +37,7 @@ private:
     LeftNavi        *lft;
     QStackedWidget  *rgt;
     bool             isLeftNaviVisuable;
-    DataLayer        db;
+
 private slots:
     void slotVisibledLeftWiew();
 };

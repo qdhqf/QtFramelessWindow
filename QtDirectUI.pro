@@ -19,7 +19,6 @@ SOURCES += main.cpp\
     pushbutton.cpp \
     toolbutton.cpp \
     mainmenu.cpp \
-    database.cpp \
     framelesshelper.cpp \
     nodeitem.cpp \
     nettopoview.cpp \
@@ -31,7 +30,8 @@ SOURCES += main.cpp\
     netplan/netplanview.cpp \
     netres/netresview.cpp \
     siteview/sitemodel.cpp \
-    siteview/siteview.cpp
+    siteview/siteview.cpp \
+    database/database.cpp
 
 HEADERS  += mainwindow.h \
     statusbar.h \
@@ -40,7 +40,6 @@ HEADERS  += mainwindow.h \
     pushbutton.h \
     defs.h \
     mainmenu.h \
-    database.h \
     framelesshelper.h \
     nodeitem.h \
     nettopoview.h \
@@ -52,13 +51,14 @@ HEADERS  += mainwindow.h \
     netplan/netplanview.h \
     netres/netresview.h \
     siteview/sitemodel.h \
-    siteview/siteview.h
+    siteview/siteview.h \
+    database/database.h
 
 INCLUDEPATH +=  $$PWD/netplan \
                 $$PWD/netres \
                 $$PWD/siteview \
                 $$PWD/netview \
-
+                $$PWD/database \
 
 RESOURCES += \
     qtdirectui.qrc
