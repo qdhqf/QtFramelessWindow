@@ -1,14 +1,14 @@
-﻿#include "siteview.h"
+﻿#include "locationview.h"
 
 //#include "mainapplication.h"
-#include "sitemodel.h"
+#include "locationmodel.h"
 //#include "delegatewithoutfocus.h"
 
 #include <QSqlTableModel>
 #include <QSqlQuery>
 
 // ----------------------------------------------------------------------------
-SiteView::SiteView(QWidget * parent)
+LocationView::LocationView(QWidget * parent)
   : QTreeView(parent)
   , selectIdEn_(true)
   , autocollapseFolder_(false)
@@ -17,7 +17,7 @@ SiteView::SiteView(QWidget * parent)
   , dragStartPos_(QPoint())
   , expandedOldId_(-1)
 {
-  setObjectName("siteView_");
+  setObjectName("LocationView_");
   setFrameStyle(QFrame::NoFrame);
   setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -43,7 +43,7 @@ SiteView::SiteView(QWidget * parent)
   connect(this, SIGNAL(collapsed(QModelIndex)), SLOT(slotCollapsed(QModelIndex)));
 }
 
-void SiteView::setSourceModel(SiteModel *sourceModel)
+void LocationView::setSourceModel(LocationModel *sourceModel)
 {
   sourceModel_ = sourceModel;
 
@@ -55,25 +55,25 @@ void SiteView::setSourceModel(SiteModel *sourceModel)
   }
 }
 
-void SiteView::refresh()
+void LocationView::refresh()
 {
   sourceModel_->refresh();
 //  ((SiteProxyModel*)model())->reset();
   restoreExpanded();
 }
 
-void SiteView::setColumnHidden(const QString& column, bool hide)
+void LocationView::setColumnHidden(const QString& column, bool hide)
 {
   QTreeView::setColumnHidden(columnIndex(column),hide);
 }
 
-int SiteView::columnIndex(const QString& fieldName) const
+int LocationView::columnIndex(const QString& fieldName) const
 {
   return sourceModel_->indexColumnOf(fieldName);
 }
 
 
-void SiteView::restoreExpanded()
+void LocationView::restoreExpanded()
 {
  /* foreach (int id, expandedList) {
     //QModelIndex index = ((SiteProxyModel*)model())->mapFromSource(id);
@@ -84,7 +84,7 @@ void SiteView::restoreExpanded()
 
 /** @brief Process item expanding
  *----------------------------------------------------------------------------*/
-void SiteView::slotExpanded(const QModelIndex &index)
+void LocationView::slotExpanded(const QModelIndex &index)
 {
   /*int feedId = sourceModel_->idByIndex(((SiteProxyModel*)model())->mapToSource(index));
   if (!expandedList.contains(feedId)) {
@@ -113,14 +113,14 @@ void SiteView::slotExpanded(const QModelIndex &index)
 
 /** @brief Process item collapsing
  *----------------------------------------------------------------------------*/
-void SiteView::slotCollapsed(const QModelIndex &index)
+void LocationView::slotCollapsed(const QModelIndex &index)
 {
  /* int feedId = sourceModel_->idByIndex(((SiteProxyModel*)model())->mapToSource(index));
   expandedList.removeOne(feedId);
   mainApp->sqlQueryExec(QString("UPDATE feeds SET f_Expanded=0 WHERE id=='%1'").arg(feedId));*/
 }
 
-void SiteView::expandAll()
+void LocationView::expandAll()
 {
 /*  expandedList.clear();
   QTreeView::expandAll();
@@ -135,7 +135,7 @@ void SiteView::expandAll()
   mainApp->sqlQueryExec("UPDATE feeds SET f_Expanded=1 WHERE (xmlUrl='' OR xmlUrl IS NULL)");*/
 }
 
-void SiteView::collapseAll()
+void LocationView::collapseAll()
 {
  /* expandedList.clear();
   QTreeView::collapseAll();
@@ -147,7 +147,7 @@ void SiteView::collapseAll()
 
 
 
-QModelIndex SiteView::indexPrevious(const QModelIndex &indexCur, bool isParent)
+QModelIndex LocationView::indexPrevious(const QModelIndex &indexCur, bool isParent)
 {
   QModelIndex index = QModelIndex();
 
@@ -165,7 +165,7 @@ QModelIndex SiteView::indexPrevious(const QModelIndex &indexCur, bool isParent)
 }
 
 
-QModelIndex SiteView::indexNext(const QModelIndex &indexCur, bool isParent)
+QModelIndex LocationView::indexNext(const QModelIndex &indexCur, bool isParent)
 {
   QModelIndex index = QModelIndex();
 
@@ -187,20 +187,20 @@ QModelIndex SiteView::indexNext(const QModelIndex &indexCur, bool isParent)
 }
 
 
-void SiteView::mousePressEvent(QMouseEvent *event)
+void LocationView::mousePressEvent(QMouseEvent *event)
 {
 
 }
 
 // ----------------------------------------------------------------------------
-void SiteView::mouseReleaseEvent(QMouseEvent *event)
+void LocationView::mouseReleaseEvent(QMouseEvent *event)
 {
   dragStartPos_ = QPoint();
   QTreeView::mouseReleaseEvent(event);
 }
 
 // ----------------------------------------------------------------------------
-void SiteView::mouseMoveEvent(QMouseEvent *event)
+void LocationView::mouseMoveEvent(QMouseEvent *event)
 {
   if (dragStartPos_.isNull()) return;
 
@@ -222,7 +222,7 @@ void SiteView::mouseMoveEvent(QMouseEvent *event)
 }
 
 // ----------------------------------------------------------------------------
-void SiteView::mouseDoubleClickEvent(QMouseEvent *event)
+void LocationView::mouseDoubleClickEvent(QMouseEvent *event)
 {
   QModelIndex index = indexAt(event->pos());
   QRect rectText = visualRect(index);
@@ -240,7 +240,7 @@ void SiteView::mouseDoubleClickEvent(QMouseEvent *event)
 }
 
 // ----------------------------------------------------------------------------
-void SiteView::keyPressEvent(QKeyEvent *event)
+void LocationView::keyPressEvent(QKeyEvent *event)
 {
   if (event->key() == Qt::Key_Up)         emit pressKeyUp();
   else if (event->key() == Qt::Key_Down)  emit pressKeyDown();
@@ -249,7 +249,7 @@ void SiteView::keyPressEvent(QKeyEvent *event)
 }
 
 // ----------------------------------------------------------------------------
-void SiteView::currentChanged(const QModelIndex &current,
+void LocationView::currentChanged(const QModelIndex &current,
                                            const QModelIndex &previous)
 {
 /*  if (selectIdEn_) {
@@ -262,7 +262,7 @@ void SiteView::currentChanged(const QModelIndex &current,
 }
 
 // ----------------------------------------------------------------------------
-void SiteView::dragEnterEvent(QDragEnterEvent *event)
+void LocationView::dragEnterEvent(QDragEnterEvent *event)
 {
   event->accept();
   dragPos_ = event->pos();
@@ -270,7 +270,7 @@ void SiteView::dragEnterEvent(QDragEnterEvent *event)
 }
 
 // ----------------------------------------------------------------------------
-void SiteView::dragLeaveEvent(QDragLeaveEvent *event)
+void LocationView::dragLeaveEvent(QDragLeaveEvent *event)
 {
   event->accept();
   dragPos_ = QPoint();
@@ -278,7 +278,7 @@ void SiteView::dragLeaveEvent(QDragLeaveEvent *event)
 }
 
 // ----------------------------------------------------------------------------
-void SiteView::dragMoveEvent(QDragMoveEvent *event)
+void LocationView::dragMoveEvent(QDragMoveEvent *event)
 {
   if (dragPos_.isNull()) {
     event->ignore();
@@ -318,7 +318,7 @@ void SiteView::dragMoveEvent(QDragMoveEvent *event)
 }
 
 // ----------------------------------------------------------------------------
-bool SiteView::shouldAutoScroll(const QPoint &pos) const
+bool LocationView::shouldAutoScroll(const QPoint &pos) const
 {
     if (!hasAutoScroll())
         return false;
@@ -330,7 +330,7 @@ bool SiteView::shouldAutoScroll(const QPoint &pos) const
 }
 
 // ----------------------------------------------------------------------------
-void SiteView::dropEvent(QDropEvent *event)
+void LocationView::dropEvent(QDropEvent *event)
 {
   dragPos_ = QPoint();
   viewport()->update();
@@ -341,19 +341,19 @@ void SiteView::dropEvent(QDropEvent *event)
 }
 
 // ----------------------------------------------------------------------------
-void SiteView::paintEvent(QPaintEvent *event)
+void LocationView::paintEvent(QPaintEvent *event)
 {
   QTreeView::paintEvent(event);
 }
 
 // ----------------------------------------------------------------------------
-QPersistentModelIndex SiteView::selectIndex()
+QPersistentModelIndex LocationView::selectIndex()
 {
   return sourceModel_->indexById(selectId_);
 }
 
 
-void SiteView::updateCurrentIndex(const QModelIndex &index)
+void LocationView::updateCurrentIndex(const QModelIndex &index)
 {
   setUpdatesEnabled(false);
   int topRow = verticalScrollBar()->value();
@@ -363,7 +363,7 @@ void SiteView::updateCurrentIndex(const QModelIndex &index)
 }
 
 // ----------------------------------------------------------------------------
-void SiteView::handleDrop(QDropEvent *e)
+void LocationView::handleDrop(QDropEvent *e)
 {
 
 }

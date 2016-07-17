@@ -1,20 +1,20 @@
-﻿#ifndef SITEVIEW_H
-#define SITEVIEW_H
+﻿#ifndef LocationView_H
+#define LocationView_H
 
 
 #include <QtWidgets>
-#include <sitemodel.h>
+#include <locationmodel.h>
 
-class SiteView : public QTreeView
+class LocationView : public QTreeView
 {
   Q_OBJECT
 public:
-  explicit SiteView(QWidget * parent = 0);
+  explicit LocationView(QWidget * parent = 0);
   int selectId_;
   bool selectIdEn_;
   bool autocollapseFolder_;
 
-  void setSourceModel(SiteModel *sourceModel);
+  void setSourceModel(LocationModel *sourceModel);
   void refresh();
   void setColumnHidden(const QString& column, bool hide);
   int columnIndex(const QString& fieldName) const;
@@ -59,7 +59,7 @@ private slots:
   void slotCollapsed(const QModelIndex&index);
 
 private:
-  SiteModel *sourceModel_;
+  LocationModel *sourceModel_;
   QPoint dragPos_;
   QPoint dragStartPos_;
   QList<int> expandedList;
@@ -71,4 +71,4 @@ private:
 
 };
 
-#endif // SITEVIEW_H
+#endif // LocationView_H

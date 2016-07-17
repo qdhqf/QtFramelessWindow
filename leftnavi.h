@@ -5,8 +5,8 @@
 #include "findtext.h"
 #include "toolbutton.h"
 
-class SiteView;
-class SiteModel;
+class LocationView;
+class LocationModel;
 class QSqlDatabase;
 
 class LeftNavi : public QFrame
@@ -22,12 +22,12 @@ private:
      void     fillToolBar();
      QAction *actSer;
      FindTextContent *find;
-     SiteView *siteTree;
+     LocationView *siteTree;
      QTreeView *netTree;
      ToolButton *netHead;
      QSplitter *vSplit;
      QByteArray vSplitState;
-     SiteModel *mode;
+     LocationModel *mode;
 private slots:
      void slotShowFind();
      void showNetTree();

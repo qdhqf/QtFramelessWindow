@@ -7,7 +7,7 @@
 QT       += core gui sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = LiteTrans
+TARGET = TransLite
 TEMPLATE = app
 
 RC_ICONS = otn.ico
@@ -29,9 +29,9 @@ SOURCES += main.cpp\
     findtext.cpp \
     netplan/netplanview.cpp \
     netres/netresview.cpp \
-    siteview/sitemodel.cpp \
-    siteview/siteview.cpp \
-    database/database.cpp
+    database/database.cpp \
+    locationview/locationmodel.cpp \
+    locationview/locationview.cpp
 
 HEADERS  += mainwindow.h \
     statusbar.h \
@@ -50,13 +50,13 @@ HEADERS  += mainwindow.h \
     findtext.h \
     netplan/netplanview.h \
     netres/netresview.h \
-    siteview/sitemodel.h \
-    siteview/siteview.h \
-    database/database.h
+    database/database.h \
+    locationview/locationmodel.h \
+    locationview/locationview.h
 
 INCLUDEPATH +=  $$PWD/netplan \
                 $$PWD/netres \
-                $$PWD/siteview \
+                $$PWD/locationview \
                 $$PWD/netview \
                 $$PWD/database \
 

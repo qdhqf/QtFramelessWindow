@@ -13,6 +13,7 @@ public:
     void closedbcon();
 private:
     QSqlDatabase selfdb;
+    bool dbFileExists_{false};
 };
 
 

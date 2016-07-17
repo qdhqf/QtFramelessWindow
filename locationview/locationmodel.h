@@ -1,5 +1,5 @@
-﻿#ifndef SITEMODEL_H
-#define SITEMODEL_H
+﻿#ifndef LocationModel_H
+#define LocationModel_H
 
 #include <QSqlRecord>
 #include <QSqlQueryModel>
@@ -19,12 +19,12 @@ struct UserData
   QSqlRecord record;
 };
 
-class SiteModel : public QAbstractItemModel
+class LocationModel : public QAbstractItemModel
 {
   Q_OBJECT
 public:
-  explicit SiteModel(QObject *parent = 0);
-  ~SiteModel();
+  explicit LocationModel(QObject *parent = 0);
+  ~LocationModel();
 
   void setView(QTreeView *view);
   void setDatabase(QSqlDatabase db);
@@ -83,4 +83,4 @@ private:
   QSqlDatabase selfdb;
 };
 
-#endif  // SITEMODEL_H
+#endif  // LocationModel_H

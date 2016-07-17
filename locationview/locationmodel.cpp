@@ -1,27 +1,27 @@
-﻿#include "sitemodel.h"
+﻿#include "LocationModel.h"
 #include "siteproxymodel.h"
 
 #include <QtCore>
 #include <QPainter>
 #include <QtSql>
 
-SiteModel::SiteModel(QObject *parent)
+LocationModel::LocationModel(QObject *parent)
   : QAbstractItemModel(parent)
   , defaultIconSite_(false)
   , view_(0)
   , rootParentId_(0)
 {
-  setObjectName("SiteModel");
+  setObjectName("LocationModel");
 
   refresh();
 }
 
-SiteModel::~SiteModel()
+LocationModel::~LocationModel()
 {
   clear();
 }
 
-void SiteModel::clear()
+void LocationModel::clear()
 {
   id2RowList_.clear();
   parid2RowList_.clear();
@@ -31,7 +31,7 @@ void SiteModel::clear()
   userDataList_.clear();
 }
 
-void SiteModel::refresh()
+void LocationModel::refresh()
 {
   qDebug() << "run Model code.";
   beginResetModel();
@@ -64,22 +64,22 @@ void SiteModel::refresh()
   }*/
 }
 
-UserData * SiteModel::userDataById(int id) const
+UserData * LocationModel::userDataById(int id) const
 {
   return userDataList_.value(id, 0);
 }
 
-int SiteModel::rowById(int id) const
+int LocationModel::rowById(int id) const
 {
   return id2RowList_.value(id, -1);
 }
 
-int SiteModel::rowByParid(int parid) const
+int LocationModel::rowByParid(int parid) const
 {
   return parid2RowList_.key(parid, -1);
 }
 
-int SiteModel::rowCount(const QModelIndex &parent) const
+int LocationModel::rowCount(const QModelIndex &parent) const
 {
   if (parent.isValid())
     return parid2RowList_.keys(idByIndex(parent)).count();
@@ -87,12 +87,12 @@ int SiteModel::rowCount(const QModelIndex &parent) const
     return parid2RowList_.keys(rootParentId_).count();
 }
 
-int SiteModel::columnCount(const QModelIndex&) const
+int LocationModel::columnCount(const QModelIndex&) const
 {
   return queryModel_.record().count();
 }
 
-QModelIndex SiteModel::index(int row, int column, const QModelIndex &parent) const
+QModelIndex LocationModel::index(int row, int column, const QModelIndex &parent) const
 {
   if (row == -1)
     return QModelIndex();
@@ -110,7 +110,7 @@ QModelIndex SiteModel::index(int row, int column, const QModelIndex &parent) con
     return QModelIndex();
 }
 
-QModelIndex SiteModel::parent(const QModelIndex &index) const
+QModelIndex LocationModel::parent(const QModelIndex &index) const
 {
   if (!index.isValid())
     return QModelIndex();
@@ -128,7 +128,7 @@ QModelIndex SiteModel::parent(const QModelIndex &index) const
   }
 }
 
-QVariant SiteModel::data(const QModelIndex &index, int role) const
+QVariant LocationModel::data(const QModelIndex &index, int role) const
 {
   if (role == Qt::FontRole) {
     QFont font = font_;
@@ -270,7 +270,7 @@ QVariant SiteModel::data(const QModelIndex &index, int role) const
   return record.value(indexColumnOf(index.column()));
 }
 
-bool SiteModel::setData(const QModelIndex &index, const QVariant &value, int)
+bool LocationModel::setData(const QModelIndex &index, const QVariant &value, int)
 {
   if (!index.isValid())
     return false;
@@ -280,7 +280,7 @@ bool SiteModel::setData(const QModelIndex &index, const QVariant &value, int)
   return true;
 }
 
-Qt::ItemFlags SiteModel::flags(const QModelIndex &index) const
+Qt::ItemFlags LocationModel::flags(const QModelIndex &index) const
 {
   Qt::ItemFlags defaultFlags = QAbstractItemModel::flags(index);
 
@@ -290,12 +290,12 @@ Qt::ItemFlags SiteModel::flags(const QModelIndex &index) const
     return Qt::ItemIsDropEnabled | defaultFlags;
 }
 
-Qt::DropActions SiteModel::supportedDropActions() const
+Qt::DropActions LocationModel::supportedDropActions() const
 {
   return Qt::MoveAction;
 }
 
-QModelIndex SiteModel::indexById(int id) const
+QModelIndex LocationModel::indexById(int id) const
 {
   QModelIndex parentIndex = QModelIndex();
   UserData *userData = userDataById(id);
@@ -308,46 +308,46 @@ QModelIndex SiteModel::indexById(int id) const
   return QModelIndex();
 }
 
-int SiteModel::idByIndex(const QModelIndex &index) const
+int LocationModel::idByIndex(const QModelIndex &index) const
 {
   if (index.isValid())
     return static_cast<UserData*>(index.internalPointer())->id;
   return 0;
 }
 
-int SiteModel::paridByIndex(const QModelIndex &index) const
+int LocationModel::paridByIndex(const QModelIndex &index) const
 {
   if (index.isValid())
     return static_cast<UserData*>(index.internalPointer())->parid;
   return 0;
 }
 
-int SiteModel::indexColumnOf(int column) const
+int LocationModel::indexColumnOf(int column) const
 {
   return columnsList_.value(column, column);
 }
 
-int SiteModel::indexColumnOf(const QString &name) const
+int LocationModel::indexColumnOf(const QString &name) const
 {
   return indexColumnOf(queryModel_.record().indexOf(name));
 }
 
-void SiteModel::setView(QTreeView *view)
+void LocationModel::setView(QTreeView *view)
 {
   view_ = view;
 }
 
-QVariant SiteModel::dataField(const QModelIndex &index, const QString &fieldName) const
+QVariant LocationModel::dataField(const QModelIndex &index, const QString &fieldName) const
 {
   return indexSibling(index, fieldName).data(Qt::EditRole);
 }
 
-QModelIndex SiteModel::indexSibling(const QModelIndex &index, const QString &fieldName) const
+QModelIndex LocationModel::indexSibling(const QModelIndex &index, const QString &fieldName) const
 {
   return this->index(index.row(), indexColumnOf(fieldName), index.parent());
 }
 
-void SiteModel::setDatabase(QSqlDatabase db)
+void LocationModel::setDatabase(QSqlDatabase db)
 {
     selfdb = db;
 }

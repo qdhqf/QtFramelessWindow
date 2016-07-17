@@ -9,8 +9,19 @@ QSqlError DataLayer::initdbcon()
     */
     selfdb = QSqlDatabase::addDatabase("SQLITECIPHER");
     selfdb.setPassword("12345");
-    selfdb.setConnectOptions("OPEN_WITH_KEY");
-    //selfdb.setConnectOptions("QSQLITE_CREATE_KEY"); // only for first time usage
+    if (QFile("transdb.db").exists()) {
+      dbFileExists_ = true;
+    }
+    if(dbFileExists_)
+     {
+        selfdb.setConnectOptions("OPEN_WITH_KEY");
+        qDebug() << "dbFileExists_ is true";
+     }
+      else
+         {
+             selfdb.setConnectOptions("QSQLITE_CREATE_KEY");// only for first time usage
+             qDebug() << "dbFileExists_ is false";
+         }
 
     if(!selfdb.open()){
         qDebug() << "Can not open connection.";
