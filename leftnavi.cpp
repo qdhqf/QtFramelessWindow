@@ -1,5 +1,5 @@
 ﻿#include "leftnavi.h"
-#include "locationview.h"
+#include "treemodel.h"
 
 LeftNavi::LeftNavi(QFrame *parent) :
     QFrame(parent)
@@ -12,37 +12,43 @@ LeftNavi::LeftNavi(QFrame *parent) :
 
     find = new FindTextContent(this);
     find->hide();
-///Begin Sites Tree View
-    QLabel *siteHeadLabel = new QLabel(this);
-    siteHeadLabel->setText("Sites");
-    ToolButton *siteHead = new ToolButton(this);
-    siteHead->setIcon(QIcon(":/image/naviBar/siteShow.png"));
-    siteHead->setFocusPolicy(Qt::NoFocus);
-    siteHead->setMaximumSize(16, 16);
-    siteHead->setAutoRaise(true);
-    QHBoxLayout *sitePanelLayout = new QHBoxLayout();
-    sitePanelLayout->setMargin(1);
-    sitePanelLayout->addSpacing(2);
-    sitePanelLayout->addWidget(siteHeadLabel, 1);
-    sitePanelLayout->addWidget(siteHead);
-    QWidget *sitePanel = new QWidget(this);
-    sitePanel->setObjectName("sitePanel");
-    sitePanel->setLayout(sitePanelLayout);
-    sitePanel->setStyleSheet(QString("#sitePanel { border-bottom: 1px solid %1;}").
+///Begin locations Tree View
+    QLabel *locationHeadLabel = new QLabel(this);
+    locationHeadLabel->setText("locations");
+    ToolButton *locationHead = new ToolButton(this);
+    locationHead->setIcon(QIcon(":/image/naviBar/locationShow.png"));
+    locationHead->setFocusPolicy(Qt::NoFocus);
+    locationHead->setMaximumSize(16, 16);
+    locationHead->setAutoRaise(true);
+    QHBoxLayout *locationPanelLayout = new QHBoxLayout();
+    locationPanelLayout->setMargin(1);
+    locationPanelLayout->addSpacing(2);
+    locationPanelLayout->addWidget(locationHeadLabel, 1);
+    locationPanelLayout->addWidget(locationHead);
+    QWidget *locationPanel = new QWidget(this);
+    locationPanel->setObjectName("locationPanel");
+    locationPanel->setLayout(locationPanelLayout);
+    locationPanel->setStyleSheet(QString("#locationPanel { border-bottom: 1px solid %1;}").
                                    arg(qApp->palette().color(QPalette::Dark).name()));
-    siteTree = new LocationView(this);
-    mode = new LocationModel();
-    siteTree->setModel(mode);
-    siteTree->setObjectName("siteTree");
+    locationTree = new QTreeView(this);
+    QStringList headers;
+    headers << tr("Title") << tr("Description");
+    QFile file("d:/default.txt");
+    file.open(QIODevice::ReadOnly);
+    model = new TreeModel(headers, file.readAll());
+    file.close();
 
-    QVBoxLayout *siteLayout = new QVBoxLayout();
-    siteLayout->setMargin(0);
-    siteLayout->setSpacing(0);
-    siteLayout->addWidget(sitePanel);
-    siteLayout->addWidget(siteTree, 1);
-    QWidget *siteWidget = new QWidget(this);
-    siteWidget->setLayout(siteLayout);
-//End Site Tree
+    locationTree->setModel(model);
+    locationTree->setObjectName("locationTree");
+
+    QVBoxLayout *locationLayout = new QVBoxLayout();
+    locationLayout->setMargin(0);
+    locationLayout->setSpacing(0);
+    locationLayout->addWidget(locationPanel);
+    locationLayout->addWidget(locationTree, 1);
+    QWidget *locationWidget = new QWidget(this);
+    locationWidget->setLayout(locationLayout);
+//End location Tree
 
 ///Begin Network Tree
     QLabel *netHeadLabel = new QLabel(this);
@@ -73,7 +79,7 @@ LeftNavi::LeftNavi(QFrame *parent) :
     QWidget *netWidget = new QWidget(this);
     netWidget->setLayout(netLayout);
 //End Network Tree
-    siteWidget->setStyleSheet("QWidget { border: none; padding: 0px;}");
+    locationWidget->setStyleSheet("QWidget { border: none; padding: 0px;}");
     vSplit = new QSplitter(Qt::Vertical);
     vSplit->setFrameStyle(QFrame::NoFrame);
     vSplit->setChildrenCollapsible(false);
@@ -85,7 +91,7 @@ LeftNavi::LeftNavi(QFrame *parent) :
                     "stop: 0 %1, stop: 0.07 %2);}").
             arg(qApp->palette().background().color().name()).
             arg(qApp->palette().color(QPalette::Dark).name()));
-    vSplit->addWidget(siteWidget);
+    vSplit->addWidget(locationWidget);
     vSplit->addWidget(netWidget);
 
     QVBoxLayout *navilay = new QVBoxLayout(this);
@@ -169,7 +175,9 @@ void LeftNavi::showNetTree()
   }
 }
 
+/*
 void LeftNavi::setDatabase(QSqlDatabase db)
 {
-    mode->setDatabase(db);
+    //mode->setDatabase(db);
 }
+*/

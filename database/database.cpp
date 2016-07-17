@@ -3,10 +3,11 @@
 QSqlError DataLayer::initdbcon()
 {
     qDebug() << QSqlDatabase::drivers();
-    selfdb.setDatabaseName("transdb.db");
-    /*
+
     selfdb = QSqlDatabase::addDatabase("QSQLITE");
-    */
+    selfdb.setDatabaseName("transdb.db3");
+
+    /*
     selfdb = QSqlDatabase::addDatabase("SQLITECIPHER");
     selfdb.setPassword("12345");
     if (QFile("transdb.db").exists()) {
@@ -22,7 +23,7 @@ QSqlError DataLayer::initdbcon()
              selfdb.setConnectOptions("QSQLITE_CREATE_KEY");// only for first time usage
              qDebug() << "dbFileExists_ is false";
          }
-
+*/
     if(!selfdb.open()){
         qDebug() << "Can not open connection.";
         //exit(CONNECTION_FAILED);
@@ -37,12 +38,14 @@ QSqlError DataLayer::initdbcon()
     query.exec("insert into mapping values (4, 'EEE')");
     query.exec("insert into mapping values (5, 'FFF')");
     query.exec("insert into mapping values (6, 'GGG')");
+    qDebug() << selfdb.databaseName() << selfdb.tables();
+
     query.exec("select id, name from mapping");
     while (query.next()) {
         qDebug() << query.value(0).toInt() << ": " << query.value(1).toString();
     }
     //query.exec("drop table mapping");
-    //selfdb.close();
+    selfdb.close();
 
 
     return QSqlError();
@@ -50,7 +53,7 @@ QSqlError DataLayer::initdbcon()
 
 void DataLayer::closedbcon()
 {
-    selfdb.close();
+    //selfdb.close();
 }
 
 QSqlDatabase  DataLayer::db()

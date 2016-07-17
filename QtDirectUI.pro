@@ -21,8 +21,6 @@ SOURCES += main.cpp\
     mainmenu.cpp \
     framelesshelper.cpp \
     nodeitem.cpp \
-    nettopoview.cpp \
-    nettoposcene.cpp \
     portlinkitem.cpp \
     tabbar.cpp \
     leftnavi.cpp \
@@ -30,8 +28,8 @@ SOURCES += main.cpp\
     netplan/netplanview.cpp \
     netres/netresview.cpp \
     database/database.cpp \
-    locationview/locationmodel.cpp \
-    locationview/locationview.cpp
+    treemode/treeitem.cpp \
+    treemode/treemodel.cpp
 
 HEADERS  += mainwindow.h \
     statusbar.h \
@@ -42,8 +40,6 @@ HEADERS  += mainwindow.h \
     mainmenu.h \
     framelesshelper.h \
     nodeitem.h \
-    nettopoview.h \
-    nettoposcene.h \
     portlinkitem.h \
     tabbar.h \
     leftnavi.h \
@@ -51,14 +47,15 @@ HEADERS  += mainwindow.h \
     netplan/netplanview.h \
     netres/netresview.h \
     database/database.h \
-    locationview/locationmodel.h \
-    locationview/locationview.h
+    treemode/treeitem.h \
+    treemode/treemodel.h
 
 INCLUDEPATH +=  $$PWD/netplan \
                 $$PWD/netres \
                 $$PWD/locationview \
                 $$PWD/netview \
                 $$PWD/database \
+                $$PWD/treemode \
 
 RESOURCES += \
     qtdirectui.qrc
