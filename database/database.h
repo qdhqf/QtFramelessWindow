@@ -10,9 +10,12 @@ class DataLayer :public QObject
 public:
     QSqlError initdbcon();
     QSqlDatabase db();
+    bool CreateTables();
     void closedbcon();
 private:
     QSqlDatabase selfdb;
+    bool createlocationtable();
+    bool createnetworktable();
     bool dbFileExists_;
 };
 
