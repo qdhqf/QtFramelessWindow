@@ -250,16 +250,16 @@ void TreeModel::setupModelData(const QStringList &lines, TreeItem *parent)
 {
 
     QString tablename = "location";
-    QString sql = "WITH RECURSIVE T (selfId, name, parentId, PATH, DEPTH)  AS (SELECT selfId, name, parentId,selfId AS PATH, 1 AS DEPTH FROM location  WHERE parentId = 0 ";
+    QString sql = "WITH RECURSIVE T (selfId, name, type, parentId, PATH, DEPTH)  AS (SELECT selfId, name, type, parentId,selfId||'.' AS PATH, 1 AS DEPTH FROM location  WHERE parentId = 0 ";
             sql += " UNION ALL ";
-            sql += " SELECT  P.selfId, P.name, P.parentId, T.PATH||'.'||P.selfId,  T.DEPTH + 1 AS DEPTH FROM ";
+            sql += " SELECT  P.selfId, P.name, P.type, P.parentId, T.PATH||P.selfId||'.',  T.DEPTH + 1 AS DEPTH FROM ";
             sql += tablename;
-            sql += " P JOIN T ON P.parentId = T.selfId) ";
-            sql += " SELECT selfId , name, parentId, PATH, DEPTH FROM T ORDER BY PATH;";
+            sql += " P JOIN T ON P.parentId = T.selfId ORDER BY 2) ";
+            sql += " SELECT selfId , name, type, parentId, PATH, DEPTH FROM T ORDER BY PATH;";
     QSqlQuery query;
     query.exec(sql);
     while (query.next()) {
-        qDebug() << query.value(0).toInt() << ", " << query.value(1).toString() << ", " << query.value(2).toInt() << ", " << query.value(3).toString() << ", " << query.value(4).toInt();
+        qDebug() << query.value(0).toInt() << ", " << query.value(1).toString() << ", " << query.value(2).toInt() << ", " << query.value(3).toInt() << ", " << query.value(4).toString() << ", " << query.value(5).toInt();
     }
 
     QList<TreeItem*> parents; //like a stack,push the latest item into when find new child, popup the top item when children lookup finished
