@@ -244,11 +244,11 @@ bool TreeModel::setHeaderData(int section, Qt::Orientation orientation,
     return result;
 }
 
-// todo：use database source to replace this part
+// todo：use database source to replace this part, 用数据库记录代替lines
 void TreeModel::setupModelData(const QStringList &lines, TreeItem *parent)
 {
-    QList<TreeItem*> parents;
-    QList<int> indentations;
+    QList<TreeItem*> parents; //like a stack,push the latest item into when find new child, popup the top item when children lookup finished
+    QList<int> indentations; //we have to change it to level
     parents << parent;
     indentations << 0;
 
@@ -260,7 +260,7 @@ void TreeModel::setupModelData(const QStringList &lines, TreeItem *parent)
             if (lines[number].at(position) != ' ')
                 break;
             ++position;
-        }
+        } //how many ' '
 
         QString lineData = lines[number].mid(position).trimmed();
 
@@ -272,7 +272,7 @@ void TreeModel::setupModelData(const QStringList &lines, TreeItem *parent)
                 columnData << columnStrings[column];
 
             if (position > indentations.last()) {
-                // The last child of the current parent is now the new parent
+                // this item is the last child of the current parent and this item becomes a new parent
                 // unless the current parent has no children.
 
                 if (parents.last()->childCount() > 0) {
