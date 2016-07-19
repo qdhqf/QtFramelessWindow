@@ -52,6 +52,7 @@
 
 #include "treeitem.h"
 #include "treemodel.h"
+#include <QtSql>
 
 //!
 TreeModel::TreeModel(const QStringList &headers, const QString &data, QObject *parent)
@@ -247,6 +248,20 @@ bool TreeModel::setHeaderData(int section, Qt::Orientation orientation,
 // todo：use database source to replace this part, 用数据库记录代替lines
 void TreeModel::setupModelData(const QStringList &lines, TreeItem *parent)
 {
+
+    QString tablename = "location";
+    QString sql = "WITH RECURSIVE T (selfId, name, parentId, PATH, DEPTH)  AS (SELECT selfId, name, parentId,selfId AS PATH, 1 AS DEPTH FROM location  WHERE parentId = 0 ";
+            sql += " UNION ALL ";
+            sql += " SELECT  P.selfId, P.name, P.parentId, T.PATH||'.'||P.selfId,  T.DEPTH + 1 AS DEPTH FROM ";
+            sql += tablename;
+            sql += " P JOIN T ON P.parentId = T.selfId) ";
+            sql += " SELECT selfId , name, parentId, PATH, DEPTH FROM T ORDER BY PATH;";
+    QSqlQuery query;
+    query.exec(sql);
+    while (query.next()) {
+        qDebug() << query.value(0).toInt() << ", " << query.value(1).toString() << ", " << query.value(2).toInt() << ", " << query.value(3).toString() << ", " << query.value(4).toInt();
+    }
+
     QList<TreeItem*> parents; //like a stack,push the latest item into when find new child, popup the top item when children lookup finished
     QList<int> indentations; //we have to change it to level
     parents << parent;
