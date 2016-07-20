@@ -55,7 +55,7 @@
 #include <QtSql>
 
 //!
-TreeModel::TreeModel(const QStringList &headers, const QString &data, QObject *parent)
+TreeModel::TreeModel(const QStringList &headers, const QString tablename, QObject *parent)
     : QAbstractItemModel(parent)
 {
     QVector<QVariant> rootData;
@@ -63,7 +63,7 @@ TreeModel::TreeModel(const QStringList &headers, const QString &data, QObject *p
         rootData << header;
 
     rootItem = new TreeItem(rootData);
-    setupModelData(data.split(QString("\n")), rootItem);
+    setupModelData(tablename, rootItem);
 }
 //! [0]
 
@@ -246,68 +246,51 @@ bool TreeModel::setHeaderData(int section, Qt::Orientation orientation,
 }
 
 // todo：use database source to replace this part, 用数据库记录代替lines
-void TreeModel::setupModelData(const QStringList &lines, TreeItem *parent)
+void TreeModel::setupModelData(const QString tablename, TreeItem *parent)
 {
+    QList<TreeItem*> parents; //like a stack,push the latest item into when find new child, popup the top item when children lookup finished
+    QList<int> depths; //we have to change it to level
+    parents << parent;
+    depths << 1;
+    int depth = 0;
 
-    QString tablename = "location";
-    QString sql = "WITH RECURSIVE T (selfId, name, type, parentId, PATH, DEPTH)  AS (SELECT selfId, name, type, parentId,selfId||'.' AS PATH, 1 AS DEPTH FROM location  WHERE parentId = 0 ";
-            sql += " UNION ALL ";
-            sql += " SELECT  P.selfId, P.name, P.type, P.parentId, T.PATH||P.selfId||'.',  T.DEPTH + 1 AS DEPTH FROM ";
+    //QString tablename = "location";
+    QString sql = "WITH RECURSIVE P (selfId, name, type, parentId, PATH, DEPTH)  AS (SELECT selfId, name, type, parentId, name||'/' AS PATH, 1 AS DEPTH FROM ";
             sql += tablename;
-            sql += " P JOIN T ON P.parentId = T.selfId ORDER BY 2) ";
-            sql += " SELECT selfId , name, type, parentId, PATH, DEPTH FROM T ORDER BY PATH;";
+            sql += "  WHERE parentId = 0 UNION ALL ";
+            sql += " SELECT  C.selfId, C.name, C.type, C.parentId, P.PATH||C.name||'/',  P.DEPTH + 1 AS DEPTH FROM ";
+            sql += tablename;
+            sql += " C JOIN P ON C.parentId = P.selfId) ";
+            sql += " SELECT selfId , name, type, parentId, PATH, DEPTH FROM P ORDER BY PATH ASC;";
     QSqlQuery query;
+    qDebug() << sql;
     query.exec(sql);
     while (query.next()) {
         qDebug() << query.value(0).toInt() << ", " << query.value(1).toString() << ", " << query.value(2).toInt() << ", " << query.value(3).toInt() << ", " << query.value(4).toString() << ", " << query.value(5).toInt();
-    }
+        depth = query.value(5).toInt();
 
-    QList<TreeItem*> parents; //like a stack,push the latest item into when find new child, popup the top item when children lookup finished
-    QList<int> indentations; //we have to change it to level
-    parents << parent;
-    indentations << 0;
-
-    int number = 0;
-
-    while (number < lines.count()) {
-        int position = 0;
-        while (position < lines[number].length()) {
-            if (lines[number].at(position) != ' ')
-                break;
-            ++position;
-        } //how many ' '
-
-        QString lineData = lines[number].mid(position).trimmed();
-
-        if (!lineData.isEmpty()) {
-            // Read the column data from the rest of the line.
-            QStringList columnStrings = lineData.split("\t", QString::SkipEmptyParts);
-            QVector<QVariant> columnData;
-            for (int column = 0; column < columnStrings.count(); ++column)
-                columnData << columnStrings[column];
-
-            if (position > indentations.last()) {
-                // this item is the last child of the current parent and this item becomes a new parent
-                // unless the current parent has no children.
-
-                if (parents.last()->childCount() > 0) {
-                    parents << parents.last()->child(parents.last()->childCount()-1);
-                    indentations << position;
-                }
-            } else {
-                while (position < indentations.last() && parents.count() > 0) {
-                    parents.pop_back();
-                    indentations.pop_back();
-                }
+        QVector<QVariant> columnData;
+        columnData << query.value(1).toString() << query.value(2).toInt();
+        if(depth > depths.last()){
+           qDebug() << depth << "depths.last():" << depths.last();
+           if (parents.last()->childCount() > 0) {
+               qDebug() << "run in new parent";
+               parents << parents.last()->child(parents.last()->childCount()-1);
+               depths << depth;
+           }
+        }else {
+            qDebug() << depth << "less";
+            while (depth < depths.last() && parents.count() > 0) {
+                parents.pop_back();
+                depths.pop_back();
             }
+         }
+         TreeItem *parent = parents.last();
+         if(parent == NULL)
+         qDebug() << "FAILED";
+         parent->insertChildren(parent->childCount(), 1, rootItem->columnCount());
+         for (int column = 0; column < columnData.size(); ++column)
+             parent->child(parent->childCount() - 1)->setData(column, columnData[column]);
 
-            // Append a new item to the current parent's list of children.
-            TreeItem *parent = parents.last();
-            parent->insertChildren(parent->childCount(), 1, rootItem->columnCount());
-            for (int column = 0; column < columnData.size(); ++column)
-                parent->child(parent->childCount() - 1)->setData(column, columnData[column]);
-        }
-
-        ++number;
-    }
+ }
 }

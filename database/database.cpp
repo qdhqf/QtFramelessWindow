@@ -9,6 +9,7 @@ QSqlError DataLayer::initdbcon()
 
     /*
     selfdb = QSqlDatabase::addDatabase("SQLITECIPHER");
+    selfdb.setDatabaseName("transdb.db3");
     selfdb.setPassword("12345");
     if (QFile("transdb.db").exists()) {
       dbFileExists_ = true;

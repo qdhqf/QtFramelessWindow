@@ -32,11 +32,11 @@ LeftNavi::LeftNavi(QFrame *parent) :
                                    arg(qApp->palette().color(QPalette::Dark).name()));
     locationTree = new QTreeView(this);
     QStringList headers;
-    headers << tr("Title") << tr("Description");
-    QFile file("d:/default.txt");
-    file.open(QIODevice::ReadOnly);
-    model = new TreeModel(headers, file.readAll());
-    file.close();
+    headers << tr("Name") << tr("Type");
+    //QFile file("d:/default.txt");
+    //file.open(QIODevice::ReadOnly);
+    model = new TreeModel(headers, "location");
+    //file.close();
 
     locationTree->setModel(model);
     locationTree->setObjectName("locationTree");
