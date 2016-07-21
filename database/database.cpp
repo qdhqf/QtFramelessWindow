@@ -53,14 +53,15 @@ QSqlDatabase  DataLayer::db()
 
 bool DataLayer::CreateTables()
 {
-    if(!createlocationtable()) return false;
+    if(!createplacetable()) return false;
+    if(!createnettable()) return false;
     return true;
 }
 
-bool DataLayer::createlocationtable()
+bool DataLayer::createplacetable()
 {
     QSqlQuery query;
-    query.exec("	CREATE TABLE location(selfId integer primary key, parentId integer, name varchar, type int,edgetype tinyint)");
+    query.exec("	CREATE TABLE place(selfId integer primary key, parentId integer, name varchar, type int,edgetype tinyint)");
     qDebug() << selfdb.databaseName() << selfdb.tables();
     if(QSqlError().isValid())
     {
@@ -70,7 +71,15 @@ bool DataLayer::createlocationtable()
     return true;
 }
 
-bool DataLayer::createnetworktable()
+bool DataLayer::createnettable()
 {
+    QSqlQuery query;
+    query.exec("	CREATE TABLE network(selfId integer primary key, parentId integer, name varchar, type int)");
+    qDebug() << selfdb.databaseName() << selfdb.tables();
+    if(QSqlError().isValid())
+    {
+        qDebug() << QSqlError();
+        return false;
+    }
     return true;
 }

@@ -21,12 +21,13 @@ private:
      void     fillToolBar();
      QAction *actSer;
      FindTextContent *find;
-     QTreeView *locationTree;
+     QTreeView *placeTree;
      QTreeView *netTree;
      ToolButton *netHead;
      QSplitter *vSplit;
      QByteArray vSplitState;
-     TreeModel *model;
+     TreeModel *plcmodel;
+     TreeModel *netmodel;
 private slots:
      void slotShowFind();
      void showNetTree();

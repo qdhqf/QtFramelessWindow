@@ -14,8 +14,8 @@ public:
     void closedbcon();
 private:
     QSqlDatabase selfdb;
-    bool createlocationtable();
-    bool createnetworktable();
+    bool createplacetable();
+    bool createnettable();
     bool dbFileExists_;
 };
 

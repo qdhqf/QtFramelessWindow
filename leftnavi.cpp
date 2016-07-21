@@ -12,43 +12,41 @@ LeftNavi::LeftNavi(QFrame *parent) :
 
     find = new FindTextContent(this);
     find->hide();
-///Begin locations Tree View
-    QLabel *locationHeadLabel = new QLabel(this);
-    locationHeadLabel->setText("locations");
-    ToolButton *locationHead = new ToolButton(this);
-    locationHead->setIcon(QIcon(":/image/naviBar/locationShow.png"));
-    locationHead->setFocusPolicy(Qt::NoFocus);
-    locationHead->setMaximumSize(16, 16);
-    locationHead->setAutoRaise(true);
-    QHBoxLayout *locationPanelLayout = new QHBoxLayout();
-    locationPanelLayout->setMargin(1);
-    locationPanelLayout->addSpacing(2);
-    locationPanelLayout->addWidget(locationHeadLabel, 1);
-    locationPanelLayout->addWidget(locationHead);
-    QWidget *locationPanel = new QWidget(this);
-    locationPanel->setObjectName("locationPanel");
-    locationPanel->setLayout(locationPanelLayout);
-    locationPanel->setStyleSheet(QString("#locationPanel { border-bottom: 1px solid %1;}").
+///Begin places Tree View
+    QLabel *placeHeadLabel = new QLabel(this);
+    placeHeadLabel->setText("Places");
+    ToolButton *placeHead = new ToolButton(this);
+    placeHead->setIcon(QIcon(":/image/naviBar/placeShow.png"));
+    placeHead->setFocusPolicy(Qt::NoFocus);
+    placeHead->setMaximumSize(16, 16);
+    placeHead->setAutoRaise(true);
+    QHBoxLayout *placePanelLayout = new QHBoxLayout();
+    placePanelLayout->setMargin(1);
+    placePanelLayout->addSpacing(2);
+    placePanelLayout->addWidget(placeHeadLabel, 1);
+    placePanelLayout->addWidget(placeHead);
+    QWidget *placePanel = new QWidget(this);
+    placePanel->setObjectName("placePanel");
+    placePanel->setLayout(placePanelLayout);
+    placePanel->setStyleSheet(QString("#placePanel { border-bottom: 1px solid %1;}").
                                    arg(qApp->palette().color(QPalette::Dark).name()));
-    locationTree = new QTreeView(this);
+    placeTree = new QTreeView(this);
     QStringList headers;
     headers << tr("Name") << tr("Type");
-    //QFile file("d:/default.txt");
-    //file.open(QIODevice::ReadOnly);
-    model = new TreeModel(headers, "location");
-    //file.close();
 
-    locationTree->setModel(model);
-    locationTree->setObjectName("locationTree");
+    plcmodel = new TreeModel(headers, "place");
 
-    QVBoxLayout *locationLayout = new QVBoxLayout();
-    locationLayout->setMargin(0);
-    locationLayout->setSpacing(0);
-    locationLayout->addWidget(locationPanel);
-    locationLayout->addWidget(locationTree, 1);
-    QWidget *locationWidget = new QWidget(this);
-    locationWidget->setLayout(locationLayout);
-//End location Tree
+    placeTree->setModel(plcmodel);
+    placeTree->setObjectName("placeTree");
+
+    QVBoxLayout *placeLayout = new QVBoxLayout();
+    placeLayout->setMargin(0);
+    placeLayout->setSpacing(0);
+    placeLayout->addWidget(placePanel);
+    placeLayout->addWidget(placeTree, 1);
+    QWidget *placeWidget = new QWidget(this);
+    placeWidget->setLayout(placeLayout);
+//End place Tree
 
 ///Begin Network Tree
     QLabel *netHeadLabel = new QLabel(this);
@@ -68,7 +66,10 @@ LeftNavi::LeftNavi(QFrame *parent) :
     netPanel->setLayout(netPanelLayout);
     netPanel->setStyleSheet(QString("#netPanel { border-bottom: 1px solid %1;}").
                                    arg(qApp->palette().color(QPalette::Dark).name()));
+
+    netmodel = new TreeModel(headers, "network");
     netTree =  new QTreeView(this);
+    netTree->setModel(netmodel);
     netTree->setObjectName("netTree");
     netTree->setStyleSheet("#netTree { border: none; padding: 0px;}");
     QVBoxLayout *netLayout = new QVBoxLayout();
@@ -79,7 +80,7 @@ LeftNavi::LeftNavi(QFrame *parent) :
     QWidget *netWidget = new QWidget(this);
     netWidget->setLayout(netLayout);
 //End Network Tree
-    locationWidget->setStyleSheet("QWidget { border: none; padding: 0px;}");
+    placeWidget->setStyleSheet("QWidget { border: none; padding: 0px;}");
     vSplit = new QSplitter(Qt::Vertical);
     vSplit->setFrameStyle(QFrame::NoFrame);
     vSplit->setChildrenCollapsible(false);
@@ -91,7 +92,7 @@ LeftNavi::LeftNavi(QFrame *parent) :
                     "stop: 0 %1, stop: 0.07 %2);}").
             arg(qApp->palette().background().color().name()).
             arg(qApp->palette().color(QPalette::Dark).name()));
-    vSplit->addWidget(locationWidget);
+    vSplit->addWidget(placeWidget);
     vSplit->addWidget(netWidget);
 
     QVBoxLayout *navilay = new QVBoxLayout(this);

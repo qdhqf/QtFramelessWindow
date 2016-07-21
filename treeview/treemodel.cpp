@@ -251,11 +251,11 @@ void TreeModel::setupModelData(const QString tablename, TreeItem *parent)
     QList<TreeItem*> parents; //like a stack,push the latest item into when find new child, popup the top item when children lookup finished
     QList<int> depths; //we have to change it to level
     parents << parent;
-    depths << 1;
+    depths << 0;
     int depth = 0;
 
     //QString tablename = "location";
-    QString sql = "WITH RECURSIVE P (selfId, name, type, parentId, PATH, DEPTH)  AS (SELECT selfId, name, type, parentId, name||'/' AS PATH, 1 AS DEPTH FROM ";
+    QString sql = "WITH RECURSIVE P (selfId, name, type, parentId, PATH, DEPTH)  AS (SELECT selfId, name, type, parentId, name||'/' AS PATH, 0 AS DEPTH FROM ";
             sql += tablename;
             sql += "  WHERE parentId = 0 UNION ALL ";
             sql += " SELECT  C.selfId, C.name, C.type, C.parentId, P.PATH||C.name||'/',  P.DEPTH + 1 AS DEPTH FROM ";
