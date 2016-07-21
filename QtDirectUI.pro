@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     netres/netresview.cpp \
     database/database.cpp \
     treeview/treeitem.cpp \
-    treeview/treemodel.cpp
+    treeview/treemodel.cpp \
+    treeview/treeview.cpp
 
 HEADERS  += mainwindow.h \
     statusbar.h \
@@ -48,7 +49,8 @@ HEADERS  += mainwindow.h \
     netres/netresview.h \
     database/database.h \
     treeview/treeitem.h \
-    treeview/treemodel.h
+    treeview/treemodel.h \
+    treeview/treeview.h
 
 INCLUDEPATH +=  $$PWD/netplan \
                 $$PWD/netres \

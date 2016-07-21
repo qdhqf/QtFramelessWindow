@@ -6,6 +6,7 @@
 #include "toolbutton.h"
 
 class TreeModel;
+class TreeView;
 class QSqlDatabase;
 
 class LeftNavi : public QFrame
@@ -21,7 +22,7 @@ private:
      void     fillToolBar();
      QAction *actSer;
      FindTextContent *find;
-     QTreeView *placeTree;
+     TreeView *placeTree;
      QTreeView *netTree;
      ToolButton *netHead;
      QSplitter *vSplit;

@@ -1,6 +1,6 @@
 ﻿#include "leftnavi.h"
 #include "treemodel.h"
-
+#include "treeview.h"
 LeftNavi::LeftNavi(QFrame *parent) :
     QFrame(parent)
 {
@@ -30,7 +30,7 @@ LeftNavi::LeftNavi(QFrame *parent) :
     placePanel->setLayout(placePanelLayout);
     placePanel->setStyleSheet(QString("#placePanel { border-bottom: 1px solid %1;}").
                                    arg(qApp->palette().color(QPalette::Dark).name()));
-    placeTree = new QTreeView(this);
+    placeTree = new TreeView(this);
     QStringList headers;
     headers << tr("Name") << tr("Type");
 
