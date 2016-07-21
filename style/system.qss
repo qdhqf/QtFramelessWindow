@@ -1,7 +1,7 @@
 ﻿/* TransInsight Style */
 
 
-#naviToolBar, #sitePanel, #netPanel,#planToolBar,#resToolBar {
+#naviToolBar, #placePanel, #netPanel,#planToolBar,#resToolBar {
 	background: white;
 }
 

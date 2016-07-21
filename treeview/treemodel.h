@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
@@ -63,7 +63,7 @@ class TreeModel : public QAbstractItemModel
     Q_OBJECT
 
 public:
-    TreeModel(const QStringList &headers, const QString &data,
+    TreeModel(const QStringList &headers, const QString tablename,
               QObject *parent = 0);
     ~TreeModel();
 //! [0] //! [1]
@@ -97,7 +97,7 @@ public:
                     const QModelIndex &parent = QModelIndex()) Q_DECL_OVERRIDE;
 
 private:
-    void setupModelData(const QStringList &lines, TreeItem *parent);
+    void setupModelData(const QString tablename, TreeItem *parent);
     TreeItem *getItem(const QModelIndex &index) const;
 
     TreeItem *rootItem;

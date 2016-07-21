@@ -28,8 +28,8 @@ SOURCES += main.cpp\
     netplan/netplanview.cpp \
     netres/netresview.cpp \
     database/database.cpp \
-    treemode/treeitem.cpp \
-    treemode/treemodel.cpp
+    treeview/treeitem.cpp \
+    treeview/treemodel.cpp
 
 HEADERS  += mainwindow.h \
     statusbar.h \
@@ -47,15 +47,14 @@ HEADERS  += mainwindow.h \
     netplan/netplanview.h \
     netres/netresview.h \
     database/database.h \
-    treemode/treeitem.h \
-    treemode/treemodel.h
+    treeview/treeitem.h \
+    treeview/treemodel.h
 
 INCLUDEPATH +=  $$PWD/netplan \
                 $$PWD/netres \
-                $$PWD/locationview \
                 $$PWD/netview \
                 $$PWD/database \
-                $$PWD/treemode \
+                $$PWD/treeview \
 
 RESOURCES += \
     qtdirectui.qrc
