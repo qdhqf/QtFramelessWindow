@@ -60,9 +60,9 @@ TreeModel::TreeModel(const QStringList &headers, const QString tablename, QObjec
 {
     QVector<QVariant> rootData;
     foreach (QString header, headers)
-        rootData << header;
+        rootData << header ;
 
-    rootItem = new TreeItem(rootData);
+    rootItem = new TreeItem(rootData,"0");
     setupModelData(tablename, rootItem);
 }
 //! [0]
@@ -78,11 +78,16 @@ TreeModel::~TreeModel()
 int TreeModel::columnCount(const QModelIndex & /* parent */) const
 {
     return rootItem->columnCount();
+ /*   if (parent.isValid())
+        return static_cast<TreeItem*>(parent.internalPointer())->columnCount();
+    else
+        return rootItem->columnCount();*/
 }
 //! [2]
 
 QVariant TreeModel::data(const QModelIndex &index, int role) const
 {
+ /*
     if (!index.isValid())
         return QVariant();
 
@@ -92,15 +97,47 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
     TreeItem *item = getItem(index);
 
     return item->data(index.column());
+ */
+    if (!index.isValid())
+        return QVariant();
+
+    TreeItem *item = static_cast<TreeItem*>(index.internalPointer());
+
+    //判断显示的对象是checkbox，并且位于第一列
+    if (role==Qt::CheckStateRole && index.column()==0)
+        return static_cast<int>( item->isChecked() ? Qt::Checked : Qt::Unchecked );
+
+    if (role != Qt::DisplayRole)
+        return QVariant();
+
+    return item->data(index.column());
+}
+
+QString TreeModel::getItemId(const QModelIndex &index) const
+{
+    if (!index.isValid())
+        return "NULL";
+    TreeItem *item = getItem(index);
+    return item->SelfId();
+
 }
 
 //! [3]
 Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
 {
+/*
     if (!index.isValid())
         return 0;
 
     return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
+*/
+    if (!index.isValid())
+        return 0;
+
+    if (index.column()==0)   //如果是第一列的结点，则使其有显示checkbox的能力
+        return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable;
+
+    return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
 //! [3]
 
@@ -125,14 +162,13 @@ QVariant TreeModel::headerData(int section, Qt::Orientation orientation,
     return QVariant();
 }
 
-//! [5]
+
 QModelIndex TreeModel::index(int row, int column, const QModelIndex &parent) const
 {
+
     if (parent.isValid() && parent.column() != 0)
         return QModelIndex();
-//! [5]
 
-//! [6]
     TreeItem *parentItem = getItem(parent);
 
     TreeItem *childItem = parentItem->child(row);
@@ -141,7 +177,7 @@ QModelIndex TreeModel::index(int row, int column, const QModelIndex &parent) con
     else
         return QModelIndex();
 }
-//! [6]
+
 
 bool TreeModel::insertColumns(int position, int columns, const QModelIndex &parent)
 {
@@ -219,7 +255,8 @@ int TreeModel::rowCount(const QModelIndex &parent) const
 
 bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if (role != Qt::EditRole)
+/*
+   if (role != Qt::EditRole)
         return false;
 
     TreeItem *item = getItem(index);
@@ -229,6 +266,36 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
         emit dataChanged(index, index);
 
     return result;
+  */
+    if (role==Qt::CheckStateRole && index.column()==0)
+    {
+        TreeItem *item = static_cast<TreeItem*>(index.internalPointer());
+        if (value==Qt::Unchecked)
+        {
+            //m_checkedList.removeOne(index);
+            item->setCheckState(false);
+            emit(dataChanged(index, index));
+        }
+        else if(value==Qt::Checked)
+        {
+            //m_checkedList.append(index);
+            item->setCheckState(true);
+            emit(dataChanged(index, index));
+        }
+        int childCount = rowCount(index);
+        if (childCount > 0)
+        {
+            //判断是否有子节点
+            for (int i=0; i<childCount; i++)
+            {
+                //获得子节点的index
+                QModelIndex child = this->index(i, 0, index);
+                //递归，改变子节点的checkbox状态
+                setData(child, value, Qt::CheckStateRole);
+            }
+        }
+    }
+    return true;
 }
 
 bool TreeModel::setHeaderData(int section, Qt::Orientation orientation,
@@ -254,7 +321,7 @@ void TreeModel::setupModelData(const QString tablename, TreeItem *parent)
     depths << 0;
     int depth = 0;
 
-    //QString tablename = "location";
+
     QString sql = "WITH RECURSIVE P (selfId, name, type, parentId, PATH, DEPTH)  AS (SELECT selfId, name, type, parentId, name||'/' AS PATH, 0 AS DEPTH FROM ";
             sql += tablename;
             sql += "  WHERE parentId = 0 UNION ALL ";
@@ -270,7 +337,7 @@ void TreeModel::setupModelData(const QString tablename, TreeItem *parent)
         depth = query.value(5).toInt();
 
         QVector<QVariant> columnData;
-        columnData << query.value(1).toString() << query.value(2).toInt();
+        columnData << query.value(1).toString() << query.value(2).toInt() << query.value(0).toInt();
         if(depth > depths.last()){
            qDebug() << depth << "depths.last():" << depths.last();
            if (parents.last()->childCount() > 0) {
@@ -291,6 +358,38 @@ void TreeModel::setupModelData(const QString tablename, TreeItem *parent)
          parent->insertChildren(parent->childCount(), 1, rootItem->columnCount());
          for (int column = 0; column < columnData.size(); ++column)
              parent->child(parent->childCount() - 1)->setData(column, columnData[column]);
+         parent->child(parent->childCount() - 1)->SetId(query.value(0).toString());
 
  }
+}
+
+void TreeModel::setCheckedStrList(TreeItem *item, QStringList &checkedStrList)
+{
+    if (item->isChecked())
+    {
+        checkedStrList.append(item->data(0).toString());
+    }
+
+    int childCount = item->childCount();
+    if (childCount > 0)
+    {
+        // 判断是否有子节点
+        for (int i=0; i<childCount; i++)
+        {
+            TreeItem *child = item->child(i);
+            // 递归调用setCheckedStrList;
+            setCheckedStrList(child, checkedStrList);
+        }
+    }
+}
+
+void TreeModel::getCheckedItemData(QString& resStr)
+{
+    QStringList checkedStrList;
+    setCheckedStrList(rootItem, checkedStrList);
+
+    for (int i=0; i<checkedStrList.size(); i++)
+    {
+        resStr += checkedStrList[i] + QString("\n");
+    }
 }

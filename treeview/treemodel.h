@@ -67,7 +67,7 @@ public:
               QObject *parent = 0);
     ~TreeModel();
 //! [0] //! [1]
-
+    QString TreeModel::getItemId(const QModelIndex &index) const;
     QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
     QVariant headerData(int section, Qt::Orientation orientation,
                         int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
@@ -95,7 +95,8 @@ public:
                     const QModelIndex &parent = QModelIndex()) Q_DECL_OVERRIDE;
     bool removeRows(int position, int rows,
                     const QModelIndex &parent = QModelIndex()) Q_DECL_OVERRIDE;
-
+    void setCheckedStrList(TreeItem *item, QStringList &checkedStrList);
+    void getCheckedItemData(QString& resStr);
 private:
     void setupModelData(const QString tablename, TreeItem *parent);
     TreeItem *getItem(const QModelIndex &index) const;

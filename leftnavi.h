@@ -6,7 +6,6 @@
 #include "toolbutton.h"
 
 class TreeModel;
-class TreeView;
 class QSqlDatabase;
 
 class LeftNavi : public QFrame
@@ -20,9 +19,9 @@ public:
 private:
      QToolBar *naviToolBar;
      void     fillToolBar();
-     QAction *actSer;
+     QAction *actSearch;
      FindTextContent *find;
-     TreeView *placeTree;
+     QTreeView *placeTree;
      QTreeView *netTree;
      ToolButton *netHead;
      QSplitter *vSplit;
@@ -32,6 +31,8 @@ private:
 private slots:
      void slotShowFind();
      void showNetTree();
+     void slotPlaceClicked(QModelIndex idx);
+     void slotNetworkClicked(QModelIndex idx);
 };
 
 
