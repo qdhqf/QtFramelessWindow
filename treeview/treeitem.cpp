@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
@@ -59,10 +59,11 @@
 #include <QStringList>
 
 //! [0]
-TreeItem::TreeItem(const QVector<QVariant> &data, TreeItem *parent)
+TreeItem::TreeItem(const QVector<QVariant> &data, QString itemId, TreeItem *parent)
 {
     parentItem = parent;
     itemData = data;
+    SetId(itemId);
 }
 //! [0]
 
@@ -119,7 +120,7 @@ bool TreeItem::insertChildren(int position, int count, int columns)
 
     for (int row = 0; row < count; ++row) {
         QVector<QVariant> data(columns);
-        TreeItem *item = new TreeItem(data, this);
+        TreeItem *item = new TreeItem(data,"", this);
         childItems.insert(position, item);
     }
 
@@ -187,3 +188,24 @@ bool TreeItem::setData(int column, const QVariant &value)
     return true;
 }
 //! [11]
+
+bool TreeItem::SetId(QString id)
+{
+   selfId = id;
+   return true;
+}
+
+QString TreeItem::SelfId()
+{
+  return selfId;
+}
+
+bool TreeItem::isChecked()
+{
+    return ifChecked;
+}
+
+void TreeItem::setCheckState(bool state)
+{
+    ifChecked = state;
+}

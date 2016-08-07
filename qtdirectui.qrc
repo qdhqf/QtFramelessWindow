@@ -34,5 +34,7 @@
         <file>image/triangleL.png</file>
         <file>image/triangleR.png</file>
         <file>image/toolButton/topo.png</file>
+        <file>image/sortIndicatorA.png</file>
+        <file>image/sortIndicatorD.png</file>
     </qresource>
 </RCC>

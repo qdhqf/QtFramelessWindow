@@ -19,7 +19,7 @@ public:
 private:
      QToolBar *naviToolBar;
      void     fillToolBar();
-     QAction *actSer;
+     QAction *actSearch;
      FindTextContent *find;
      QTreeView *placeTree;
      QTreeView *netTree;
@@ -31,6 +31,8 @@ private:
 private slots:
      void slotShowFind();
      void showNetTree();
+     void slotPlaceClicked(QModelIndex idx);
+     void slotNetworkClicked(QModelIndex idx);
 };
 
 

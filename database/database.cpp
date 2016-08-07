@@ -5,7 +5,7 @@ QSqlError DataLayer::initdbcon()
     qDebug() << QSqlDatabase::drivers();
 
     selfdb = QSqlDatabase::addDatabase("QSQLITE");
-    selfdb.setDatabaseName("transdb.db3");
+    selfdb.setDatabaseName("../database/transdb.db3");
 
     /*
     selfdb = QSqlDatabase::addDatabase("SQLITECIPHER");

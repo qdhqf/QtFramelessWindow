@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
@@ -59,7 +59,7 @@
 class TreeItem
 {
 public:
-    explicit TreeItem(const QVector<QVariant> &data, TreeItem *parent = 0);
+    explicit TreeItem(const QVector<QVariant> &data, QString itemId, TreeItem *parent = 0);
     ~TreeItem();
 
     TreeItem *child(int number);
@@ -73,11 +73,18 @@ public:
     bool removeColumns(int position, int columns);
     int childNumber() const;
     bool setData(int column, const QVariant &value);
+    bool SetId(QString id);
+    QString SelfId();
+
+    bool isChecked();
+    void setCheckState(bool state);
 
 private:
     QList<TreeItem*> childItems;
     QVector<QVariant> itemData;
-    TreeItem *parentItem;
+    TreeItem *parentItem;  
+    QString   selfId;
+    bool ifChecked;
 };
 //! [0]
 

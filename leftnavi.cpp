@@ -38,7 +38,9 @@ LeftNavi::LeftNavi(QFrame *parent) :
 
     placeTree->setModel(plcmodel);
     placeTree->setObjectName("placeTree");
-
+    QHeaderView *header = placeTree->header();
+    header->setSectionResizeMode(0,QHeaderView::ResizeToContents);
+    //header->setSectionHidden(2,true);
     QVBoxLayout *placeLayout = new QVBoxLayout();
     placeLayout->setMargin(0);
     placeLayout->setSpacing(0);
@@ -70,6 +72,7 @@ LeftNavi::LeftNavi(QFrame *parent) :
     netmodel = new TreeModel(headers, "network");
     netTree =  new QTreeView(this);
     netTree->setModel(netmodel);
+    netTree->header()->setSectionResizeMode(0,QHeaderView::ResizeToContents);
     netTree->setObjectName("netTree");
     netTree->setStyleSheet("#netTree { border: none; padding: 0px;}");
     QVBoxLayout *netLayout = new QVBoxLayout();
@@ -105,14 +108,13 @@ LeftNavi::LeftNavi(QFrame *parent) :
 
     connect(netHead, SIGNAL(clicked()),
             this, SLOT(showNetTree()));
+    connect(placeTree,SIGNAL(pressed(QModelIndex)), this, SLOT(slotPlaceClicked(QModelIndex)));
+    connect(netTree,SIGNAL(pressed(QModelIndex)), this, SLOT(slotNetworkClicked(QModelIndex)));
 /*    connect(vSplit, SIGNAL(splitterMoved(int,int)),
             this, SLOT(vSplitMoved(int,int)));*/
 
     netHeadLabel->installEventFilter(this);
     netTree->installEventFilter(this);
-
-
-
 }
 
 
@@ -129,31 +131,31 @@ void LeftNavi::fillToolBar()
     naviToolBar->addAction(actAdd);
     naviToolBar->addSeparator();
 
-    QAction *actFil = new QAction(this);
-    actFil->setText("Filter");
-    actFil->setIcon(QIcon(":/image/naviBar/filter.png"));
-    naviToolBar->addAction(actFil);
+    QAction *actFilter = new QAction(this);
+    actFilter->setText("Filter");
+    actFilter->setIcon(QIcon(":/image/naviBar/filter.png"));
+    naviToolBar->addAction(actFilter);
     naviToolBar->addSeparator();
 
-    QAction *actUpd = new QAction(this);
-    actUpd->setText("Update");
-    actUpd->setIcon(QIcon(":/image/naviBar/update.png"));
-    naviToolBar->addAction(actUpd);
+    QAction *actUpdate = new QAction(this);
+    actUpdate->setText("Update");
+    actUpdate->setIcon(QIcon(":/image/naviBar/update.png"));
+    naviToolBar->addAction(actUpdate);
     naviToolBar->addSeparator();
 
-    actSer = new QAction(this);
-    actSer->setText("Search");
-    actSer->setIcon(QIcon(":/image/naviBar/find.png"));
-    naviToolBar->addAction(actSer);
-    actSer->setCheckable(true);
-    actSer->setChecked(false);
+    actSearch = new QAction(this);
+    actSearch->setText("Search");
+    actSearch->setIcon(QIcon(":/image/naviBar/find.png"));
+    naviToolBar->addAction(actSearch);
+    actSearch->setCheckable(true);
+    actSearch->setChecked(false);
 
-    connect(actSer,SIGNAL(triggered()),this,SLOT(slotShowFind()));
+    connect(actSearch,SIGNAL(triggered()),this,SLOT(slotShowFind()));
 }
 
 void LeftNavi::slotShowFind()
 {
-    actSer->isChecked()?find->show():find->hide();
+    actSearch->isChecked()?find->show():find->hide();
     //actSer->setChecked(!actSer->isChecked());
 }
 
@@ -176,9 +178,22 @@ void LeftNavi::showNetTree()
   }
 }
 
-/*
-void LeftNavi::setDatabase(QSqlDatabase db)
+
+void LeftNavi::slotPlaceClicked(QModelIndex idx)
 {
-    //mode->setDatabase(db);
+
+    QString id = plcmodel->getItemId(idx);
+    qDebug() << id <<": is pressed";
+    if(QGuiApplication::mouseButtons() == Qt::RightButton){
+        qDebug() << "RightMouse";
+    }
 }
-*/
+
+void LeftNavi::slotNetworkClicked(QModelIndex idx)
+{
+    QString id = plcmodel->getItemId(idx);
+    qDebug() << id <<": is pressed";
+    if(QGuiApplication::mouseButtons() == Qt::RightButton){
+        qDebug() << "RightMouse";
+    }
+}

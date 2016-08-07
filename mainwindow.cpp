@@ -68,13 +68,13 @@ MainWindow::MainWindow(QFrame *parent)
     ptrHLayout->addWidget(pushButtonNull_);
     ptrHLayout->addWidget(mainSplitter);
 
-    QVBoxLayout *ptrVLayout = new QVBoxLayout(this);//创建布局
+    QVBoxLayout *ptrVLayout = new QVBoxLayout();//创建布局
     ptrVLayout->addWidget(ptrHeaderBar);//将部件加入到布局中
     ptrVLayout->addLayout(ptrHLayout);
     ptrVLayout->addWidget(ptrStatusBar);
     ptrVLayout->setSpacing(0);  //设置间距与边缘空白
     ptrVLayout->setContentsMargins(VALUE_DIS,VALUE_DIS,VALUE_DIS,VALUE_DIS);
-
+    setLayout(ptrVLayout);
     setMinimumWidth(800);
     setMinimumHeight(600);
 
