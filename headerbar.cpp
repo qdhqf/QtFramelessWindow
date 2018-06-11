@@ -38,9 +38,9 @@ void HeaderBar::CreateWidget() //创建子部件
     QPixmap objPixmap(":/image/logo.png");
     ptrLabelIcon->setPixmap(objPixmap);
     tabBar = new TabBar(this);
-    tabBar->addTab(QStringLiteral("拓扑"));
+    tabBar->addTab(QStringLiteral("Network"));
 
-    tabBar->addTab(QStringLiteral("路径"));
+    tabBar->addTab(QStringLiteral("Path"));
 /*
     tabBar->addTab(QStringLiteral("业务/电路"));
     tabBar->addTab(QStringLiteral("系统管理"));

@@ -22,7 +22,7 @@ PortLinkItem::PortLinkItem(NodeItem *startItem, NodeItem *endItem, QGraphicsItem
 
     setAcceptHoverEvents(true);
     myColor = Qt::black;
-    setPen(QPen(myColor, 4, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    setPen(QPen(myColor, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     setZValue(-100.0);
 
 }

@@ -25,13 +25,16 @@ NetPlanView::NetPlanView(QWidget *parent) : QWidget(parent)
 
 
     NodeItem *item1 = new NodeItem();
+   // item1->setPlainText(QStringLiteral("ITMC(中蒙)-N-二连浩特廉租楼-H-OTM/6853-ITMC(中蒙)-N-二连浩特廉租楼-H-OTM-01"));
     item1->setPos( - 90, -50);
     scene->addItem(item1);
     NodeItem *item2 = new NodeItem();
+    //item2->setPlainText(QStringLiteral("ITMC(中蒙)-N-二连浩特廉租楼-H-OTM/6853-ITMC(中蒙)-N-二连浩特廉租楼-H-OTM-02"));
     item2->setPos( 90, -50);
     scene->addItem(item2);
 
     NodeItem *item3 = new NodeItem();
+    //item3->setPlainText(QStringLiteral("ITMC(中蒙)-N-二连浩特廉租楼-H-OTM/6853-ITMC(中蒙)-N-二连浩特廉租楼-H-OTM-03"));
     item3->setPos( 0, 100);
     scene->addItem(item3);
 

@@ -4,9 +4,14 @@ QSqlError DataLayer::initdbcon()
 {
     qDebug() << QSqlDatabase::drivers();
 
-    selfdb = QSqlDatabase::addDatabase("QSQLITE");
-    selfdb.setDatabaseName("../database/transdb.db3");
-
+    //selfdb = QSqlDatabase::addDatabase("QSQLITE");
+    //selfdb.setDatabaseName("../database/transdb.db3");
+    selfdb = QSqlDatabase::addDatabase("QPSQL");
+    selfdb.setHostName("localhost");
+    selfdb.setPort(1368);
+    selfdb.setDatabaseName("translite");
+    selfdb.setUserName("topillar");
+    selfdb.setPassword("Cqupt1953");
     /*
     selfdb = QSqlDatabase::addDatabase("SQLITECIPHER");
     selfdb.setDatabaseName("transdb.db3");

@@ -18,7 +18,7 @@ void NodeItem::setMyText(QString &text)
 QRectF NodeItem::boundingRect() const
 {
     QRect rect = this->pixmap().rect();
-    return QRectF(-10-rect.width()/2.0,-rect.height()/2.0,rect.width()+20,rect.height()+50);
+    return QRectF(-10-rect.width()/2.0,-rect.height()/2.0,rect.width()/*+20*/,rect.height()/*+50*/);
 }
 
 QPainterPath NodeItem::shape() const
@@ -50,21 +50,22 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     QFont font("SimSun",10, QFont::Normal);
     painter->setFont(font);
 
-    QFontMetrics fm(font);
-    QString str = fm.elidedText(nodeText, /*Qt::TextElideMode*/Qt::ElideRight, 3*(rect.width()+20)-10);
+    //QFontMetrics fm(font);
+    //QString str = fm.elidedText(nodeText, Qt::ElideRight, 3*(rect.width()+20)-10);
+
     /*
     enum Qt::TextElideMode
             Constant	Value	Description
             Qt::ElideLeft	0	The ellipsis should appear at the beginning of the text.
             Qt::ElideRight	1	The ellipsis should appear at the end of the text.
             Qt::ElideMiddle	2	The ellipsis should appear in the middle of the text.
-            Qt::ElideNone	3	Ellipsis should NOT appear in the text.*/
-    painter->drawText(QRectF(-10-rect.width()/2.0,rect.height()/2.0+5,rect.width()+20,45),Qt::AlignLeft|Qt::TextWrapAnywhere/*Qt::TextWordWrap*/,str);
+            Qt::ElideNone	3	Ellipsis should NOT appear in the text.
+    painter->drawText(QRectF(-10-rect.width()/2.0,rect.height()/2.0+5,rect.width()+20,45),Qt::AlignLeft|Qt::TextWrapAnywhere,str);
     if (this->isSelected())
     {
         painter->setPen(QPen(Qt::yellow, 1, Qt::SolidLine));
         painter->drawRect(QRectF(-10-rect.width()/2.0,-rect.height()/2.0,rect.width()+20,rect.height()+3));
-    }
+    }*/
 }
 
 
